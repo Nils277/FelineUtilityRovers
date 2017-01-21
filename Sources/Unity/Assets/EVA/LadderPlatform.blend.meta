@@ -1,0 +1,160 @@
+fileFormatVersion: 2
+guid: a87feae46075d1e4dbb37d6a6179bc35
+timeCreated: 1479580300
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Base
+    100002: Base_Collision
+    100004: Cover
+    100006: Ladder1
+    100008: Ladder_Collision
+    100010: Ladder_Collision2
+    100012: //RootNode
+    100014: Platform
+    100016: Platforn_Collision
+    400000: Base
+    400002: Base_Collision
+    400004: Cover
+    400006: Ladder1
+    400008: Ladder_Collision
+    400010: Ladder_Collision2
+    400012: //RootNode
+    400014: Platform
+    400016: Platforn_Collision
+    2300000: Base
+    2300002: Base_Collision
+    2300004: Cover
+    2300006: Ladder1
+    2300008: Ladder_Collision
+    2300010: Ladder_Collision2
+    2300012: Platform
+    2300014: Platforn_Collision
+    3300000: Base
+    3300002: Base_Collision
+    3300004: Cover
+    3300006: Ladder1
+    3300008: Ladder_Collision
+    3300010: Ladder_Collision2
+    3300012: Platform
+    3300014: Platforn_Collision
+    4300000: Base_Collision
+    4300002: Base
+    4300004: Cover
+    4300006: Platform
+    4300008: Platforn_Collision
+    4300010: Ladder1
+    4300012: Ladder_Collision2
+    4300014: Ladder_Collision
+    7400000: PlatformLadderRetract
+    9500000: //RootNode
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: PlatformLadderRetract
+      takeName: Default Take
+      firstFrame: 0
+      lastFrame: 79
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Base
+        weight: 1
+      - path: Base_Collision
+        weight: 1
+      - path: Cover
+        weight: 1
+      - path: Platform
+        weight: 1
+      - path: Platform/Ladder1
+        weight: 1
+      - path: Platform/Ladder1/Ladder_Collision
+        weight: 1
+      - path: Platform/Ladder1/Ladder_Collision2
+        weight: 1
+      - path: Platform/Platforn_Collision
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

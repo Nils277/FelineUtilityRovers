@@ -1,0 +1,111 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+namespace KerbetrotterTools
+{
+    /// <summary>
+    /// This class extends the ModuleColorChanges and adds the ability to dim lights with the animation
+    /// Helpful for parts without a legacy animation for emissives that want to toggle lights 
+    /// </summary>
+    [KSPModule("Kerbetrotter Light")]
+    public class ModuleKerbetrotterLight : ModuleColorChanger
+    {
+        //The transforms with the lights
+        [KSPField(isPersistant = false)]
+        public string lightTransforms = string.Empty;
+
+        //The list lights
+        private List<Light> lights;
+        
+        //The intensities of the lights
+        private List<float> intensities;
+
+        //The previous state
+        private float prevState = -1.0f;
+
+        /// <summary>
+        /// Update the lights in the OnUpdate method
+        /// </summary>
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            updateLights(currentRateState);
+        }
+
+        /// <summary>
+        /// Find the light transforms and lights to dim with the animation
+        /// </summary>
+        /// <param name="state">The startstate of the partmodule</param>
+        public override void OnStart(StartState state)
+        {
+            base.OnStart(state);
+
+            //find all the lights
+            lights = new List<Light>();
+            intensities = new List<float>();
+
+            //Search in the named transforms for the lights
+            if (lightTransforms != string.Empty)
+            {
+                string[] transformNames = lightTransforms.Split(',');
+
+                //find all the transforms
+                List<Transform> transforms = new List<Transform>();
+                for (int i = 0; i < transformNames.Length; i++)
+                {
+                    transforms.AddRange(part.FindModelTransforms(transformNames[i]));
+                }
+
+                //get all the lights and save their intensities for animation
+                for (int i = 0; i < transforms.Count; i++)
+                {
+                    Light[] newLights = transforms[i].gameObject.GetComponentsInChildren<Light>();
+
+                    for (int j = 0; j < newLights.Length; j++)
+                    {
+                        if (newLights[j] != null) {
+                            lights.Add(newLights[j]);
+                            intensities.Add(newLights[j].intensity);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("ModuleKerbetrotterLight: No light transform defined!)");
+            }
+            //update the initial state of the lights
+            updateLights(currentRateState);
+        }
+
+        /// <summary>
+        /// Update the lights
+        /// </summary>
+        /// <param name="state">the new state of the animation</param>
+        private void updateLights(float state)
+        {
+            //only change something when the state has changed
+            if (state != prevState)
+            {
+                for (int i = 0; i < lights.Count; i++)
+                {
+                    //Fully disabled the lights when off
+                    if (state == 0.0)
+                    {
+                        lights[i].enabled = false;
+                    }
+                    else
+                    {
+                        if (lights[i].enabled == false)
+                        {
+                            lights[i].enabled = true;
+                        }
+
+                        lights[i].intensity = intensities[i] * state;
+                    }
+                }
+                prevState = state;
+            }
+        }
+    }
+}

@@ -1,0 +1,150 @@
+fileFormatVersion: 2
+guid: 5b8d7341b10bbb74e9ccd590cdb57946
+timeCreated: 1478850455
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: CargoBagA
+    100002: //RootNode
+    100004: Depthmask
+    100006: Drink
+    100008: Extinguisher
+    100010: Hatch_1
+    100012: Hatch_2
+    100014: Model
+    100016: Monitor_1
+    100018: Monitor_2
+    100020: Seat_Pilot_1
+    100022: Seat_Pilot_2
+    100024: Windows
+    100026: Depthmask_001
+    100028: Shadows
+    100030: Die
+    400000: CargoBagA
+    400002: //RootNode
+    400004: Depthmask
+    400006: Drink
+    400008: Extinguisher
+    400010: Hatch_1
+    400012: Hatch_2
+    400014: Model
+    400016: Monitor_1
+    400018: Monitor_2
+    400020: Seat_Pilot_1
+    400022: Seat_Pilot_2
+    400024: Windows
+    400026: Depthmask_001
+    400028: Shadows
+    400030: Die
+    2300000: CargoBagA
+    2300002: Depthmask
+    2300004: Drink
+    2300006: Extinguisher
+    2300008: Hatch_1
+    2300010: Hatch_2
+    2300012: Model
+    2300014: Monitor_1
+    2300016: Monitor_2
+    2300018: Seat_Pilot_1
+    2300020: Seat_Pilot_2
+    2300022: Windows
+    2300024: Depthmask_001
+    2300026: Shadows
+    2300028: Die
+    3300000: CargoBagA
+    3300002: Depthmask
+    3300004: Drink
+    3300006: Extinguisher
+    3300008: Hatch_1
+    3300010: Hatch_2
+    3300012: Model
+    3300014: Monitor_1
+    3300016: Monitor_2
+    3300018: Seat_Pilot_1
+    3300020: Seat_Pilot_2
+    3300022: Windows
+    3300024: Depthmask_001
+    3300026: Shadows
+    3300028: Die
+    4300000: Monitor_2
+    4300002: Monitor_1
+    4300004: Drink
+    4300006: Hatch_1
+    4300008: Depthmask
+    4300010: Seat_Pilot_1
+    4300012: Seat_Pilot_2
+    4300014: Model
+    4300016: Hatch_2
+    4300018: CargoBagA
+    4300020: Extinguisher
+    4300022: Windows
+    4300024: Depthmask_001
+    4300026: Shadows
+    4300028: Die
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

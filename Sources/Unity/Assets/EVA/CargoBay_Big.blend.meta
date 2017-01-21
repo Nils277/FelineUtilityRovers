@@ -1,0 +1,159 @@
+fileFormatVersion: 2
+guid: 7250977dd6bee8f439cbbf9f7848e924
+timeCreated: 1480325123
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Collision_1
+    100004: Collision_2
+    100006: Collision_3
+    100008: Left
+    100010: Left_Collision
+    100012: Model
+    100014: Right
+    100016: Right_Collision
+    400000: //RootNode
+    400002: Collision_1
+    400004: Collision_2
+    400006: Collision_3
+    400008: Left
+    400010: Left_Collision
+    400012: Model
+    400014: Right
+    400016: Right_Collision
+    2300000: Collision_1
+    2300002: Collision_2
+    2300004: Collision_3
+    2300006: Left
+    2300008: Left_Collision
+    2300010: Model
+    2300012: Right
+    2300014: Right_Collision
+    3300000: Collision_1
+    3300002: Collision_2
+    3300004: Collision_3
+    3300006: Left
+    3300008: Left_Collision
+    3300010: Model
+    3300012: Right
+    3300014: Right_Collision
+    4300000: Right
+    4300002: Right_Collision
+    4300004: Left
+    4300006: Left_Collision
+    4300008: Model
+    4300010: Collision_1
+    4300012: Collision_2
+    4300014: Collision_3
+    7400000: CargoBay_Open
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: CargoBay_Open
+      takeName: Default Take
+      firstFrame: 0
+      lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Collision_1
+        weight: 1
+      - path: Collision_2
+        weight: 1
+      - path: Collision_3
+        weight: 1
+      - path: Left
+        weight: 1
+      - path: Left/Left_Collision
+        weight: 1
+      - path: Model
+        weight: 1
+      - path: Right
+        weight: 1
+      - path: Right/Right_Collision
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

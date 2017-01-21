@@ -1,0 +1,146 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+namespace KerbetrotterTools
+{
+    /// <summary>
+    /// Class to rotate one transform between two other transforms
+    /// </summary>
+    class ModuleKerbetrotterRotateBetween : PartModule
+    {
+        //==================================================
+        //Public fields for the configs
+        //==================================================
+
+        /// <summary>
+        /// The name of the first reference transform
+        /// </summary>
+        [KSPField(isPersistant = false)]
+        public string fromRotation = string.Empty;
+
+        /// <summary>
+        /// The name of the second reference transform
+        /// </summary>
+        [KSPField(isPersistant = false)]
+        public string toRotation = string.Empty;
+
+        /// <summary>
+        /// Value for the interpolation between the targets
+        /// </summary>
+        [KSPField(isPersistant = false)]
+        public string targetValues = string.Empty;
+
+        /// <summary>
+        /// The transform that should be rotated
+        /// </summary>
+        [KSPField(isPersistant = false)]
+        public string targets = string.Empty;
+
+        /// <summary>
+        /// The transform that should be rotated
+        /// </summary>
+        [KSPField(isPersistant = false)]
+        public bool useSlerp = false;
+
+        //==================================================
+        //Internal Members
+        //==================================================
+
+        //saves wheter all transforms are found for the interpolation
+        private bool isValid = false;
+
+        //the first source for the rotation
+        private Transform fromTransform = null;
+
+        //the second source for the rotation
+        private Transform toTransform = null;
+
+        //the list of targets for the rotation
+        private List<RotationTarget> rotationTargets = new List<RotationTarget>();
+
+        //the number of targets
+        private int numTargets = 0;
+
+        //==================================================
+        //Methods
+        //==================================================
+
+        //Called when the part is instantiated
+        //Initializes the transforms
+        public override void OnStart(StartState state)
+        {
+            fromTransform = KSPUtil.FindInPartModel(transform, fromRotation);
+            toTransform = KSPUtil.FindInPartModel(transform, toRotation);
+
+            string[] rotationValues = targetValues.Split(',');
+            string[] rotationTargetNames = targets.Split(',');
+
+            rotationTargets.Clear();
+
+            //get all the rotation targets
+            if (rotationValues.Length == rotationTargetNames.Length)
+            {
+                for (int i = 0; i < rotationValues.Length; i++)
+                {
+                    RotationTarget rotationTarget = new RotationTarget();
+                    rotationTarget.target = KSPUtil.FindInPartModel(transform, rotationTargetNames[i].Replace(" ",string.Empty));
+
+                    bool valid = true;
+                    //try to get the value for the interpolation
+                    try
+                    {
+                        rotationTarget.value = float.Parse(rotationValues[i].Replace(" ", string.Empty));
+                    }
+                    catch
+                    {
+                        valid = false;
+                    }
+
+                    //when we have 
+                    if ((rotationTarget.target != null) && (valid))
+                    {
+                        rotationTargets.Add(rotationTarget);
+                    }
+                }
+            }
+
+            numTargets = rotationTargets.Count;
+
+            //valid when all transforms have been found
+            isValid = (fromTransform) & (toTransform);
+        }
+
+        /// <summary>
+        /// Updates the rotation of the target
+        /// </summary>
+        public void Update()
+        {
+            //Do nothing when the transform is invalid
+            if (!isValid)
+            {
+                return;
+            }
+
+            //Rotate the targets
+            for (int i = 0; i < numTargets; i++)
+            {
+                if (useSlerp)
+                {
+                    rotationTargets[i].target.rotation = Quaternion.Slerp(fromTransform.rotation, toTransform.rotation, rotationTargets[i].value);
+                }
+                else
+                {
+                    rotationTargets[i].target.rotation = Quaternion.Lerp(fromTransform.rotation, toTransform.rotation, rotationTargets[i].value);
+                }
+            }
+        }
+
+
+        private class RotationTarget
+        {
+            public Transform target;
+            public float value;
+        }
+
+    }
+}
