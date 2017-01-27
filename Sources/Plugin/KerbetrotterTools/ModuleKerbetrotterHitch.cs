@@ -147,6 +147,8 @@ namespace KerbetrotterTools
         // The index of the currently active reference transform
         private int activeReference = -1;
 
+        private int numTries = 0;
+
         //==================================================
         //User Interaction 
         //==================================================
@@ -222,6 +224,16 @@ namespace KerbetrotterTools
             GameEvents.onVesselGoOnRails.Remove(OnVesselGoOnRails);
             GameEvents.onVesselGoOffRails.Remove(OnVesselGoOffRails);
             GameEvents.onVesselWasModified.Remove(OnVesselWasModified);
+
+            if (ReferenceTransforms[0] != null)
+            {
+                ReferenceTransforms[0].parent = part.transform;
+            }
+
+            if (ReferenceTransforms[1] != null)
+            {
+                ReferenceTransforms[1].parent = part.transform;
+            }
         }
 
         //Load the hitch
@@ -245,8 +257,11 @@ namespace KerbetrotterTools
                 initialized = true;
             }
 
-            if (HighLogic.LoadedSceneIsFlight)
+            //We also need to ask for if the vessel != null because RemoteTech messes with the Highlogic
+            if ((HighLogic.LoadedSceneIsFlight) && (vessel != null))
             {
+                Debug.Log("[LYNX] LoadedSceneIsFlight");
+
                 //Initialize the reference transform
                 InitReferences(false);
 
@@ -329,15 +344,29 @@ namespace KerbetrotterTools
             //return when ther do not need to be updates
             if ((HighLogic.LoadedSceneIsFlight) && (part.State != PartStates.DEAD) && (!isOnRails))
             {
+                if ((!isValidAttachment) && (numTries < 10))
+                {
+                    InitReferences(false);
+                    numTries++;
+                }
+
                 //update the joint
                 UpdateJoint();
 
                 //update the spring and damping
                 UpdateSpringAndDamping();
 
+
                 //get the rotation of the part
-                rotation1 = Conjugate(ReferenceTransforms[0].rotation) * transform.rotation;
-                rotation2 = Conjugate(ReferenceTransforms[1].rotation) * transform.rotation;
+                if (ReferenceTransforms[0] !=  null)
+                {
+                    rotation1 = Conjugate(ReferenceTransforms[0].rotation) * transform.rotation;
+                }
+
+                if (ReferenceTransforms[1] != null)
+                {
+                    rotation2 = Conjugate(ReferenceTransforms[1].rotation) * transform.rotation;
+                }
 
                 //update the position and orientation of the parts
                 part.UpdateOrgPosAndRot(vessel.rootPart);
@@ -391,8 +420,14 @@ namespace KerbetrotterTools
         /// <param name="rotate">When set to true, the joint is rotated, else false</param>
         private void InitJoint()
         {
-            if ((part.attachJoint == null) || (activeReference == -1))
+            if (part.attachJoint == null)
             {
+                return;
+            }
+
+            if (activeReference == -1)
+            {
+                Debug.Log("[LYNX]: activeReference == -1");
                 return;
             }
 
@@ -659,7 +694,7 @@ namespace KerbetrotterTools
         /// </summary>
         private void UpdateLockAction()
         {
-            Events["MotionLockToggle"].guiActive = hasParent && isValidAttachment && ((canLock && !isLockEngaged) || (isLockEngaged && canUnlock));
+            Events["MotionLockToggle"].guiActive = hasParent && isValidAttachment && (joint != null) && ((canLock && !isLockEngaged) || (isLockEngaged && canUnlock));
         }
 
         /// <summary>
@@ -667,6 +702,11 @@ namespace KerbetrotterTools
         /// </summary>
         private void RefreshReferences()
         {
+            if (!HighLogic.LoadedSceneIsFlight)
+            {
+                return;
+            }
+
             int oldReference = activeReference;
 
             InitReferences(true);
@@ -691,10 +731,17 @@ namespace KerbetrotterTools
         /// </summary>
         private void InitReferences(bool reInitialize)
         {
+            //do not init in the editor
+            if (!HighLogic.LoadedSceneIsFlight)
+            {
+                return;
+            }
+
             string[] names = referenceTransformNames.Split(',');
 
             if (names.Length == 2)
             {
+
                 //get the first transform
                 if (ReferenceTransforms[0] == null)
                 {
@@ -731,11 +778,13 @@ namespace KerbetrotterTools
             {
                 if ((ReferenceTransforms[0] != null) && (ReferenceTransforms[1] != null))
                 {
+
                     string[] nodeNames = referenceNodeNames.Split(',');
 
                     //when we have a valid number of nodess
                     if (nodeNames.Length == 2)
                     {
+                        
                         //set the first transform
                         if (!reInitialize)
                         {
@@ -784,6 +833,11 @@ namespace KerbetrotterTools
                             activeReference = -1;
                         }
                     }
+                    isValidAttachment = true;
+                }
+                else
+                {
+                    isValidAttachment = false;// Debug.Log("[LYNX] References are null again");
                 }
                 hasParent = true;
             }

@@ -522,7 +522,7 @@ namespace KerbetrotterTools
                 //-----------------end own category-----------------
 
                 //------------subcategory in function filter---------
-                if (filterSettings [i].ShowFunctionFilter && !CCKavailable)
+                if (filterSettings [i].ShowFunctionFilter && (!CCKavailable || !filterSettings[i].DisableForCCK)) 
                 {
                     RUI.Icons.Selectable.Icon filterIconSurfaceStructures = new RUI.Icons.Selectable.Icon("Kerbetrotter_function filter", icon_filter[i], icon_filter[i], true);
 

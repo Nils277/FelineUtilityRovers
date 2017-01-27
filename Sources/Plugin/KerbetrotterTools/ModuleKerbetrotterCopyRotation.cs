@@ -45,6 +45,7 @@ namespace KerbetrotterTools
             targetTransform = KSPUtil.FindInPartModel(transform, toTransform.Replace(" ", string.Empty));
             sourceTransform = KSPUtil.FindInPartModel(transform, fromTransform.Replace(" ", string.Empty));
 
+
             valid = (targetTransform != null) & (sourceTransform != null);
 
             //Debug.Log("[LNYX] " + (targetTransform != null) + " " + (sourceTransform != null));
