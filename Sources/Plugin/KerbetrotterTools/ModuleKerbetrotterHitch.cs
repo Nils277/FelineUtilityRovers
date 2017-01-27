@@ -257,10 +257,8 @@ namespace KerbetrotterTools
                 initialized = true;
             }
 
-            //We also need to ask for if the vessel != null because RemoteTech messes with the Highlogic
-            if ((HighLogic.LoadedSceneIsFlight) && (vessel != null))
+            if (HighLogic.LoadedSceneIsFlight)
             {
-                Debug.Log("[LYNX] LoadedSceneIsFlight");
 
                 //Initialize the reference transform
                 InitReferences(false);
@@ -420,14 +418,8 @@ namespace KerbetrotterTools
         /// <param name="rotate">When set to true, the joint is rotated, else false</param>
         private void InitJoint()
         {
-            if (part.attachJoint == null)
+            if ((part.attachJoint == null) || (activeReference == -1))
             {
-                return;
-            }
-
-            if (activeReference == -1)
-            {
-                Debug.Log("[LYNX]: activeReference == -1");
                 return;
             }
 
