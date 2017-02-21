@@ -11,27 +11,62 @@ ModelImporter:
     100006: Ladder
     100008: Lights
     100010: Model
+    100012: Model_Big
+    100014: Model_S
+    100016: Model_Short
+    100018: Light_Red
+    100020: Light_White
+    100022: Model_Light_Red
+    100024: Model_Light_White
     400000: Collision_1
     400002: Collision_2
     400004: //RootNode
     400006: Ladder
     400008: Lights
     400010: Model
+    400012: Model_Big
+    400014: Model_S
+    400016: Model_Short
+    400018: Light_Red
+    400020: Light_White
+    400022: Model_Light_Red
+    400024: Model_Light_White
     2300000: Collision_1
     2300002: Collision_2
     2300004: Ladder
     2300006: Lights
     2300008: Model
+    2300010: Model_Big
+    2300012: Model_S
+    2300014: Model_Short
+    2300016: Light_Red
+    2300018: Light_White
+    2300020: Model_Light_Red
+    2300022: Model_Light_White
     3300000: Collision_1
     3300002: Collision_2
     3300004: Ladder
     3300006: Lights
     3300008: Model
+    3300010: Model_Big
+    3300012: Model_S
+    3300014: Model_Short
+    3300016: Light_Red
+    3300018: Light_White
+    3300020: Model_Light_Red
+    3300022: Model_Light_White
     4300000: Ladder
     4300002: Lights
     4300004: Model
     4300006: Collision_2
     4300008: Collision_1
+    4300010: Model_S
+    4300012: Model_Big
+    4300014: Model_Short
+    4300016: Model_Light_White
+    4300018: Light_White
+    4300020: Model_Light_Red
+    4300022: Light_Red
     7400000: Default Take
     9500000: //RootNode
   materials:
