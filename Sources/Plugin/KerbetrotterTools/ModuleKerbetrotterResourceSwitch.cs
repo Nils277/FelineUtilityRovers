@@ -10,6 +10,12 @@ namespace KerbetrotterTools
     class ModuleKerbetrotterResourceSwitch : PartModule, IPartCostModifier, IPartMassModifier, IModuleInfo
     {
         [KSPField]
+        public string resourceConfiguration = string.Empty; //Whether the switch is available in flight
+
+        [KSPField]
+        public float resourceMultiplier = 1.0f; //Whether the switch is available in flight
+
+        [KSPField]
         public bool availableInFlight = true; //Whether the switch is available in flight
 
         [KSPField]
@@ -354,22 +360,34 @@ namespace KerbetrotterTools
                     int count = 0;
                     info.Append("• ");
 
-                    foreach (KerbetrotterResourceDefinition resource in switchableResource.resources)
+                    if (switchableResource.resources.Length > 1)
                     {
-                        if (count > 0)
-                            info.Append(" + ");
-                        if (resource.maxAmount > 0)
+                        info.AppendLine(switchableResource.guiName);
+
+                        foreach (KerbetrotterResourceDefinition resource in switchableResource.resources)
+                        {
+                            if (resource.maxAmount > 0)
+                            {
+                                info.Append("<color=#35DC35>");
+                                info.Append("      ");
+                                info.Append(resource.maxAmount);
+                                info.Append("</color>");
+                                info.Append(" ");
+                            }
+                            info.AppendLine(resource.name);
+                        }
+                    }
+                    else if (switchableResource.resources.Length == 1)
+                    {
+                        if (switchableResource.resources[0].maxAmount > 0)
                         {
                             info.Append("<color=#35DC35>");
-                            info.Append(resource.maxAmount);
+                            info.Append(switchableResource.resources[0].maxAmount);
                             info.Append("</color>");
                             info.Append(" ");
                         }
-                        info.Append(resource.name);
-                        count++;
+                        info.AppendLine(switchableResource.resources[0].name);
                     }
-
-                    info.AppendLine();
                 }
             }
 
@@ -383,13 +401,15 @@ namespace KerbetrotterTools
         /// <param name="currentPart">The current part</param>
         private void updateGUIVisibility(Part currentPart)
         {
+            bool canChange = (switchableResources.Count > 1);
+
             if ((initialized) && (switchableResources.Count > 0))
             {
                 if (HighLogic.LoadedSceneIsEditor)
                 {
-                    Events["jettisonResources"].guiActive = false;
-                    Events["nextResourceSetup"].guiActive = availableInEditor;
-                    Events["prevResourceSetup"].guiActive = availableInEditor;
+                    Events["jettisonResources"].guiActiveEditor = false;
+                    Events["nextResourceSetup"].guiActiveEditor = availableInEditor & canChange;
+                    Events["prevResourceSetup"].guiActiveEditor = availableInEditor & canChange;
                 }
                 else if (HighLogic.LoadedSceneIsFlight)
                 {
@@ -398,14 +418,14 @@ namespace KerbetrotterTools
                     if (switchingNeedsEmptyTank)
                     {
                         Events["jettisonResources"].guiActive = availableInFlight & allowToEmptyTank & !isEmpty;
-                        Events["nextResourceSetup"].guiActive = availableInFlight & isEmpty;
-                        Events["prevResourceSetup"].guiActive = availableInFlight & isEmpty;
+                        Events["nextResourceSetup"].guiActive = availableInFlight & isEmpty & canChange;
+                        Events["prevResourceSetup"].guiActive = availableInFlight & isEmpty & canChange;
                     }
                     else
                     {
                         Events["jettisonResources"].guiActive = false;
-                        Events["nextResourceSetup"].guiActive = availableInFlight;
-                        Events["prevResourceSetup"].guiActive = availableInFlight;
+                        Events["nextResourceSetup"].guiActive = availableInFlight & canChange;
+                        Events["prevResourceSetup"].guiActive = availableInFlight & canChange;
                     }
                 }
                 else
@@ -678,7 +698,7 @@ namespace KerbetrotterTools
 
                             partResource.maxAmount += newResources[i].maxAmount;
                             partResource.amount += amount;
-                            partResource.isTweakable = switchableResources[selectedResourceID].isTweakable;
+                            partResource.isTweakable = newResources[i].isTweakable;
                         }
                         //else create and add a new resource
                         else
@@ -686,7 +706,7 @@ namespace KerbetrotterTools
                             ConfigNode newResourceNode = new ConfigNode("RESOURCE");
                             newResourceNode.AddValue("name", newResources[i].name);
                             newResourceNode.AddValue("maxAmount", newResources[i].maxAmount);
-                            newResourceNode.AddValue("isTweakable", switchableResources[selectedResourceID].isTweakable);
+                            newResourceNode.AddValue("isTweakable", newResources[i].isTweakable);
                             newResourceNode.AddValue("amount", amount);
 
                             //when we are in the editor, fill the tank with the new amount
@@ -745,95 +765,75 @@ namespace KerbetrotterTools
         /// </summary>
         /// <param name="configNode">The config node of this part</param>
         /// <returns>List of switchable resources</returns>
-        private List<KerbetrotterSwitchableResource> parseResources(ConfigNode configNode)
+        private List<KerbetrotterSwitchableResource> parseResources(ConfigNode[] resourceNodes)
         {
             //create the list of resources
             List<KerbetrotterSwitchableResource> resources = new List<KerbetrotterSwitchableResource>();
 
-            //find all resource modifiers of this node
-            ConfigNode[] resourceNodes = configNode.GetNodes("RESOURCE");
-
-            for (int i = 0; i < resourceNodes.Length; i++)
+            if ((resourceNodes == null) || (resourceNodes.Length == 0))
             {
-                string[] resourceNames = resourceNodes[i].GetValue("name").Split(',');
-                string[] resourceAmounts = resourceNodes[i].GetValue("amount").Split(',');
-                string[] resourceMaxAmounts = resourceNodes[i].GetValue("maxAmount").Split(',');
+                return resources;
+            }
 
-                //Get the name in the GUI for this resource
-                string guiName = resourceNodes[i].GetValue("guiName");
-                //When the guiname is not set, create it from the resourcenames
-                if (string.IsNullOrEmpty(guiName))
+            try
+            {
+                for (int i = 0; i < resourceNodes.Length; i++)
                 {
-                    for (int j = 0; j < resourceNames.Length; j++)
+                    string guiName = resourceNodes[i].GetValue("name");
+
+                    //get the cost modifier
+                    string costModifier = resourceNodes[i].GetValue("additionalCost");
+                    if (string.IsNullOrEmpty(costModifier))
                     {
-                        guiName = resourceNodes[i].GetValue("name");
+                        costModifier = "0.0";
                     }
-                }
+                    float fCostModifier = float.Parse(costModifier, CultureInfo.InvariantCulture.NumberFormat);
 
-                //Get the cost modifier of for this resource
-                string costModifier = resourceNodes[i].GetValue("additionalCost");
-                if (string.IsNullOrEmpty(costModifier))
-                {
-                    costModifier = "0.0";
-                }
-
-                //Get the mass modifier of this resource
-                string massModifier = resourceNodes[i].GetValue("additionalMass");
-                if (string.IsNullOrEmpty(massModifier))
-                {
-                    massModifier = "0.0";
-                }
-
-                //Get the mass modifier of this resource
-                string isTweakable = resourceNodes[i].GetValue("isTweakable");
-                if (string.IsNullOrEmpty(isTweakable))
-                {
-                    isTweakable = "true";
-                }
-
-                string animateVenting = resourceNodes[i].GetValue("animateVenting");
-                if (string.IsNullOrEmpty(animateVenting))
-                {
-                    animateVenting = "true";
-                }
-
-
-
-                //only add the resource when it is valid
-                if ((resourceNames.Length == resourceAmounts.Length) && (resourceNames.Length == resourceMaxAmounts.Length))
-                {
-                    KerbetrotterResourceDefinition[] newResources = new KerbetrotterResourceDefinition[resourceNames.Length];
-
-                    try
+                    //Get the mass modifier of this resource
+                    string massModifier = resourceNodes[i].GetValue("additionalMass");
+                    if (string.IsNullOrEmpty(massModifier))
                     {
-                        float fMassModifier = float.Parse(massModifier, CultureInfo.InvariantCulture.NumberFormat);
-                        float fCostModifier = float.Parse(costModifier, CultureInfo.InvariantCulture.NumberFormat);
-                        bool bIsWeakable = (isTweakable.ToLower() == "true");
-                        bool bAnimateVenting = (animateVenting.ToLower() == "true");
+                        massModifier = "0.0";
+                    }
+                    float fMassModifier = float.Parse(massModifier, CultureInfo.InvariantCulture.NumberFormat);
 
-                        //add the new resources
-                        for (int k = 0; k < resourceNames.Length; k++)
+                    //Saves whether animating the venting is allowed
+                    string animateVenting = resourceNodes[i].GetValue("animateVenting");
+                    if (string.IsNullOrEmpty(animateVenting))
+                    {
+                        animateVenting = "true";
+                    }
+                    bool bAnimateVenting = (animateVenting.ToLower() == "true");
+
+                    ConfigNode[] resourceSubNodes = resourceNodes[i].GetNodes("RESOURCE");
+                    KerbetrotterResourceDefinition[] newResources = new KerbetrotterResourceDefinition[resourceSubNodes.Length];
+
+                    for (int j = 0; j < resourceSubNodes.Length; j++)
+                    {
+                        string resourceName = resourceSubNodes[j].GetValue("name");
+                        float amount = float.Parse(resourceSubNodes[j].GetValue("amount"), CultureInfo.InvariantCulture.NumberFormat);
+                        float maxAmount = float.Parse(resourceSubNodes[j].GetValue("maxAmount"), CultureInfo.InvariantCulture.NumberFormat);
+
+                        string isTweakable = resourceNodes[i].GetValue("isTweakable");
+                        if (string.IsNullOrEmpty(isTweakable))
                         {
-                            float amount = float.Parse(resourceAmounts[k], CultureInfo.InvariantCulture.NumberFormat);
-                            float maxAmount = float.Parse(resourceMaxAmounts[k], CultureInfo.InvariantCulture.NumberFormat);
-
-                            fCostModifier += maxAmount * PartResourceLibrary.Instance.resourceDefinitions[resourceNames[k]].unitCost;
-                            newResources[k] = new KerbetrotterResourceDefinition(resourceNames[k], amount, maxAmount);
+                            isTweakable = "true";
                         }
+                        bool bIsWeakable = (isTweakable.ToLower() == "true");
 
-                        //add the resource to the list of switchable resources
-                        resources.Add(new KerbetrotterSwitchableResource(guiName, fMassModifier, fCostModifier, bIsWeakable, bAnimateVenting, newResources));
+
+                        fCostModifier += maxAmount * PartResourceLibrary.Instance.resourceDefinitions[resourceName].unitCost;
+                        newResources[j] = new KerbetrotterResourceDefinition(resourceName, amount* resourceMultiplier, maxAmount* resourceMultiplier, bIsWeakable);
                     }
-                    catch
-                    {
-                        Debug.LogError("[KerbetrotterResourceSwitch] " + moduleName + ": Error in values of definition for resource: " + guiName);
-                    }
+
+                    //add the resource to the list of switchable resources
+                    resources.Add(new KerbetrotterSwitchableResource(guiName, fMassModifier* resourceMultiplier, fCostModifier* resourceMultiplier, bAnimateVenting, newResources));
                 }
-                //add a warning in the logs for a wrong resource definition
-                else
-                {
-                    Debug.LogError("[KerbetrotterResourceSwitch] " + moduleName + ": Error in definded resources (used same number of values?)");
-                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log("[KerbetrotterTools]Config node Exception: " + e.Message);
+                resources.Clear();
             }
             return resources;
         }
@@ -845,7 +845,20 @@ namespace KerbetrotterTools
         /// <param name="configNode"></param>
         private void initSwitchableResources(ConfigNode configNode)
         {
-            switchableResources = parseResources(configNode);
+            ConfigNode[] resourceNodes = null;
+
+            //try to get the config node
+            try
+            {
+                resourceNodes = GameDatabase.Instance.GetConfigNodes(resourceConfiguration);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("[KerbetrotterTools]No resource configs found: " + e.Message);
+            }
+
+
+            switchableResources = parseResources(resourceNodes);
         }
 
 
@@ -859,17 +872,15 @@ namespace KerbetrotterTools
             public string guiName;
             public double massModifier;
             public double costModifier;
-            public bool isTweakable;
             public bool animateVenting;
             public KerbetrotterResourceDefinition[] resources;
 
-            public KerbetrotterSwitchableResource(string guiName, double massModifier, double costModifier, bool isTweakable, bool animateVenting, KerbetrotterResourceDefinition[] resources)
+            public KerbetrotterSwitchableResource(string guiName, double massModifier, double costModifier, bool animateVenting, KerbetrotterResourceDefinition[] resources)
             {
                 this.guiName = guiName;
                 this.resources = resources;
                 this.massModifier = massModifier;
                 this.costModifier = costModifier;
-                this.isTweakable = isTweakable;
                 this.animateVenting = animateVenting;
             }
         }
@@ -901,12 +912,14 @@ namespace KerbetrotterTools
             public string name;
             public double amount;
             public double maxAmount;
+            public bool isTweakable;
 
-            public KerbetrotterResourceDefinition(string name, double amount, double maxAmount)
+            public KerbetrotterResourceDefinition(string name, double amount, double maxAmount, bool isTweakable)
             {
                 this.name = name;
                 this.amount = amount;
                 this.maxAmount = maxAmount;
+                this.isTweakable = isTweakable;
             }
         }
 

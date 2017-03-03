@@ -27,6 +27,9 @@ namespace KerbetrotterTools
         [KSPField(isPersistant = false)]
         public string referenceNodeNames = string.Empty;
 
+        [KSPField(isPersistant = false)]
+        public string visibleTransformNames = string.Empty;
+
         /// <summary>
         /// The spring strength of the joint
         /// </summary>
@@ -79,6 +82,9 @@ namespace KerbetrotterTools
         //The transform of the reference
         protected Transform[] ReferenceTransforms = new Transform[2];
 
+        //The transform of the reference
+        private Transform[] VisibleTransforms = new Transform[2];
+
         //The rotation of the first reference
         [KSPField(isPersistant = true)]
         public Quaternion rotation1 = Quaternion.identity;
@@ -86,6 +92,9 @@ namespace KerbetrotterTools
         //The rotation of the second reference
         [KSPField(isPersistant = true)]
         public Quaternion rotation2 = Quaternion.identity;
+
+        //The original rotation of the joint
+        private Quaternion jointRotation = Quaternion.identity;
 
         /// <summary>
         /// Saves whether the joints spring and damping have been initialized
@@ -139,7 +148,7 @@ namespace KerbetrotterTools
         protected bool canUnlock = true;
 
         // Saves wheter there is a valid attachments
-        protected bool isValidAttachment = true;
+        protected bool isValidAttachment = false;
 
         // Saves wheter there is a valid attachments
         protected float rotation = 0.0f;
@@ -148,6 +157,8 @@ namespace KerbetrotterTools
         private int activeReference = -1;
 
         private int numTries = 0;
+
+        private Part currentParent = null;
 
         //==================================================
         //User Interaction 
@@ -219,7 +230,7 @@ namespace KerbetrotterTools
         //When the hitch is destroyed
         public virtual void OnDestroy()
         {
-            Debug.Log("[Lynx] OnDestroy");
+            //Debug.Log("[Lynx] OnDestroy");
 
             GameEvents.onVesselGoOnRails.Remove(OnVesselGoOnRails);
             GameEvents.onVesselGoOffRails.Remove(OnVesselGoOffRails);
@@ -256,15 +267,26 @@ namespace KerbetrotterTools
                 jointDampingValue = jointDamping;
                 initialized = true;
             }
+            //Debug.Log("[LYNX] OnStart");
+
+            string[] names = visibleTransformNames.Split(',');
+
+            if (names.Length == 2)
+            {
+                if (names[0].Replace(" ", string.Empty) != "NULL")
+                {
+                    VisibleTransforms[0] = KSPUtil.FindInPartModel(transform, names[0].Replace(" ", string.Empty));
+                }
+                if (names[1].Replace(" ", string.Empty) != "NULL")
+                {
+                    VisibleTransforms[1] = KSPUtil.FindInPartModel(transform, names[1].Replace(" ", string.Empty));
+                }
+            }
 
             if (HighLogic.LoadedSceneIsFlight)
             {
-
                 //Initialize the reference transform
                 InitReferences(false);
-
-                //Initialize the joints
-                InitJoint();
             }
 
             //update the interface
@@ -309,25 +331,33 @@ namespace KerbetrotterTools
         //When the vessel was modified (mostly docking and undocking)
         public void OnVesselWasModified(Vessel vessel)
         {
+            //Debug.Log("[LYNX] OnVesselWasModified");
             if (vessel == this.vessel)
             {
+                
+                //Debug.Log("[LYNX] This Vessel");
                 rotationDeltas[0] = rotation1;
                 rotationDeltas[1] = rotation2;
 
-                if (joint != null)
-                {
-                    DestroyImmediate(joint);
-                    joint = null;
-                    jointUnlocked = false;
+                RefreshReferences();
+                jointUnlocked = false;
 
-                    //create the new joint
-                    InitJoint();
-                    //unlock the joint.  TODO needs to be done...why?
-                    UnlockJoint();
+                if (!hasParent || !isValidAttachment)
+                {
+                    rotationDeltas[0] = Quaternion.identity;
+                    rotationDeltas[1] = Quaternion.identity;
+                    rotation1 = Quaternion.identity;
+                    rotation2 = Quaternion.identity;
+
+                    //Debug.Log("[LYNX] Invalid Attachment");
+                    if (joint != null)
+                    {
+                        //Debug.Log("[LYNX] Destroying Joint");
+                        DestroyImmediate(joint);
+                        LockJoint(true);
+                    }
                 }
 
-
-                RefreshReferences();
                 UpdateUI();
             }
         }
@@ -335,6 +365,23 @@ namespace KerbetrotterTools
         //==================================================
         //Core Funcionality
         //==================================================
+
+        /// <summary>
+        /// Updates the rotation of fixed mesh
+        /// </summary>
+        public void Update()
+        {
+            if ((HighLogic.LoadedSceneIsFlight))
+            {
+                if ((ReferenceTransforms[0] != null) && (VisibleTransforms[0] != null)) {
+                    VisibleTransforms[0].rotation = ReferenceTransforms[0].rotation;
+                }
+                if ((ReferenceTransforms[1] != null) && (VisibleTransforms[1] != null))
+                {
+                    VisibleTransforms[1].rotation = ReferenceTransforms[1].rotation;
+                }
+            }
+        }
 
         //Called every physics tick
         public void FixedUpdate()
@@ -396,18 +443,21 @@ namespace KerbetrotterTools
         /// </summary>
         public void UpdateJoint()
         {
-            if (joint == null)
+            if ((joint == null) && (hasParent) && (isValidAttachment))
             {
+                //Debug.Log("[LYNX] UpdateJoint: Creating");
                 InitJoint();
                 UpdateUI();
             }
 
             if (isLockEngaged && jointUnlocked)
             {
+                //Debug.Log("[LYNX] UpdateJoint: Locking");
                 LockJoint(true);
             }
             else if (!isLockEngaged && !jointUnlocked)
             {
+                //Debug.Log("[LYNX] UpdateJoint: Unlocking");
                 UnlockJoint();
             }
         }
@@ -426,6 +476,7 @@ namespace KerbetrotterTools
             //Destroy the joint if it still exists
             if (joint != null)
             {
+                //Debug.Log("[LYNX] InitJoint: Destroying");
                 DestroyImmediate(joint);
             }
 
@@ -481,15 +532,11 @@ namespace KerbetrotterTools
             joint.anchor = jointRigidBody.transform.InverseTransformPoint(joint.connectedBody.transform.position);
             joint.connectedAnchor = Vector3.zero;
 
+
             //Set the right rotation of the joint (we have to invert x and y...hell knows why)
-            //TODO
-            if (activeReference == 0)
+            if (activeReference != -1)
             {
-                joint.transform.rotation = (joint.transform.rotation * Quaternion.Euler(-rotationDeltas[0].eulerAngles.x, -rotationDeltas[0].eulerAngles.y, rotationDeltas[0].eulerAngles.z)) * Quaternion.Euler(-rotationDeltas[1].eulerAngles.x, -rotationDeltas[1].eulerAngles.y, rotationDeltas[1].eulerAngles.z);
-            }
-            else
-            {
-                joint.transform.rotation = (joint.transform.rotation * Quaternion.Euler(-rotationDeltas[1].eulerAngles.x, -rotationDeltas[1].eulerAngles.y, rotationDeltas[1].eulerAngles.z)) * Quaternion.Euler(-rotationDeltas[0].eulerAngles.x, -rotationDeltas[0].eulerAngles.y, rotationDeltas[0].eulerAngles.z);
+                joint.transform.rotation = (joint.transform.rotation * Quaternion.Euler(rotationDeltas[activeReference].eulerAngles.x, rotationDeltas[activeReference].eulerAngles.y, rotationDeltas[activeReference].eulerAngles.z));
             }
 
             //Set correct axis
@@ -521,6 +568,11 @@ namespace KerbetrotterTools
             }
 
             joint.targetRotation = Quaternion.identity;
+            
+            //Lock the movement of the joint
+            //joint.xMotion = ConfigurableJointMotion.Locked;
+            //joint.yMotion = ConfigurableJointMotion.Locked;
+            //joint.zMotion = ConfigurableJointMotion.Locked;
 
             //Limits for the x axis
             if (jointLimits.x != 0.0f)
@@ -614,6 +666,9 @@ namespace KerbetrotterTools
             part.attachJoint.Joint.xDrive = ZeroDrive;
             part.attachJoint.Joint.yDrive = ZeroDrive;
             part.attachJoint.Joint.zDrive = ZeroDrive;
+            //part.attachJoint.Joint.xMotion = ConfigurableJointMotion.Locked;
+            //part.attachJoint.Joint.yMotion = ConfigurableJointMotion.Locked;
+            //part.attachJoint.Joint.zMotion = ConfigurableJointMotion.Locked;
             part.attachJoint.Joint.enableCollision = false;
             part.attachJoint.Joint.angularXMotion = ConfigurableJointMotion.Free;
             part.attachJoint.Joint.angularYMotion = ConfigurableJointMotion.Free;
@@ -623,7 +678,6 @@ namespace KerbetrotterTools
             Debug.Log("[LYNX] Unlocked Hitch");
             return true;
         }
-
 
         /// <summary>
         /// Lock the joint
@@ -637,6 +691,9 @@ namespace KerbetrotterTools
                 part.attachJoint.Joint.xDrive = originalJoint.xDrive;
                 part.attachJoint.Joint.yDrive = originalJoint.yDrive;
                 part.attachJoint.Joint.zDrive = originalJoint.zDrive;
+                //part.attachJoint.Joint.xMotion = ConfigurableJointMotion.Locked;
+                //part.attachJoint.Joint.yMotion = ConfigurableJointMotion.Locked;
+                //part.attachJoint.Joint.zMotion = ConfigurableJointMotion.Locked;
                 part.attachJoint.Joint.enableCollision = false;
             }
 
@@ -706,14 +763,17 @@ namespace KerbetrotterTools
             //update the joint
             if (joint != null)
             {
+                //Debug.Log("[LYNX] Refresh Old Reference: " + oldReference);
+                //Debug.Log("[LYNX] Refresh New Reference: " + activeReference);
+
                 if (oldReference != -1)
                 {
-                    joint.transform.rotation = joint.transform.rotation * Conjugate(Quaternion.Euler(-rotationDeltas[oldReference].eulerAngles.x, -rotationDeltas[oldReference].eulerAngles.y, rotationDeltas[oldReference].eulerAngles.z));
+                    joint.transform.rotation = joint.transform.rotation * Conjugate(Quaternion.Euler(rotationDeltas[oldReference].eulerAngles.x, rotationDeltas[oldReference].eulerAngles.y, rotationDeltas[oldReference].eulerAngles.z));
                 }
 
                 if (activeReference != -1)
                 {
-                    joint.transform.rotation = joint.transform.rotation * Quaternion.Euler(-rotationDeltas[activeReference].eulerAngles.x, -rotationDeltas[activeReference].eulerAngles.y, rotationDeltas[activeReference].eulerAngles.z);
+                    joint.transform.rotation = joint.transform.rotation * Quaternion.Euler(rotationDeltas[activeReference].eulerAngles.x, rotationDeltas[activeReference].eulerAngles.y, rotationDeltas[activeReference].eulerAngles.z);
                 }
             }
         }
@@ -723,6 +783,7 @@ namespace KerbetrotterTools
         /// </summary>
         private void InitReferences(bool reInitialize)
         {
+            Debug.Log("[LYNX] InitReferences");
             //do not init in the editor
             if (!HighLogic.LoadedSceneIsFlight)
             {
@@ -733,7 +794,6 @@ namespace KerbetrotterTools
 
             if (names.Length == 2)
             {
-
                 //get the first transform
                 if (ReferenceTransforms[0] == null)
                 {
@@ -754,7 +814,6 @@ namespace KerbetrotterTools
                 {
                     SetJointLock(true, true);
                 }
-                hasParent = false;
 
                 if (ReferenceTransforms[0] != null)
                 {
@@ -765,18 +824,34 @@ namespace KerbetrotterTools
                 {
                     ReferenceTransforms[1].parent = part.transform;
                 }
+
+                //Debug.Log("[LYNX] InitReferences: Part has no parent");
+                hasParent = false;
+                isValidAttachment = false;
+                currentParent = null;
             }
             else
             {
+                if (currentParent != part.parent)
+                {
+                    //Debug.Log("[LYNX] InitReferences: Parent has changed");
+                    if (joint != null)
+                    {
+                        DestroyImmediate(joint);
+                        LockJoint(false);
+                        jointUnlocked = false;
+                    }
+                    currentParent = part.parent;
+                }
+
+                //Debug.Log("[LYNX] InitReferences: Part has parent: " + part.parent.partName);
                 if ((ReferenceTransforms[0] != null) && (ReferenceTransforms[1] != null))
                 {
-
                     string[] nodeNames = referenceNodeNames.Split(',');
 
                     //when we have a valid number of nodess
                     if (nodeNames.Length == 2)
                     {
-                        
                         //set the first transform
                         if (!reInitialize)
                         {
@@ -824,12 +899,13 @@ namespace KerbetrotterTools
                         {
                             activeReference = -1;
                         }
+                        //Debug.Log("[LYNX] InitReferences: activeReference: " + activeReference);
                     }
-                    isValidAttachment = true;
+                    isValidAttachment = activeReference != -1;
                 }
                 else
                 {
-                    isValidAttachment = false;// Debug.Log("[LYNX] References are null again");
+                    isValidAttachment = false;
                 }
                 hasParent = true;
             }

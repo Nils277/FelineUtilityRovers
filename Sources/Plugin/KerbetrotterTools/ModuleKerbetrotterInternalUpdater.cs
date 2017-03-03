@@ -88,6 +88,7 @@ namespace KerbetrotterTools
         {
             if (HighLogic.LoadedSceneIsFlight)
             {
+
                 int numChilds = childrenWithInternal.Count;
 
                 //The conjugate is the same as the inverse for unit quaternions but is less computationally expensive
@@ -95,25 +96,28 @@ namespace KerbetrotterTools
 
                 for (int i = numChilds-1; i >= 0; i--)
                 {
-                    //=============================================
-                    // Update the orientation of the internal model
-                    //=============================================
-                    Quaternion currentRotation = inverseRotation * childrenWithInternal[i].part.transform.rotation;
-                    Quaternion rotationDelta = conjugate(currentRotation) * childrenWithInternal[i].referenceRotation;
+                    if (childrenWithInternal[i].part.internalModel != null)
+                    {
+                        //=============================================
+                        // Update the orientation of the internal model
+                        //=============================================
+                        Quaternion currentRotation = inverseRotation * childrenWithInternal[i].part.transform.rotation;
+                        Quaternion rotationDelta = conjugate(currentRotation) * childrenWithInternal[i].referenceRotation;
 
-                    //swap y and z (bad IVA voodoo) this also adjusts the chirality 
-                    float tmpY = rotationDelta.y;
-                    rotationDelta.y = rotationDelta.z;
-                    rotationDelta.z = tmpY;
+                        //swap y and z (bad IVA voodoo) this also adjusts the chirality 
+                        float tmpY = rotationDelta.y;
+                        rotationDelta.y = rotationDelta.z;
+                        rotationDelta.z = tmpY;
 
-                    childrenWithInternal[i].part.internalModel.transform.rotation = childrenWithInternal[i].internalRotation * rotationDelta;
+                        childrenWithInternal[i].part.internalModel.transform.rotation = childrenWithInternal[i].internalRotation * rotationDelta;
+                        //==========================================
+                        // Update the position of the internal model
+                        //==========================================
+                        Vector3 currentPosition = inverseRotation * (vessel.transform.position - childrenWithInternal[i].part.transform.position);
+                        Vector3 positionDelta = childrenWithInternal[i].referencePosition - currentPosition;
 
-                    //==========================================
-                    // Update the position of the internal model
-                    //==========================================
-                    Vector3 currentPosition = inverseRotation * (vessel.transform.position - childrenWithInternal[i].part.transform.position);
-                    Vector3 positionDelta = childrenWithInternal[i].referencePosition - currentPosition;
-                    childrenWithInternal[i].part.internalModel.transform.position = childrenWithInternal[i].internalPosition + positionDelta;
+                        childrenWithInternal[i].part.internalModel.transform.position = childrenWithInternal[i].internalPosition + positionDelta;
+                    }
                 }
             }
         }
