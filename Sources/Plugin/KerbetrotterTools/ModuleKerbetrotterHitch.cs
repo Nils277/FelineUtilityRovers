@@ -489,11 +489,14 @@ namespace KerbetrotterTools
             //Catch reversed joint (TODO voodoo?)
             if (transform.position != part.attachJoint.Joint.connectedBody.transform.position)
             {
+                //Debug.Log("[LNYX] Reversed Joint");
+                //Debug.Log("[LNYX]Rotation: " + Quaternion.Angle(joint.transform.rotation, part.transform.rotation));
                 joint = part.attachJoint.Joint.connectedBody.gameObject.AddComponent<ConfigurableJoint>();
                 joint.connectedBody = part.attachJoint.Joint.GetComponent<Rigidbody>();
             }
             else
             {
+                //Debug.Log("[LNYX] Correct Joint");
                 joint = part.attachJoint.Joint.GetComponent<Rigidbody>().gameObject.AddComponent<ConfigurableJoint>();
                 joint.connectedBody = part.attachJoint.Joint.connectedBody;
             }
@@ -783,7 +786,7 @@ namespace KerbetrotterTools
         /// </summary>
         private void InitReferences(bool reInitialize)
         {
-            Debug.Log("[LYNX] InitReferences");
+            //Debug.Log("[LYNX] InitReferences");
             //do not init in the editor
             if (!HighLogic.LoadedSceneIsFlight)
             {
