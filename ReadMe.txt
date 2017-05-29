@@ -9,7 +9,7 @@ INSTALLATION
 
 CHANGE FILTER
 ---------------
-	You can change if and where filter for this mods are added. This can be done in the "KPBS_settings.cfg" file.
+	You can change if and where filter for this mods are added. This can be done in the "FelineUtilityRover.cfg" file.
     
 LICENSING
 ---------------

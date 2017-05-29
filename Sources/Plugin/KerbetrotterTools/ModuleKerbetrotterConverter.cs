@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using KSP.Localization;
+using UnityEngine;
 
 namespace KerbetrotterTools
 {
@@ -15,12 +16,22 @@ namespace KerbetrotterTools
 
         public string GetModuleTitle()
         {
-            return "Resource Converter";
+            return Localizer.GetStringByTag("#autoLoc_6003053");
         }
 
         public string GetPrimaryField()
         {
             return null;
+        }
+
+        /// <summary>
+        /// Translate the field
+        /// </summary>
+        /// <param name="state">the state of the part</param>
+        public override void OnStart(StartState state)
+        {
+            base.OnStart(state);
+            Fields["productionSpeed"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.converter.speed");
         }
 
         // Prepare the recipe with regard to the amount of crew in this module

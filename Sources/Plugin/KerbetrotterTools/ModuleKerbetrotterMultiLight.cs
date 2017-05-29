@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using KSP.Localization;
 
 namespace KerbetrotterTools
 {
@@ -53,6 +54,7 @@ namespace KerbetrotterTools
             base.OnStart(state);
 
             modelBaseField = Fields["numModel"];
+            modelBaseField.guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.light.type");
             modelUIChooser = (UI_ChooseOption)modelBaseField.uiControlEditor;
 
             //find all the lights

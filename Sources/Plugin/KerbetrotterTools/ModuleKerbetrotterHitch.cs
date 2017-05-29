@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using KSP.Localization;
 
 namespace KerbetrotterTools
 {
@@ -9,7 +10,7 @@ namespace KerbetrotterTools
     /// A class extending <c>ModuleKerbetrotterHitchBase</c> is needed for additional functionality, like rotating parts or restrictions to when the hitch is usable
     /// This Hitch used the <c>ModuleIRServo.cs</c> code from the InfernalRobotics from sirkut and Ziw as a reference implementation
     /// </summary>
-    public class ModuleKerbetrotterHitch : PartModule, IJointLockState
+    public class ModuleKerbetrotterHitch : PartModule, IJointLockState, IModuleInfo
     {
         //==================================================
         //Public fields for the configs
@@ -213,6 +214,8 @@ namespace KerbetrotterTools
             {
                 SetJointLock(true);
             }
+
+            
         }
 
         //==================================================
@@ -261,6 +264,11 @@ namespace KerbetrotterTools
         //Initializes the joints and attachments when in flight mode
         public override void OnStart(StartState state)
         {
+            //Localization
+            Fields["status"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.hitch.status");
+            Fields["jointSpringValue"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.hitch.spring");
+            Fields["jointDampingValue"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.hitch.damping");
+
             if (!initialized)
             {
                 jointSpringValue = jointSpring;
@@ -717,24 +725,24 @@ namespace KerbetrotterTools
         /// </summary>
         private void UpdateUI()
         {
-            Events["MotionLockToggle"].guiName = isLockEngaged ? "Unlock" : "Lock";
+            Events["MotionLockToggle"].guiName = isLockEngaged ? Localizer.GetStringByTag("#LOC_KERBETROTTER.hitch.status.unlock") : Localizer.GetStringByTag("#LOC_KERBETROTTER.hitch.status.lock");
 
             //Update the visible status of the hitch
             if (part.parent == null)
             {
-                status = "No Parent";
+                status = Localizer.GetStringByTag("#LOC_KERBETROTTER.hitch.status.noparent");
             }
             else if (HighLogic.LoadedSceneIsFlight && ((joint == null) || (!isValidAttachment)))
             {
-                status = "Inoperable";
+                status = Localizer.GetStringByTag("#LOC_KERBETROTTER.hitch.status.inoperable");
             }
             else if (isLockEngaged)
             {
-                status = "Locked";
+                status = Localizer.GetStringByTag("#LOC_KERBETROTTER.hitch.status.locked");
             }
             else
             {
-                status = "Released";
+                status = status = Localizer.GetStringByTag("#LOC_KERBETROTTER.hitch.status.released");
             }
         }
 
@@ -1042,6 +1050,21 @@ namespace KerbetrotterTools
                 isLockEngaged = lockJoint;
                 UpdateUI();
             }
+        }
+
+        public string GetModuleTitle()
+        {
+            return Localizer.GetStringByTag("#LOC_KERBETROTTER.hitch.name");
+        }
+
+        public Callback<Rect> GetDrawModulePanelCallback()
+        {
+            return null;
+        }
+
+        public string GetPrimaryField()
+        {
+            return null;
         }
     }
 }

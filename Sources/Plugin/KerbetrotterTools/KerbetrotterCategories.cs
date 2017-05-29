@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using KSP.UI.Screens;
+using KSP.Localization;
 
 namespace KerbetrotterTools
 {
@@ -55,6 +56,16 @@ namespace KerbetrotterTools
         private void Awake()
         {
             DontDestroyOnLoad(this);
+
+            //Dictionary<string, string> strings = Localization.instance.Tags;
+            //string[] keys = new string[strings.Count];
+            //strings.Keys.CopyTo(keys,0);
+
+            //for (int i = 0; i < 10; i++)
+            //{
+            Debug.Log("[LYNX] " + Localizer.GetStringByTag("#LOC_FUR.manufacturer"));
+            //}
+
 
             //search for Community Category Kit
             int numAssemblies = AssemblyLoader.loadedAssemblies.Count;
@@ -443,79 +454,79 @@ namespace KerbetrotterTools
 
                         //add the mod to the categories to the categories
                         Color color = filterSettings[i].Color;
-                        PartCategorizer.Category modFilter =PartCategorizer.AddCustomFilter(filterSettings[i].ModName, filterIcon, new Color(color.r, color.g, color.b));
+                        PartCategorizer.Category modFilter =PartCategorizer.AddCustomFilter(filterSettings[i].ModName, filterSettings[i].ModName, filterIcon, new Color(color.r, color.g, color.b));
 
                         int index = i;
 
-                        //add subcategories to the KPSS category you just added
+                        //add subcategories to the KPSS category you just added  #autoLOC_453549
                         if (usedCategories.Contains(PartCategories.Pods))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Pods", ic_pods, p => filterCategories(p, PartCategories.Pods, index));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Pods", Localizer.GetStringByTag("#autoLOC_453549"),  ic_pods, p => filterCategories(p, PartCategories.Pods, index));
                         }
 
                         if (usedCategories.Contains(PartCategories.FuelTank))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Fuel Tank", ic_fuels, p => filterCategories(p, PartCategories.FuelTank, index));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Fuel Tank", Localizer.GetStringByTag("#autoLOC_453552"), ic_fuels, p => filterCategories(p, PartCategories.FuelTank, index));
                         }
 
                         if (usedCategories.Contains(PartCategories.Propulsion))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Engines", ic_engine, p => filterCategories(p, PartCategories.Propulsion, index));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Engines", Localizer.GetStringByTag("#autoLOC_453555"), ic_engine, p => filterCategories(p, PartCategories.Propulsion, index));
                         }
 
                         if (usedCategories.Contains(PartCategories.Control))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Control", ic_control, p => filterCategories(p, PartCategories.Control, index));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Control", Localizer.GetStringByTag("#autoLOC_453558"), ic_control, p => filterCategories(p, PartCategories.Control, index));
                         }
 
                         if (usedCategories.Contains(PartCategories.Structural))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Structural", ic_structural, p => filterCategories(p, PartCategories.Structural, index));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Structural", Localizer.GetStringByTag("#autoLOC_453561"), ic_structural, p => filterCategories(p, PartCategories.Structural, index));
                         }
 
                         if (usedCategories.Contains(PartCategories.Coupling))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Coupling", ic_coupling, p => filterCategories(p, PartCategories.Coupling, index));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Coupling", Localizer.GetStringByTag("#autoLOC_453564"), ic_coupling, p => filterCategories(p, PartCategories.Coupling, index));
                         }
 
                         if (usedCategories.Contains(PartCategories.Payload))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Payload", ic_payload, p => filterCategories(p, PartCategories.Payload, index));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Payload", Localizer.GetStringByTag("#autoLOC_453567"), ic_payload, p => filterCategories(p, PartCategories.Payload, index));
                         }
 
                         if (usedCategories.Contains(PartCategories.Aero))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Aerodynamics", ic_aero, p => filterCategories(p, PartCategories.Aero, index));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Aerodynamics", Localizer.GetStringByTag("#autoLOC_453570"), ic_aero, p => filterCategories(p, PartCategories.Aero, index));
                         }
 
                         if (usedCategories.Contains(PartCategories.Ground))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Ground", ic_ground, p => filterCategories(p, PartCategories.Ground, index));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Ground", Localizer.GetStringByTag("#autoLOC_453573"), ic_ground, p => filterCategories(p, PartCategories.Ground, index));
                         }
 
                         if (usedCategories.Contains(PartCategories.Thermal))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Thermal", ic_thermal, p => filterCategories(p, PartCategories.Thermal, index));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Thermal", Localizer.GetStringByTag("#autoLOC_453576"), ic_thermal, p => filterCategories(p, PartCategories.Thermal, index));
                         }
 
                         if (usedCategories.Contains(PartCategories.Electrical))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Electrical", ic_electrical, p => filterCategories(p, PartCategories.Electrical, index));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Electrical", Localizer.GetStringByTag("#autoLOC_453579"), ic_electrical, p => filterCategories(p, PartCategories.Electrical, index));
                         }
 
                         if (usedCategories.Contains(PartCategories.Communication))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Communication", ic_communication, p => filterCategories(p, PartCategories.Communication, index));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Communication", Localizer.GetStringByTag("#autoLOC_453582"), ic_communication, p => filterCategories(p, PartCategories.Communication, index));
                         }
 
                         if (usedCategories.Contains(PartCategories.Science))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Science", ic_science, p => filterCategories(p, PartCategories.Science, index));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Science", Localizer.GetStringByTag("#autoLOC_453585"), ic_science, p => filterCategories(p, PartCategories.Science, index));
                         }
 
                         if (usedCategories.Contains(PartCategories.Utility))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Utility", ic_utility, p => (filterCategories(p, PartCategories.Utility, index)));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Utility", Localizer.GetStringByTag("#autoLOC_453588"), ic_utility, p => (filterCategories(p, PartCategories.Utility, index)));
                         }
                     }
                 }
@@ -533,12 +544,12 @@ namespace KerbetrotterTools
                     }
 
                     //Find the function filter
-                    PartCategorizer.Category functionFilter = PartCategorizer.Instance.filters.Find(f => f.button.categoryName == "Filter by Function");
+                    PartCategorizer.Category functionFilter = PartCategorizer.Instance.filters.Find(f => f.button.categoryName == "Filter by function");
 
                     int index = i;
 
                     //Add a new subcategory to the function filter
-                    PartCategorizer.AddCustomSubcategoryFilter(functionFilter, filterSettings[i].ModName, filterIconSurfaceStructures, p => filterPart(p, index));
+                    PartCategorizer.AddCustomSubcategoryFilter(functionFilter, filterSettings[i].ModName, filterSettings[i].ModName, filterIconSurfaceStructures, p => filterPart(p, index));
 
                     //Remove the parts from all other categories
                     /*if (!string.IsNullOrEmpty(filterSettings[i].IncludeFilter))

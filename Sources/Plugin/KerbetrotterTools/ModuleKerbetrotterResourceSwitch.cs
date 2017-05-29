@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using UnityEngine;
+using KSP.Localization;
 
 namespace KerbetrotterTools
 {
@@ -92,6 +93,11 @@ namespace KerbetrotterTools
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
+
+            //Localization
+            Events["jettisonResources"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.resourceswitch.dump");
+            Events["nextResourceSetup"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.resourceswitch.next");
+            Events["prevResourceSetup"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.resourceswitch.prev");
 
             if (!initialized)
             {
@@ -264,11 +270,11 @@ namespace KerbetrotterTools
         {
             if (dumping)
             {
-                Events["jettisonResources"].guiName = "Stop dumping resources";
+                Events["jettisonResources"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.resourceswitch.stop");
             }
             else
             {
-                Events["jettisonResources"].guiName = "Dump Resources";
+                Events["jettisonResources"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.resourceswitch.dump");
             }
         }
 
@@ -350,14 +356,14 @@ namespace KerbetrotterTools
         {
             StringBuilder info = new StringBuilder();
 
-            info.AppendLine("Switchable Resources:");
+            info.AppendLine(Localizer.GetStringByTag("#LOC_KERBETROTTER.resourceswitch.switchable"));
             info.AppendLine();
 
             if (switchableResources != null)
             {
                 foreach (KerbetrotterSwitchableResource switchableResource in switchableResources)
                 {
-                    int count = 0;
+                    //int count = 0;
                     info.Append("• ");
 
                     if (switchableResource.resources.Length > 1)
@@ -386,7 +392,7 @@ namespace KerbetrotterTools
                             info.Append("</color>");
                             info.Append(" ");
                         }
-                        info.AppendLine(switchableResource.resources[0].name);
+                        info.AppendLine(switchableResource.guiName);
                     }
                 }
             }
@@ -463,8 +469,8 @@ namespace KerbetrotterTools
                     prevTank = switchableResources.Count - 1;
                 }
 
-                Events["nextResourceSetup"].guiName = "Next Resource: " + switchableResources[nextTank].guiName;
-                Events["prevResourceSetup"].guiName = "Prev Resource: " + switchableResources[prevTank].guiName;
+                Events["nextResourceSetup"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.resourceswitch.nextRes") + " " + switchableResources[nextTank].guiName;
+                Events["prevResourceSetup"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.resourceswitch.prevRes") + " " + switchableResources[prevTank].guiName;
             }
         }
 
@@ -951,7 +957,7 @@ namespace KerbetrotterTools
         //--------------------------Interface for the module info-----------------------
         public string GetModuleTitle()
         {
-            return "Resource Switch";
+            return Localizer.GetStringByTag("#LOC_KERBETROTTER.resourceswitch.name");
         }
 
         public Callback<Rect> GetDrawModulePanelCallback()

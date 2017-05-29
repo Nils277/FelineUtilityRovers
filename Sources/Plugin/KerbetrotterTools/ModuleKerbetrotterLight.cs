@@ -23,6 +23,9 @@ namespace KerbetrotterTools
         //The previous state
         private float prevState = -1.0f;
 
+        ModuleLight lightModule;
+
+
         /// <summary>
         /// Update the lights in the OnUpdate method
         /// </summary>
@@ -92,7 +95,11 @@ namespace KerbetrotterTools
                     //Fully disabled the lights when off
                     if (state == 0.0)
                     {
-                        lights[i].enabled = false;
+                        if (lights[i].enabled)
+                        {
+                            lights[i].enabled = false;
+                            lights[i].intensity = 0;
+                        }
                     }
                     else
                     {
@@ -100,7 +107,6 @@ namespace KerbetrotterTools
                         {
                             lights[i].enabled = true;
                         }
-
                         lights[i].intensity = intensities[i] * state;
                     }
                 }

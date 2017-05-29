@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using KSP.Localization;
 
 namespace KerbetrotterTools
 {
@@ -13,10 +14,10 @@ namespace KerbetrotterTools
         public string transformNames = string.Empty;
 
         [KSPField]//Text to show to hide a mesh
-        public string showMeshString = "Show Mesh";
+        public string showMeshString = Localizer.GetStringByTag("#LOC_KERBETROTTER.meshtoggle.show");
 
         [KSPField]//Text to show to show a mesh
-        public string hideMeshString = "Hide Mesh";
+        public string hideMeshString = Localizer.GetStringByTag("#LOC_KERBETROTTER.meshtoggle.hide");
 
         [KSPField]//Whether the toggle is available in flight
         public bool availableInFlight = true; 
@@ -41,6 +42,8 @@ namespace KerbetrotterTools
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
+
+            Events["toggleMesh"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.meshtoggle.toggle");
 
             string[] transformGroupNames = transformNames.Split(',');
             transforms = new List<Transform>();
