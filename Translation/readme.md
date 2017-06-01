@@ -11,7 +11,7 @@ them accordingly to your language:
 * *FUR_ru.cfg*,*Kerbetrotter_ru.cfg* and *KSPedia_ru.cfg* for russian
 * *FUR_zh-cn.cfg*,*Kerbetrotter_zh-cn.cfg* and *KSPedia_zh-cn.cfg* for simplified chinese
 
-Then change the language tag in the third line of the copy of the "en-us.cfg" to the tag of your language.
+Then change the language tag in the third line of the copy of the *FUR_en.cfg* and*Kerbetrotter_en.cfg* files to the tag of your language.
 
 *Again:*
 * "es-es" for spanish
