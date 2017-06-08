@@ -22,19 +22,24 @@ You can find all the texts that need translation here: [Texts](https://github.co
 ![](http://i.imgur.com/O762Vfm.png)  
 
 ![](http://i.imgur.com/JZouZFz.png)  
-[![](http://i.imgur.com/W5QyRw3.png)](http://imgur.com/a/fOPRK)  
+[![](http://i.imgur.com/8SHPkw2.png)](http://imgur.com/a/fOPRK)
+[![](http://i.imgur.com/pVShxBH.png)](https://www.youtube.com/watch?v=nMHhR1amxVc)  
+
+![](http://i.imgur.com/O762Vfm.png)  
+![](http://i.imgur.com/PQTOnA3.png)  
+![](http://i.imgur.com/cXO4NUi.png)  by [bice](http://forum.kerbalspaceprogram.com/index.php?/profile/152599-bice/)  
+
 
 ![](http://i.imgur.com/O762Vfm.png)  
 ![](http://i.imgur.com/XO5r7GU.png)  
 
 The Hitches and Joints do currently not work, when Kebal Joint Reinforcement is installed. It's being worked on.  
-The Hitches and Joints may still have some problems with docking when more than one of them is in the vessel.  
 
 ![](http://i.imgur.com/O762Vfm.png)  
 ![](http://i.imgur.com/V9z8Mer.png)  
 
 **sirkut** and **Ziw** for Infernal Robotics, which was used as reference/learning source for the functionality of the hitch.  
-Also thanks to **Snjo** for the Firespitter mod. The Fuel switch is based on the one from Firespitter.  
+Also thanks to **Snjo** for the Firespitter mod. The Fuel switch is based on the one from Firespitter.    
 
 
 # License
