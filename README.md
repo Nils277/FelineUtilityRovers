@@ -1,10 +1,40 @@
-# FelineUtilityRovers
-A mod for KSP that adds parts to create versatile Rovers.
+![](http://i.imgur.com/HYWMzVh.png)   
+![](http://i.imgur.com/oVyCGRp.png)
+
+Kerbetrotter Ltd. is happy to announce its newest creation from the Feline Utility Rover series: The Lynx Rover.  
+A medium sized versatile rover that is capable to operate independently in the harshest environments. It is mainly  
+designed to operate on other planets, but also in the outback of Kerbin. Depending on your configuration it can  
+contain crew cabins, a laboratory or even bellowed joints to be more flexible in difficult terrain.  
+
+[Forum Thread](http://forum.kerbalspaceprogram.com/index.php?/topic/133606-1) 
 
 ## Looking for help:
-If anyone is interested to translate FUR into Russian ![](http://i.imgur.com/mFRcn0a.png) (in process), Japanese ![](http://i.imgur.com/M93S44Z.png), Chinese ![](http://i.imgur.com/JyqfJ1P.png) (or the other languages that will be supported), please let me know!   
+If anyone is interested to translate FUR into Russian ![](http://i.imgur.com/mFRcn0a.png) (in process), Japanese ![](http://i.imgur.com/M93S44Z.png), Chinese ![](http://i.imgur.com/JyqfJ1P.png)   
+(or the other languages that will be supported), please let me know!   
 
-You can find all the texts that need translation here: [Texts](https://github.com/Nils277/FelineUtilityRovers/tree/master/Translation). (1968 Words)
+You can find all the texts that need translation here: [Texts](https://github.com/Nils277/FelineUtilityRovers/tree/master/Translation). (1968 Words)  
+![](http://i.imgur.com/O762Vfm.png)
+
+![](http://i.imgur.com/3aT7iVh.png)  
+![](http://i.imgur.com/J0Y2uGE.png)
+
+
+![](http://i.imgur.com/O762Vfm.png)  
+
+![](http://i.imgur.com/JZouZFz.png)  
+[![](http://i.imgur.com/W5QyRw3.png)](http://imgur.com/a/fOPRK)  
+
+![](http://i.imgur.com/O762Vfm.png)  
+![](http://i.imgur.com/XO5r7GU.png)  
+
+The Hitches and Joints do currently not work, when Kebal Joint Reinforcement is installed. It's being worked on.  
+The Hitches and Joints may still have some problems with docking when more than one of them is in the vessel.  
+
+![](http://i.imgur.com/O762Vfm.png)  
+![](http://i.imgur.com/V9z8Mer.png)  
+
+**sirkut** and **Ziw** for Infernal Robotics, which was used as reference/learning source for the functionality of the hitch.  
+Also thanks to **Snjo** for the Firespitter mod. The Fuel switch is based on the one from Firespitter.  
 
 
 # License
