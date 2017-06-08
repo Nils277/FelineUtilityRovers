@@ -38,8 +38,10 @@ The Hitches and Joints do currently not work, when Kebal Joint Reinforcement is 
 ![](http://i.imgur.com/O762Vfm.png)  
 ## Thanks
 
-**sirkut** and **Ziw** for Infernal Robotics, which was used as reference/learning source for the functionality of the hitch.  
-Also thanks to **Snjo** for the Firespitter mod. The Fuel switch is based on the one from Firespitter.    
+[sirkut](http://forum.kerbalspaceprogram.com/index.php?/profile/57229-sirkut/) and [Ziw](http://forum.kerbalspaceprogram.com/index.php?/profile/135292-ziw/) for Infernal Robotics, which was used as reference/learning source for the functionality of the hitch.  
+Also thanks to [Snjo](http://forum.kerbalspaceprogram.com/index.php?/profile/57198-snjo/) for the Firespitter mod. The Fuel switch is based on the one from Firespitter.  
+
+Last but not least thanks to [Rafael acevedo](http://forum.kerbalspaceprogram.com/index.php?/profile/84946-rafael-acevedo/) for testing and suggestions during the development.
 
 ## License
 
