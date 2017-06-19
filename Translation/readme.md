@@ -30,8 +30,8 @@ to
 
 ### What not to translate
 There are some texts in here that should not be translated into another language and be kept in the files as is
-1. any word that starts with cck-XXX, e.g. cck-lifesupport. These are tags to sort the parts into categories by the Community Category Kit.
-2. control sequences like '\n', '\t' or similar.
+1. The tags should not be replaced. Instead the tags in the new language should be appended.
+2. Control sequences like '\n', '\t' or similar.
 3. HTML Tags like &lt;b&gt;...&lt;/b&gt;, &lt;i&gt;...&lt;/i&gt; or similar  
 
 And once again, thank you for helping translate this mod!
