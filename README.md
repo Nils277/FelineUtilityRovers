@@ -10,7 +10,10 @@ contain crew cabins, a laboratory or even bellowed joints to be more flexible in
 
 ## Looking for help:
 If anyone is interested to translate FUR into Russian ![](http://i.imgur.com/mFRcn0a.png) ([in process](https://github.com/Tirathangil/FelineUtilityRovers/tree/master/Translation)), Japanese ![](http://i.imgur.com/M93S44Z.png), Chinese ![](http://i.imgur.com/JyqfJ1P.png)   
-(or the other languages that will be supported), please let me know!   
+(or the other languages that will be supported), please let me know!  
+
+Important: Please contact me before you start with the translation. It already happend more than once that  
+multiple persons worked on a translation for the same texts and therefore their efforts were in vain.  
 
 You can find all the texts that need translation here: [Texts](https://github.com/Nils277/FelineUtilityRovers/tree/master/Translation). (1968 Words)  
 ![](http://i.imgur.com/O762Vfm.png)
