@@ -506,6 +506,11 @@ namespace KerbetrotterTools
                 joint.connectedBody = part.attachJoint.Joint.connectedBody;
             }
 
+            if (joint == null)
+            {
+                Debug.Log("[LYNX] ERR InitJoint: Cannot create joint!");
+            }
+
             //Make the new joint unbreakable
             joint.breakForce = float.PositiveInfinity;
             joint.breakTorque = float.PositiveInfinity;
@@ -833,7 +838,7 @@ namespace KerbetrotterTools
                     ReferenceTransforms[1].parent = part.transform;
                 }
 
-                //Debug.Log("[LYNX] InitReferences: Part has no parent");
+                Debug.Log("[LYNX] ERR InitReferences: Part has no parent");
                 hasParent = false;
                 isValidAttachment = false;
                 currentParent = null;
@@ -910,10 +915,15 @@ namespace KerbetrotterTools
                         //Debug.Log("[LYNX] InitReferences: activeReference: " + activeReference);
                     }
                     isValidAttachment = activeReference != -1;
+                    if (activeReference != -1)
+                    {
+                        Debug.Log("[LYNX] ERR InitReferences: No active reference");
+                    }
                 }
                 else
                 {
                     isValidAttachment = false;
+                    Debug.Log("[LYNX] ERR InitReferences: One of the references is null: "  + (ReferenceTransforms[0] == null) + ", " + (ReferenceTransforms[1] == null));
                 }
                 hasParent = true;
             }

@@ -552,20 +552,31 @@ namespace KerbetrotterTools
                     PartCategorizer.AddCustomSubcategoryFilter(functionFilter, filterSettings[i].ModName, filterSettings[i].ModName, filterIconSurfaceStructures, p => filterPart(p, index));
 
                     //Remove the parts from all other categories
-                    /*if (!string.IsNullOrEmpty(filterSettings[i].IncludeFilter))
+                    if (filterSettings[i].ShowInOneFilterOnly)
                     {
-                        List<AvailablePart> parts = PartLoader.Instance.loadedParts.FindAll(ap => ap.name.StartsWith(filterSettings[i].IncludeFilter));
-
-                        if (!string.IsNullOrEmpty(filterSettings[i].ExcludeFilter))
-                        {
-                            parts.RemoveAll(ap => ap.name.StartsWith(filterSettings[i].ExcludeFilter));
-                        }
+                        List<AvailablePart> parts = PartLoader.Instance.loadedParts.FindAll(ap => filterPart(ap, index));
 
                         for (int j = 0; j < parts.Count; j++)
                         {
                             parts[j].category = PartCategories.none;
                         }
-                    }*/
+                    }
+                }
+                //hide the parts from other functions when CCK is installed
+                else if (CCKavailable && filterSettings[i].ShowInOneFilterOnly)
+                {
+                    int index = i;
+
+                    //Remove the parts from all other categories
+                    if (filterSettings[i].ShowInOneFilterOnly)
+                    {
+                        List<AvailablePart> parts = PartLoader.Instance.loadedParts.FindAll(ap => filterPart(ap, index));
+
+                        for (int j = 0; j < parts.Count; j++)
+                        {
+                            parts[j].category = PartCategories.none;
+                        }
+                    }
                 }
                 //---------end subcategory in function filter-------
             }

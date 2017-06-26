@@ -108,9 +108,16 @@ namespace KerbetrotterTools
                         filterLifeSupport = bool.Parse(filterLifeSupportStr);
                     }
 
+                    bool oneFilterOnly = false;
+                    string oneFilterOnlyString = nodes[i].GetValue("showInOneCategoryOnly");
+                    if (!string.IsNullOrEmpty(oneFilterOnlyString))
+                    {
+                        oneFilterOnly = bool.Parse(oneFilterOnlyString);
+                    }
+
                     string filterIcon = nodes[i].GetValue("filterIcon");
 
-                    filterSettings[i] = new KerbetrotterFilterSettings(modName, filterIcon, includedFilter, excludedFilter, showModFilter, showSeparateFunctionCategory, disableForCCK, filterLifeSupport, color);
+                    filterSettings[i] = new KerbetrotterFilterSettings(modName, filterIcon, includedFilter, excludedFilter, showModFilter, showSeparateFunctionCategory, disableForCCK, filterLifeSupport, oneFilterOnly, color);
                 }
             }
             catch (ArgumentNullException exception)
@@ -135,15 +142,17 @@ namespace KerbetrotterTools
         private bool showFunctionFilter;
         private bool disableForCCK;
         private bool filterLifeSupport;
+        private bool oneFilterOnly;
         private Color color;
 
-        public KerbetrotterFilterSettings(string modName, string filterIcon, string includeFilter, string excludeFilter, bool showModFilter, bool showFunctionFilter, bool disableForCCK, bool filterLifeSupport, Color color)
+        public KerbetrotterFilterSettings(string modName, string filterIcon, string includeFilter, string excludeFilter, bool showModFilter, bool showFunctionFilter, bool disableForCCK, bool filterLifeSupport, bool oneFilterOnly, Color color)
         {
             this.modName = modName;
             this.filterIcon = filterIcon;
             this.includeFilter = includeFilter;
             this.excludeFilter = excludeFilter;
             this.showModFilter = showModFilter;
+            this.oneFilterOnly = oneFilterOnly;
             this.showFunctionFilter = showFunctionFilter;
             this.disableForCCK = disableForCCK;
             this.filterLifeSupport = filterLifeSupport;
@@ -219,6 +228,14 @@ namespace KerbetrotterTools
             get
             {
                 return showFunctionFilter;
+            }
+        }
+
+        public bool ShowInOneFilterOnly
+        {
+            get
+            {
+                return oneFilterOnly;
             }
         }
     }
