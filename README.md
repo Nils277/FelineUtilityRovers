@@ -9,7 +9,7 @@ contain crew cabins, a laboratory or even bellowed joints to be more flexible in
 [Forum Thread](http://forum.kerbalspaceprogram.com/index.php?/topic/133606-1) 
 
 ## Looking for help:
-If anyone is interested to translate FUR into Russian ![](http://i.imgur.com/mFRcn0a.png) ([in process](https://github.com/Tirathangil/FelineUtilityRovers/tree/master/Translation)), Japanese ![](http://i.imgur.com/M93S44Z.png), Chinese ![](http://i.imgur.com/JyqfJ1P.png)   
+If anyone is interested to translate FUR into Japanese ![](http://i.imgur.com/M93S44Z.png) or Chinese ![](http://i.imgur.com/JyqfJ1P.png)   
 (or the other languages that will be supported), please let me know!  
 
 ***Important***: Please contact me before you start with the translation. It already happend more than once that  
