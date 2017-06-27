@@ -29,9 +29,9 @@ You can find all the texts that need translation here: [Texts](https://github.co
 [![](http://i.imgur.com/pVShxBH.png)](https://www.youtube.com/watch?v=nMHhR1amxVc)  
 
 ![](http://i.imgur.com/O762Vfm.png)  
-## Languages  
-![](http://i.imgur.com/cXO4NUi.png)  by [bice](http://forum.kerbalspaceprogram.com/index.php?/profile/152599-bice/)  
-
+## Translations  
+![](http://i.imgur.com/cXO4NUi.png) Español by [bice](http://forum.kerbalspaceprogram.com/index.php?/profile/152599-bice/)  
+![](http://i.imgur.com/mFRcn0a.png) Русский by [Tirathangil](https://github.com/Tirathangil)  
 
 ![](http://i.imgur.com/O762Vfm.png)  
 ## Known bugs 
