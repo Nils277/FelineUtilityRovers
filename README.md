@@ -16,13 +16,13 @@ If anyone is interested to translate FUR into Japanese ![](http://i.imgur.com/M9
 multiple persons worked on a translation for the same texts and therefore their efforts were in vain.  
 
 You can find all the texts that need translation here: [Texts](https://github.com/Nils277/FelineUtilityRovers/tree/master/Translation). (1968 Words)  
-![](http://i.imgur.com/O762Vfm.png)
+<!---![](http://i.imgur.com/O762Vfm.png)--->
 
 ## Features 
 ![](http://i.imgur.com/J0Y2uGE.png)
 
 
-![](http://i.imgur.com/O762Vfm.png)  
+<!---![](http://i.imgur.com/O762Vfm.png)--->
 
 ## Galleries 
 [![](http://i.imgur.com/8SHPkw2.png)](http://imgur.com/a/fOPRK)
