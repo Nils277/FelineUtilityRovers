@@ -24,7 +24,7 @@ contain crew cabins, a laboratory or even bellowed joints to be more flexible in
 ## Translations  
 ![](http://i.imgur.com/cXO4NUi.png) Español by [bice](http://forum.kerbalspaceprogram.com/index.php?/profile/152599-bice/)  
 ![](http://i.imgur.com/mFRcn0a.png) Русский by [Tirathangil](https://github.com/Tirathangil)  
-![](http://i.imgur.com/JyqfJ1P.png) 中国 coming soon
+![](http://i.imgur.com/JyqfJ1P.png) 中国语文 coming soon
 
 ### Looking for help:
 If anyone is interested to translate FUR into Japanese ![](http://i.imgur.com/M93S44Z.png) (or the other languages 
