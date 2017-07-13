@@ -1,0 +1,140 @@
+fileFormatVersion: 2
+guid: 5109ffe3528b9f7478ce3f9c5d368278
+timeCreated: 1498657148
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Depthmask
+    100004: Drink
+    100006: FirstAid
+    100008: Hatch
+    100010: Hatch_001
+    100012: Hatch_002
+    100014: Model
+    100016: Seat
+    100018: Seat_001
+    100020: Seat_002
+    100022: Shadows
+    100024: Windows
+    100026: Kerbalhead
+    400000: //RootNode
+    400002: Depthmask
+    400004: Drink
+    400006: FirstAid
+    400008: Hatch
+    400010: Hatch_001
+    400012: Hatch_002
+    400014: Model
+    400016: Seat
+    400018: Seat_001
+    400020: Seat_002
+    400022: Shadows
+    400024: Windows
+    400026: Kerbalhead
+    2300000: Depthmask
+    2300002: Drink
+    2300004: FirstAid
+    2300006: Hatch
+    2300008: Hatch_001
+    2300010: Hatch_002
+    2300012: Model
+    2300014: Seat
+    2300016: Seat_001
+    2300018: Seat_002
+    2300020: Shadows
+    2300022: Windows
+    2300024: Kerbalhead
+    3300000: Depthmask
+    3300002: Drink
+    3300004: FirstAid
+    3300006: Hatch
+    3300008: Hatch_001
+    3300010: Hatch_002
+    3300012: Model
+    3300014: Seat
+    3300016: Seat_001
+    3300018: Seat_002
+    3300020: Shadows
+    3300022: Windows
+    3300024: Kerbalhead
+    4300000: Hatch_002
+    4300002: Seat_002
+    4300004: Shadows
+    4300006: Windows
+    4300008: Model
+    4300010: Depthmask
+    4300012: Seat
+    4300014: Hatch
+    4300016: Seat_001
+    4300018: Hatch_001
+    4300020: FirstAid
+    4300022: Drink
+    4300024: Kerbalhead
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

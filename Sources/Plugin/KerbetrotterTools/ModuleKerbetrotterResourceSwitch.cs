@@ -94,11 +94,6 @@ namespace KerbetrotterTools
         {
             base.OnStart(state);
 
-            //Localization
-            Events["jettisonResources"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.resourceswitch.dump");
-            Events["nextResourceSetup"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.resourceswitch.next");
-            Events["prevResourceSetup"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.resourceswitch.prev");
-
             if (!initialized)
             {
                 //find the confignode for this partModule. NOTE: This only works with 
@@ -232,7 +227,7 @@ namespace KerbetrotterTools
         }
 
         //-------------------Editor Switches------------
-        [KSPEvent(name = "jettisonResources", guiActive = true, guiActiveEditor = false, guiName = "Dump Resources")]
+        [KSPEvent(name = "jettisonResources", guiActive = true, guiActiveEditor = false, guiName = "#LOC_KERBETROTTER.resourceswitch.dump")]
         public void jettisonResources()
         {
             dumping = !dumping;
@@ -240,7 +235,7 @@ namespace KerbetrotterTools
             updateEmitter();
         }
 
-        [KSPEvent(name = "nextResourceSetup", guiActive = true, guiActiveEditor = true, guiName = "Next fuel")]
+        [KSPEvent(name = "nextResourceSetup", guiActive = true, guiActiveEditor = true, guiName = "#LOC_KERBETROTTER.resourceswitch.next")]
         public void nextResourceSetup()
         {
             int newResourceID = selectedResourceID + 1;
@@ -252,7 +247,7 @@ namespace KerbetrotterTools
         }
 
 
-        [KSPEvent(name = "prevResourceSetup", guiActive = true, guiActiveEditor = true, guiName = "Previous fuel")]
+        [KSPEvent(name = "prevResourceSetup", guiActive = true, guiActiveEditor = true, guiName = "#LOC_KERBETROTTER.resourceswitch.prev")]
         public void prevResourceSetup()
         {
             int newResourceID = selectedResourceID - 1;

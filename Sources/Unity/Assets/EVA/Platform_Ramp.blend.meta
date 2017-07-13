@@ -1,0 +1,201 @@
+fileFormatVersion: 2
+guid: 73bd68a621943404ea8982950e102651
+timeCreated: 1498720401
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Border_Col_Left
+    100002: Border_Col_Right
+    100004: Collision_Base
+    100006: Collision_Platform
+    100008: Collision_Ramp
+    100010: Collision_Ramp2
+    100012: Collision_Ramp3
+    100014: Model
+    100016: //RootNode
+    100018: Ramp
+    100020: Ramp2
+    100022: Ramp2_Lights
+    100024: Ramp3
+    100026: Ramp_Lights
+    100028: Sides
+    400000: Border_Col_Left
+    400002: Border_Col_Right
+    400004: Collision_Base
+    400006: Collision_Platform
+    400008: Collision_Ramp
+    400010: Collision_Ramp2
+    400012: Collision_Ramp3
+    400014: Model
+    400016: //RootNode
+    400018: Ramp
+    400020: Ramp2
+    400022: Ramp2_Lights
+    400024: Ramp3
+    400026: Ramp_Lights
+    400028: Sides
+    2300000: Border_Col_Left
+    2300002: Border_Col_Right
+    2300004: Collision_Base
+    2300006: Collision_Platform
+    2300008: Collision_Ramp
+    2300010: Collision_Ramp2
+    2300012: Collision_Ramp3
+    2300014: Model
+    2300016: Ramp
+    2300018: Ramp2
+    2300020: Ramp2_Lights
+    2300022: Ramp3
+    2300024: Ramp_Lights
+    2300026: Sides
+    3300000: Border_Col_Left
+    3300002: Border_Col_Right
+    3300004: Collision_Base
+    3300006: Collision_Platform
+    3300008: Collision_Ramp
+    3300010: Collision_Ramp2
+    3300012: Collision_Ramp3
+    3300014: Model
+    3300016: Ramp
+    3300018: Ramp2
+    3300020: Ramp2_Lights
+    3300022: Ramp3
+    3300024: Ramp_Lights
+    3300026: Sides
+    4300000: Ramp
+    4300002: Collision_Ramp
+    4300004: Ramp_Lights
+    4300006: Ramp2
+    4300008: Collision_Ramp2
+    4300010: Ramp2_Lights
+    4300012: Ramp3
+    4300014: Collision_Ramp3
+    4300016: Model
+    4300018: Collision_Base
+    4300020: Collision_Platform
+    4300022: Sides
+    4300024: Border_Col_Left
+    4300026: Border_Col_Right
+    7400000: PlatformOpen
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: PlatformOpen
+      takeName: Default Take
+      firstFrame: 0
+      lastFrame: 99
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Collision_Base
+        weight: 1
+      - path: Collision_Platform
+        weight: 1
+      - path: Model
+        weight: 1
+      - path: Ramp
+        weight: 1
+      - path: Ramp/Collision_Ramp
+        weight: 1
+      - path: Ramp/Ramp2
+        weight: 1
+      - path: Ramp/Ramp2/Collision_Ramp2
+        weight: 1
+      - path: Ramp/Ramp2/Ramp2_Lights
+        weight: 1
+      - path: Ramp/Ramp2/Ramp3
+        weight: 1
+      - path: Ramp/Ramp2/Ramp3/Collision_Ramp3
+        weight: 1
+      - path: Ramp/Ramp_Lights
+        weight: 1
+      - path: Sides
+        weight: 1
+      - path: Sides/Border_Col_Left
+        weight: 1
+      - path: Sides/Border_Col_Right
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -50,6 +50,7 @@
     <Compile Include="KerbetrotterCategories.cs" />
     <Compile Include="KerbetrotterConfiguration.cs" />
     <Compile Include="ModuleKerbetrotterConverter.cs" />
+    <Compile Include="ModuleKerbetrotterDockingAdjustment.cs" />
     <Compile Include="ModuleKerbetrotterHitch.cs" />
     <Compile Include="ModuleKerbetrotterInternalUpdater.cs" />
     <Compile Include="ModuleKerbetrotterJointHelper.cs" />

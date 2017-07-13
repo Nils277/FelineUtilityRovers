@@ -72,7 +72,7 @@ ModelImporter:
     4300020: Collider_Base
     4300022: Base_Wide
     4300024: Collider_Base_Wide
-    7400000: Default Take
+    7400000: LegDeploy
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -93,7 +93,61 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: LegDeploy
+      takeName: Default Take
+      firstFrame: 0
+      lastFrame: 69
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arm
+        weight: 1
+      - path: Arm/Collider_Arm
+        weight: 1
+      - path: Arm/Collider_Arm_2
+        weight: 1
+      - path: Arm/Pneumatics
+        weight: 1
+      - path: Arm/Pneumatics/Collider_Foot
+        weight: 1
+      - path: Arm/Pneumatics/Collider_Pneumatics
+        weight: 1
+      - path: Arm/Pneumatics/Foot
+        weight: 1
+      - path: Base
+        weight: 1
+      - path: Base/Collider_Base
+        weight: 1
+      - path: Base_Wide
+        weight: 1
+      - path: Base_Wide/Collider_Base_Wide
+        weight: 1
+      - path: Main
+        weight: 1
+      - path: Main/Collider_Arm_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []

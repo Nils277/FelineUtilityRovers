@@ -37,6 +37,7 @@ ModelImporter:
     100058: Bellow_2_006
     100060: Bellow_2_007
     100062: Bellow_2_008
+    100064: Windows
     400000: AdaptableDockingPort
     400002: Armature
     400004: Bellow
@@ -69,6 +70,7 @@ ModelImporter:
     400058: Bellow_2_006
     400060: Bellow_2_007
     400062: Bellow_2_008
+    400064: Windows
     2300000: Col2
     2300002: Col3
     2300004: Col_1
@@ -92,6 +94,7 @@ ModelImporter:
     2300040: Bellow_2_006
     2300042: Bellow_2_007
     2300044: Bellow_2_008
+    2300046: Windows
     3300000: Col2
     3300002: Col3
     3300004: Col_1
@@ -115,6 +118,7 @@ ModelImporter:
     3300040: Bellow_2_006
     3300042: Bellow_2_007
     3300044: Bellow_2_008
+    3300046: Windows
     4300000: Bellow
     4300002: Col2
     4300004: Col3
@@ -139,6 +143,7 @@ ModelImporter:
     4300042: Bellow_2_003
     4300044: Bellow_2_002
     4300046: Bellow_2_001
+    4300048: Windows
     7400000: Bay_Extend
     7400002: ArmatureAction_002
     7400004: Bay_Lower

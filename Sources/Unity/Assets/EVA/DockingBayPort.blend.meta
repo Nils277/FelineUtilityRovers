@@ -1,0 +1,261 @@
+fileFormatVersion: 2
+guid: 3bc6c7a3b5ef8cb45ac7b571b469c64a
+timeCreated: 1499236118
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Bellow
+    100002: Bellow_2
+    100004: Bellow_2_001
+    100006: Bellow_2_002
+    100008: Bellow_2_003
+    100010: Bellow_2_004
+    100012: Bellow_2_005
+    100014: Bellow_2_006
+    100016: Bellow_2_007
+    100018: Bellow_2_008
+    100020: Col2
+    100022: Col3
+    100024: Col_1
+    100026: Dock
+    100028: //RootNode
+    100030: DockingNode
+    400000: Bellow
+    400002: Bellow_2
+    400004: Bellow_2_001
+    400006: Bellow_2_002
+    400008: Bellow_2_003
+    400010: Bellow_2_004
+    400012: Bellow_2_005
+    400014: Bellow_2_006
+    400016: Bellow_2_007
+    400018: Bellow_2_008
+    400020: Col2
+    400022: Col3
+    400024: Col_1
+    400026: Dock
+    400028: //RootNode
+    400030: DockingNode
+    2300000: Bellow_2
+    2300002: Bellow_2_001
+    2300004: Bellow_2_002
+    2300006: Bellow_2_003
+    2300008: Bellow_2_004
+    2300010: Bellow_2_005
+    2300012: Bellow_2_006
+    2300014: Bellow_2_007
+    2300016: Bellow_2_008
+    2300018: Col2
+    2300020: Col3
+    2300022: Col_1
+    2300024: Dock
+    3300000: Bellow_2
+    3300002: Bellow_2_001
+    3300004: Bellow_2_002
+    3300006: Bellow_2_003
+    3300008: Bellow_2_004
+    3300010: Bellow_2_005
+    3300012: Bellow_2_006
+    3300014: Bellow_2_007
+    3300016: Bellow_2_008
+    3300018: Col2
+    3300020: Col3
+    3300022: Col_1
+    3300024: Dock
+    4300000: Col2
+    4300002: Col3
+    4300004: Dock
+    4300006: Col_1
+    4300008: Bellow_2_008
+    4300010: Bellow_2_007
+    4300012: Bellow_2_006
+    4300014: Bellow_2_005
+    4300016: Bellow_2_004
+    4300018: Bellow_2_003
+    4300020: Bellow_2_002
+    4300022: Bellow_2_001
+    4300024: Bellow_2
+    7400000: ExtendPort
+    7400002: LowerPort
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: ExtendPort
+      takeName: Default Take
+      firstFrame: 0
+      lastFrame: 29
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bellow
+        weight: 1
+      - path: Bellow/Bellow_2
+        weight: 1
+      - path: Bellow/Bellow_2_001
+        weight: 1
+      - path: Bellow/Bellow_2_002
+        weight: 1
+      - path: Bellow/Bellow_2_003
+        weight: 1
+      - path: Bellow/Bellow_2_004
+        weight: 1
+      - path: Bellow/Bellow_2_004/Col3
+        weight: 1
+      - path: Bellow/Bellow_2_005
+        weight: 1
+      - path: Bellow/Bellow_2_006
+        weight: 1
+      - path: Bellow/Bellow_2_007
+        weight: 1
+      - path: Bellow/Bellow_2_008
+        weight: 1
+      - path: Bellow/Dock
+        weight: 1
+      - path: Bellow/Dock/Col_1
+        weight: 1
+      - path: Bellow/Dock/DockingNode
+        weight: 1
+      - path: Col2
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: LowerPort
+      takeName: Default Take
+      firstFrame: 30
+      lastFrame: 49
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bellow
+        weight: 1
+      - path: Bellow/Bellow_2
+        weight: 1
+      - path: Bellow/Bellow_2_001
+        weight: 1
+      - path: Bellow/Bellow_2_002
+        weight: 1
+      - path: Bellow/Bellow_2_003
+        weight: 1
+      - path: Bellow/Bellow_2_004
+        weight: 1
+      - path: Bellow/Bellow_2_004/Col3
+        weight: 1
+      - path: Bellow/Bellow_2_005
+        weight: 1
+      - path: Bellow/Bellow_2_006
+        weight: 1
+      - path: Bellow/Bellow_2_007
+        weight: 1
+      - path: Bellow/Bellow_2_008
+        weight: 1
+      - path: Bellow/Dock
+        weight: 1
+      - path: Bellow/Dock/Col_1
+        weight: 1
+      - path: Bellow/Dock/DockingNode
+        weight: 1
+      - path: Col2
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

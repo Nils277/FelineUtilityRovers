@@ -10,23 +10,33 @@ ModelImporter:
     100004: Windows
     100006: Depthmask
     100008: Shadows
+    100010: Depthmask_JSIATP
+    100012: Windows_JSIATP
     400000: //RootNode
     400002: Model
     400004: Windows
     400006: Depthmask
     400008: Shadows
+    400010: Depthmask_JSIATP
+    400012: Windows_JSIATP
     2300000: Model
     2300002: Windows
     2300004: Depthmask
     2300006: Shadows
+    2300008: Depthmask_JSIATP
+    2300010: Windows_JSIATP
     3300000: Model
     3300002: Windows
     3300004: Depthmask
     3300006: Shadows
+    3300008: Depthmask_JSIATP
+    3300010: Windows_JSIATP
     4300000: Windows
     4300002: Model
     4300004: Depthmask
     4300006: Shadows
+    4300008: Depthmask_JSIATP
+    4300010: Windows_JSIATP
     7400000: Default Take
     9500000: //RootNode
   materials:

@@ -1,0 +1,159 @@
+fileFormatVersion: 2
+guid: 1fd9f68e203557948b8602ae68d13870
+timeCreated: 1499339521
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Main
+    100002: Main_col
+    100004: Nozzle
+    100006: Pneu1
+    100008: Pneu2
+    100010: Rover
+    100012: Thruster
+    100014: //RootNode
+    100016: Tube
+    100018: Tube_col
+    400000: Main
+    400002: Main_col
+    400004: Nozzle
+    400006: Pneu1
+    400008: Pneu2
+    400010: Rover
+    400012: Thruster
+    400014: //RootNode
+    400016: Tube
+    400018: Tube_col
+    2300000: Main
+    2300002: Main_col
+    2300004: Nozzle
+    2300006: Pneu1
+    2300008: Pneu2
+    2300010: Rover
+    2300012: Tube
+    2300014: Tube_col
+    3300000: Main
+    3300002: Main_col
+    3300004: Nozzle
+    3300006: Pneu1
+    3300008: Pneu2
+    3300010: Rover
+    3300012: Tube
+    3300014: Tube_col
+    4300000: Rover
+    4300002: Main
+    4300004: Main_col
+    4300006: Tube
+    4300008: Tube_col
+    4300010: Nozzle
+    4300012: Pneu1
+    4300014: Pneu2
+    7400000: ExtendThruster
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: ExtendThruster
+      takeName: Default Take
+      firstFrame: 0
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Main
+        weight: 1
+      - path: Main/Main_col
+        weight: 1
+      - path: Pneu2
+        weight: 1
+      - path: Tube
+        weight: 1
+      - path: Tube/Nozzle
+        weight: 1
+      - path: Tube/Pneu1
+        weight: 1
+      - path: Tube/Tube_col
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

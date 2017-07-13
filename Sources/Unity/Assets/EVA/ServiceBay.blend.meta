@@ -17,6 +17,9 @@ ModelImporter:
     100018: Door_Right_Collision
     100020: Model
     100022: //RootNode
+    100024: Bottom_Left
+    100026: Bottom_Right
+    100028: Model_001
     400000: Collider_6
     400002: Collision_1
     400004: Collision_2
@@ -29,6 +32,9 @@ ModelImporter:
     400018: Door_Right_Collision
     400020: Model
     400022: //RootNode
+    400024: Bottom_Left
+    400026: Bottom_Right
+    400028: Model_001
     2300000: Collider_6
     2300002: Collision_1
     2300004: Collision_2
@@ -40,6 +46,9 @@ ModelImporter:
     2300016: Door_Right
     2300018: Door_Right_Collision
     2300020: Model
+    2300022: Bottom_Left
+    2300024: Bottom_Right
+    2300026: Model_001
     3300000: Collider_6
     3300002: Collision_1
     3300004: Collision_2
@@ -51,6 +60,9 @@ ModelImporter:
     3300016: Door_Right
     3300018: Door_Right_Collision
     3300020: Model
+    3300022: Bottom_Left
+    3300024: Bottom_Right
+    3300026: Model_001
     4300000: Collider_6
     4300002: Collision_5
     4300004: Collision_3
@@ -62,6 +74,9 @@ ModelImporter:
     4300016: Door_Right
     4300018: Door_Right_Collision
     4300020: Model
+    4300022: Model_001
+    4300024: Bottom_Right
+    4300026: Bottom_Left
     7400000: ServiceBayOpen
     9500000: //RootNode
   materials:
