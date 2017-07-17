@@ -6,7 +6,7 @@ A medium sized versatile rover that is capable to operate independently in the h
 designed to operate on other planets, but also in the outback of Kerbin. Depending on your configuration it can  
 contain crew cabins, a laboratory or even bellowed joints to be more flexible in difficult terrain.  
 
-[Forum Thread](http://forum.kerbalspaceprogram.com/index.php?/topic/133606-1) 
+[Forum Thread](http://forum.kerbalspaceprogram.com/index.php?/topic/155344-1) 
 
 <!---![](http://i.imgur.com/O762Vfm.png)--->
 
