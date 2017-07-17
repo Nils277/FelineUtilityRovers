@@ -35,10 +35,9 @@ multiple persons worked on a translation for the same texts and therefore their 
 
 You can find all the texts that need translation here: [Texts](https://github.com/Nils277/FelineUtilityRovers/tree/master/Translation). (1968 Words)  
 
-<!---![](http://i.imgur.com/O762Vfm.png)--->
-## Known bugs 
+### [Changelog](https://github.com/Nils277/FelineUtilityRovers/blob/master/Changelog.md)
 
-The Hitches and Joints do currently not work, when Kebal Joint Reinforcement is installed. It's being worked on.  
+<!---![](http://i.imgur.com/O762Vfm.png)--->
 
 <!---![](http://i.imgur.com/O762Vfm.png)--->
 ## Thanks
