@@ -1,5 +1,6 @@
 # v0.6.0 *-Make a wish-*
 *[Released: 17.JULY.2017]*
+
 **Enhancements:**
 * Enhanced performance of all animated parts
 * The life support parts now have more storage options for Kerbalism
