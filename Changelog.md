@@ -1,3 +1,17 @@
+# v0.6.1 *-Another day another tweak-*
+*[Released: 18.JULY.2017]*
+
+**New Parts:**
+* Added Freight Canister  
+
+**Enhancements:**
+* Rebalanced all attachable Cargo Parts
+* The legs are now added to the Gear Action Group automatically
+* Tweaked displayed amount of resources for the switchable tanks
+
+**Bug Fixes:**
+* Fixed text for the extendible docking port for several languages
+
 # v0.6.0 *-Make a wish-*
 *[Released: 17.JULY.2017]*
 
