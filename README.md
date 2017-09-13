@@ -11,7 +11,7 @@ contain crew cabins, a laboratory or even bellowed joints to be more flexible in
 <!---![](http://i.imgur.com/O762Vfm.png)--->
 
 ## Features 
-![](http://i.imgur.com/J0Y2uGE.png)
+![](https://i.imgur.com/EPj0d8B.png)
 
 
 <!---![](http://i.imgur.com/O762Vfm.png)--->
@@ -40,6 +40,16 @@ You can find all the texts that need translation here: [Texts](https://github.co
 ### [Changelog](https://github.com/Nils277/FelineUtilityRovers/blob/master/Changelog.md)
 
 <!---![](http://i.imgur.com/O762Vfm.png)--->
+
+## Instructions
+
+For instructions on how to use the hitches and joints, please take a look at the **KSPedia** entry of Feline Utility Rovers
+
+The hitches and joints are locked by default when you first launch your vessel. You have to click "Unlock" in the  
+right-click menu to unlock them.
+
+The Hover Engines can be controlled with the controls for the Wheels to *accelerate and steer*. *Lateral movement and  
+height changes* can be made with the controls for *RCS*. Please also visit the **KSPedia** for more information.
 
 <!---![](http://i.imgur.com/O762Vfm.png)--->
 ## Thanks
