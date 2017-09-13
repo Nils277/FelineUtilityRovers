@@ -423,7 +423,7 @@ namespace KerbetrotterTools
                     availableCategories.Add(PartCategories.Control);
                     availableCategories.Add(PartCategories.Coupling);
                     availableCategories.Add(PartCategories.Electrical);
-                    //availableCategories.Add(PartCategories.Engine);//NEEDED?
+                    availableCategories.Add(PartCategories.Engine);
                     availableCategories.Add(PartCategories.FuelTank);
                     availableCategories.Add(PartCategories.Ground);
                     //leftCategories.Add(PartCategories.none);
@@ -469,7 +469,7 @@ namespace KerbetrotterTools
                             PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Fuel Tank", Localizer.GetStringByTag("#autoLOC_453552"), ic_fuels, p => filterCategories(p, PartCategories.FuelTank, index));
                         }
 
-                        if (usedCategories.Contains(PartCategories.Propulsion))
+                        if (usedCategories.Contains(PartCategories.Engine))
                         {
                             PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Engines", Localizer.GetStringByTag("#autoLOC_453555"), ic_engine, p => filterCategories(p, PartCategories.Propulsion, index));
                         }

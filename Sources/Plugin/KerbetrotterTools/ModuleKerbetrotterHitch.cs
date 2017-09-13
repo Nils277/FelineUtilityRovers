@@ -59,15 +59,15 @@ namespace KerbetrotterTools
         //==================================================
         //User Interaction 
         //==================================================
-        [KSPField(isPersistant = false, guiActive = true, guiActiveEditor = true, guiName = "Status")]
+        [KSPField(isPersistant = false, guiActive = true, guiActiveEditor = true, guiName = "#LOC_KERBETROTTER.hitch.status")]
         public string status = string.Empty;
 
         //The slider for the spring of the hitch
-        [KSPField(isPersistant = true, guiActive = true, guiActiveEditor = true, guiName = "Spring"), UI_FloatRange(minValue = 1f, maxValue = 200f, stepIncrement = 1f)]
+        [KSPField(isPersistant = true, guiActive = true, guiActiveEditor = true, guiName = "#LOC_KERBETROTTER.hitch.spring"), UI_FloatRange(minValue = 1f, maxValue = 200f, stepIncrement = 1f)]
         public float jointSpringValue = 1.0f;
 
         //The slider for the damping of the hitch
-        [KSPField(isPersistant = true, guiActive = true, guiActiveEditor = true, guiName = "Damping"), UI_FloatRange(minValue = 0.1f, maxValue = 3.0f, stepIncrement = 0.1f)]
+        [KSPField(isPersistant = true, guiActive = true, guiActiveEditor = true, guiName = "#LOC_KERBETROTTER.hitch.damping"), UI_FloatRange(minValue = 0.1f, maxValue = 3.0f, stepIncrement = 0.1f)]
         public float jointDampingValue = 1.0f;
 
         //==================================================
@@ -242,11 +242,13 @@ namespace KerbetrotterTools
             if (ReferenceTransforms[0] != null)
             {
                 ReferenceTransforms[0].parent = part.transform;
+                ReferenceTransforms[0] = null;
             }
 
             if (ReferenceTransforms[1] != null)
             {
                 ReferenceTransforms[1].parent = part.transform;
+                ReferenceTransforms[1] = null;
             }
         }
 
@@ -264,11 +266,6 @@ namespace KerbetrotterTools
         //Initializes the joints and attachments when in flight mode
         public override void OnStart(StartState state)
         {
-            //Localization
-            Fields["status"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.hitch.status");
-            Fields["jointSpringValue"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.hitch.spring");
-            Fields["jointDampingValue"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.hitch.damping");
-
             if (!initialized)
             {
                 jointSpringValue = jointSpring;
@@ -810,13 +807,15 @@ namespace KerbetrotterTools
                 //get the first transform
                 if (ReferenceTransforms[0] == null)
                 {
-                    ReferenceTransforms[0] = KSPUtil.FindInPartModel(transform, names[0].Replace(" ", string.Empty));
+                    //ReferenceTransforms[0] = Instantiate(part.transform);
+                    ReferenceTransforms[0] = Instantiate(KSPUtil.FindInPartModel(transform, names[0].Replace(" ", string.Empty)));
                 }
 
                 //get the second transform
                 if (ReferenceTransforms[1] == null)
                 {
-                    ReferenceTransforms[1] = KSPUtil.FindInPartModel(transform, names[1].Replace(" ", string.Empty));
+                    //ReferenceTransforms[1] = Instantiate(part.transform);
+                    ReferenceTransforms[1] = Instantiate(KSPUtil.FindInPartModel(transform, names[1].Replace(" ", string.Empty)));
                 }
             }
 
@@ -831,11 +830,13 @@ namespace KerbetrotterTools
                 if (ReferenceTransforms[0] != null)
                 {
                     ReferenceTransforms[0].parent = part.transform;
+                    ReferenceTransforms[0] = null;
                 }
 
                 if (ReferenceTransforms[1] != null)
                 {
                     ReferenceTransforms[1].parent = part.transform;
+                    ReferenceTransforms[1] = null;
                 }
 
                 Debug.Log("[LYNX] ERR InitReferences: Part has no parent");

@@ -23,9 +23,6 @@ namespace KerbetrotterTools
         //The previous state
         private float prevState = -1.0f;
 
-        ModuleLight lightModule;
-
-
         /// <summary>
         /// Update the lights in the OnUpdate method
         /// </summary>
