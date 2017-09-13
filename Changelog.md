@@ -1,3 +1,22 @@
+# v1.0.0 *-The legend of the flying Lynx-*
+*[Released: 13.SEPTEMBER.2017]*
+
+**Enhancements:**
+* Extended KSPedia entries to explain the latest features (needs translation)
+* Rebalanced the fuelcell for the roof
+* Added airlocks to the Docking Module for rescue contracts
+
+**New Parts:**
+* Added Hover-Engines
+* Added Boat-Engine
+* Added Skids
+
+**Bug Fixes:**
+* The Engine Category is now available for the engines
+* The adapters for the rover types are now passable for CLS
+* Fixed compatibility issues with KJR
+
+
 # v0.6.1 *-Another day another tweak-*
 *[Released: 18.JULY.2017]*
 

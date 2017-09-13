@@ -371,7 +371,7 @@ namespace KerbetrotterTools
                             {
                                 info.Append("<color=#35DC35>");
                                 info.Append("      ");
-                                info.Append(resource.maxAmount);
+                                info.Append(resource.maxAmount.ToString("0.0"));
                                 info.Append("</color>");
                                 info.Append(" ");
                             }
@@ -383,7 +383,7 @@ namespace KerbetrotterTools
                         if (switchableResource.resources[0].maxAmount > 0)
                         {
                             info.Append("<color=#35DC35>");
-                            info.Append(switchableResource.resources[0].maxAmount);
+                            info.Append(switchableResource.resources[0].maxAmount.ToString("0.0"));
                             info.Append("</color>");
                             info.Append(" ");
                         }
