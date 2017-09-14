@@ -1,3 +1,13 @@
+# v1.0.1  *-Fixing the wings-*
+*[Released: 14.SEPTEMBER.2017]*
+
+**Bug Fixes:**
+
+* Fixed engine categories (this time really)
+* Removed debug info from right click menu of the hover engines
+* Fixed inconsistens behaviour when hover mode cannot be enabled
+* Fixed headlights of the Cockpit
+
 # v1.0.0 *-The legend of the flying Lynx-*
 *[Released: 13.SEPTEMBER.2017]*
 

@@ -344,6 +344,32 @@ namespace KerbetrotterTools
             return partCategories[index][part.name] == category;
         }
 
+        private bool filterCategoriesMulti(AvailablePart part, PartCategories[] categories, int index)
+        {
+            if (index >= KerbetrotterConfiguration.Instance().FilterSettings.Length)
+            {
+                Debug.LogError("[KerbetrotterTools] invalid index for category filter: " + index);
+                return false;
+            }
+
+            KerbetrotterFilterSettings filterSettings = KerbetrotterConfiguration.Instance().FilterSettings[index];
+            //return false when the part is not included by the filter
+            if (!part.name.StartsWith(filterSettings.IncludeFilter) || (!string.IsNullOrEmpty(filterSettings.ExcludeFilter) && part.name.StartsWith(filterSettings.ExcludeFilter)))
+            {
+                return false;
+            }
+            for (int i = 0; i < categories.Length; i++)
+            {
+                if (partCategories[index][part.name] == categories[i])
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
         /*/// <summary>
         /// Add the function filter to the filter
         /// </summary>
@@ -469,9 +495,9 @@ namespace KerbetrotterTools
                             PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Fuel Tank", Localizer.GetStringByTag("#autoLOC_453552"), ic_fuels, p => filterCategories(p, PartCategories.FuelTank, index));
                         }
 
-                        if (usedCategories.Contains(PartCategories.Engine))
+                        if (usedCategories.Contains(PartCategories.Engine) || usedCategories.Contains(PartCategories.Propulsion))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Engines", Localizer.GetStringByTag("#autoLOC_453555"), ic_engine, p => filterCategories(p, PartCategories.Propulsion, index));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Engines", Localizer.GetStringByTag("#autoLOC_453555"), ic_engine, p => filterCategoriesMulti(p, new PartCategories[] {PartCategories.Propulsion, PartCategories.Engine}, index));
                         }
 
                         if (usedCategories.Contains(PartCategories.Control))
