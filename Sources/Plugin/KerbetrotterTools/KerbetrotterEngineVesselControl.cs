@@ -14,7 +14,7 @@ namespace KerbetrotterTools
         private EventData<ModuleKerbetrotterEngine, bool> onEngineHoverChangeEvent;
 
         //center of all the engines
-        private Vector3 center;
+        //private Vector3 center;
 
         //Wheter the count of new engines has changed
         private bool changed = false;
@@ -42,6 +42,7 @@ namespace KerbetrotterTools
         {
             if (engine.vessel == vessel)
             {
+
                 if ((hoverActive) && !engines.Contains(engine))
                 {
                     engines.Add(engine);
@@ -110,7 +111,7 @@ namespace KerbetrotterTools
                     ScreenMessages.PostScreenMessage(new ScreenMessage(Localizer.Format("#LOC_KERBETROTTER.engine.hoverfail", maxHoverHeight), 2f, ScreenMessageStyle.UPPER_CENTER));
                     for (int i = 0; i < engines.Count; i++)
                     {
-                        engines[i].setHoverEnabled(false);
+                        engines[i].setHoverEnabled(false, false);
                     }
                     engines.Clear();
                 }

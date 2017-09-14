@@ -143,9 +143,8 @@ namespace KerbetrotterTools
         /// <summary>
         /// The height to hover at for this engine
         /// </summary>
-        [KSPField(isPersistant = true, guiActive = true)]
+        [KSPField(isPersistant = true)]
         private float hoverHeight = 0.0f;
-
 
         /// <summary>
         /// Saves whether the height of the hover engine is set
@@ -231,13 +230,9 @@ namespace KerbetrotterTools
         private int raycastMask = (1 << 28 | 1 << 15);
 
         //The correction for the altitude
-        [KSPField(guiActive = true)]
         private float alitudeCorrection;
 
-        //The correction for the altitude
-        [KSPField(guiActive = true)]
-        private float visibleHeight;
-
+        //the divider when multiple thrusts are present
         private float thrustDivider = 1.0f;
 
         //the current profile
@@ -303,7 +298,7 @@ namespace KerbetrotterTools
                     PartModule module = part.symmetryCounterparts[i].Modules[index];
                     if (module is ModuleKerbetrotterEngine)
                     {
-                        ((ModuleKerbetrotterEngine)module).setHoverEnabled(hoverEnabled);
+                        ((ModuleKerbetrotterEngine)module).setHoverEnabled(hoverEnabled, true);
                     }
                 }
             }
@@ -747,12 +742,12 @@ namespace KerbetrotterTools
         /// Set whether the engine should hover
         /// </summary>
         /// <param name="hover">True when hover should be enabled, else flase</param>
-        public void setHoverEnabled(bool hover)
+        public void setHoverEnabled(bool hover, bool fireEvent)
         {
             if (allowHover)
             {
                 hoverEnabled = hover;
-                updateHoverStatus();
+                updateHoverStatus(fireEvent);
             }
         }
 
@@ -803,7 +798,7 @@ namespace KerbetrotterTools
         /// <param name="height">The hover height</param>
         public void setHoverHeight(float height)
         {
-            if (hoverEnabled && !heightSet)
+            if (hoverEnabled)
             {
                 hoverHeight = height;
                 heightSet = true;
@@ -914,8 +909,8 @@ namespace KerbetrotterTools
 
         }
 
-        //update the status of the hover mode
-        private void updateHoverStatus()
+        //update the hover status, sets whether an event should be fired or not
+        private void updateHoverStatus(bool fireEvent)
         {
             if ((!hoverEnabled) || (!ignited))
             {
@@ -924,9 +919,17 @@ namespace KerbetrotterTools
                 alitudeCorrection = 0;
                 heightSet = false;
             }
-            KerbetrotterEngineHoverEvent.onEngineHover.Fire(this, hoverEnabled & ignited);
+            if (fireEvent) {
+                KerbetrotterEngineHoverEvent.onEngineHover.Fire(this, hoverEnabled & ignited);
+            }
             hovering = hoverEnabled ? engine_hover_enabled : engine_hover_disabled;
             Events["ToggleHover"].guiName = hoverEnabled? Localizer.Format("#LOC_KERBETROTTER.engine.mode.switch_free") : Localizer.Format("#LOC_KERBETROTTER.engine.mode.switch_hover");
+        }
+
+        //update the status of the hover mode
+        private void updateHoverStatus()
+        {
+            updateHoverStatus(true);
         }
 
 
