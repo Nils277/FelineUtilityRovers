@@ -45,7 +45,6 @@ namespace KerbetrotterTools
 
                 if ((hoverActive) && !engines.Contains(engine))
                 {
-                    Debug.Log("[LYNX] Adding Engine");
                     engines.Add(engine);
                     changed = true;
                     return;
@@ -53,7 +52,6 @@ namespace KerbetrotterTools
 
                 if ((!hoverActive) && engines.Contains(engine))
                 {
-                    Debug.Log("[LYNX] Removing Engine");
                     engines.Remove(engine);
                     changed = true;
                     return;
@@ -113,7 +111,6 @@ namespace KerbetrotterTools
                     ScreenMessages.PostScreenMessage(new ScreenMessage(Localizer.Format("#LOC_KERBETROTTER.engine.hoverfail", maxHoverHeight), 2f, ScreenMessageStyle.UPPER_CENTER));
                     for (int i = 0; i < engines.Count; i++)
                     {
-                        Debug.Log("[LYNX] Disabling Engine");
                         engines[i].setHoverEnabled(false, false);
                     }
                     engines.Clear();
