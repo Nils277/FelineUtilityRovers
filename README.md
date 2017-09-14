@@ -27,8 +27,8 @@ contain crew cabins, a laboratory or even bellowed joints to be more flexible in
 <!---![](http://i.imgur.com/O762Vfm.png)--->
 
 ## Galleries 
-[![](http://i.imgur.com/8SHPkw2.png)](http://imgur.com/a/fOPRK)
-[![](http://i.imgur.com/pVShxBH.png)](https://www.youtube.com/watch?v=nMHhR1amxVc)  
+[![](https://i.imgur.com/7qQXxm9.png)](http://imgur.com/a/fOPRK)
+[![](https://i.imgur.com/NALenYi.png)](https://www.youtube.com/watch?v=nMHhR1amxVc)  
 
 <!---![](http://i.imgur.com/O762Vfm.png)--->  
 ## Translations  
