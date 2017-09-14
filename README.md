@@ -6,12 +6,12 @@ A medium sized versatile rover that is capable to operate independently in the h
 designed to operate on other planets, but also in the outback of Kerbin. Depending on your configuration it can  
 contain crew cabins, a laboratory or even bellowed joints to be more flexible in difficult terrain.  
 
-[Forum Thread](http://forum.kerbalspaceprogram.com/index.php?/topic/133606-1) 
+[Forum Thread](http://forum.kerbalspaceprogram.com/index.php?/topic/155344-1) 
 
 <!---![](http://i.imgur.com/O762Vfm.png)--->
 
 ## Features 
-![](http://i.imgur.com/J0Y2uGE.png)
+![](https://i.imgur.com/EPj0d8B.png)
 
 
 <!---![](http://i.imgur.com/O762Vfm.png)--->
@@ -24,7 +24,9 @@ contain crew cabins, a laboratory or even bellowed joints to be more flexible in
 ## Translations  
 ![](http://i.imgur.com/cXO4NUi.png) Español by [bice](http://forum.kerbalspaceprogram.com/index.php?/profile/152599-bice/)  
 ![](http://i.imgur.com/mFRcn0a.png) Русский by [Tirathangil](https://github.com/Tirathangil)  
-![](http://i.imgur.com/JyqfJ1P.png) 中国语文 coming soon
+![](http://i.imgur.com/JyqfJ1P.png) 中国语文 by [ssd21345](http://forum.kerbalspaceprogram.com/index.php?/profile/146209-ssd21345/), [vosskftw](http://forum.kerbalspaceprogram.com/index.php?/profile/175031-vosskftw/) and [Levin845](http://forum.kerbalspaceprogram.com/index.php?/profile/176530-levin845/)  
+![](http://i.imgur.com/THVD1ot.jpg) Português (do Brasil) by [FellipeC](http://forum.kerbalspaceprogram.com/index.php?/profile/77983-fellipec/)  
+![](http://i.imgur.com/SuHOnKm.png) Deutsch by [Nils277](http://forum.kerbalspaceprogram.com/index.php?/profile/122414-nils277/)  
 
 ### Looking for help:
 If anyone is interested to translate FUR into Japanese ![](http://i.imgur.com/M93S44Z.png) (or the other languages 
@@ -35,10 +37,19 @@ multiple persons worked on a translation for the same texts and therefore their 
 
 You can find all the texts that need translation here: [Texts](https://github.com/Nils277/FelineUtilityRovers/tree/master/Translation). (1968 Words)  
 
-<!---![](http://i.imgur.com/O762Vfm.png)--->
-## Known bugs 
+### [Changelog](https://github.com/Nils277/FelineUtilityRovers/blob/master/Changelog.md)
 
-The Hitches and Joints do currently not work, when Kebal Joint Reinforcement is installed. It's being worked on.  
+<!---![](http://i.imgur.com/O762Vfm.png)--->
+
+## Instructions
+
+For instructions on how to use the hitches and joints, please take a look at the **KSPedia** entry of Feline Utility Rovers
+
+The hitches and joints are locked by default when you first launch your vessel. You have to click "Unlock" in the  
+right-click menu to unlock them.
+
+The Hover Engines can be controlled with the controls for the Wheels to *accelerate and steer*. *Lateral movement and  
+height changes* can be made with the controls for *RCS*. Please also visit the **KSPedia** for more information.
 
 <!---![](http://i.imgur.com/O762Vfm.png)--->
 ## Thanks
