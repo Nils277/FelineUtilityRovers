@@ -47,6 +47,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IConfigurableResourceModule.cs" />
+    <Compile Include="IResourceChangeListener.cs" />
     <Compile Include="KerbetrotterCategories.cs" />
     <Compile Include="KerbetrotterConfiguration.cs" />
     <Compile Include="KerbetrotterEngineHoverEvent.cs" />
@@ -59,16 +61,19 @@
     <Compile Include="ModuleKerbetrotterEngine.cs" />
     <Compile Include="ModuleKerbetrotterEngineAnimation.cs" />
     <Compile Include="ModuleKerbetrotterEngineControl.cs" />
+    <Compile Include="ModuleKerbetrotterHarvesterSwitch.cs" />
     <Compile Include="ModuleKerbetrotterHitch.cs" />
     <Compile Include="ModuleKerbetrotterInternalUpdater.cs" />
     <Compile Include="ModuleKerbetrotterJointHelper.cs" />
     <Compile Include="ModuleKerbetrotterEditorMesh.cs" />
+    <Compile Include="ModuleKerbetrotterMeshHide.cs" />
     <Compile Include="ModuleKerbetrotterMeshToggle.cs" />
     <Compile Include="ModuleKerbetrotterMeshSwitch.cs" />
     <Compile Include="ModuleKerbetrotterMultiLight.cs" />
     <Compile Include="ModuleKerbetrotterResourceSwitch.cs" />
     <Compile Include="ModuleKerbetrotterLight.cs" />
     <Compile Include="ModuleKerbetrotterRotateBetween.cs" />
+    <Compile Include="ModuleKerbetrotterTextureShift.cs" />
     <Compile Include="ModuleKerbetrotterTransparendPodHelper.cs" />
     <Compile Include="PartExtentions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
