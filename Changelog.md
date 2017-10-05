@@ -22,6 +22,7 @@
 **Mod Support:**
 * Added basic support for MKS
 * Added support for kOS
+* Added support for WindowShine
         
 **Misc:**
 * Adapted licenses (there are now two separate licenses for code and assets)
