@@ -13,14 +13,17 @@ CHANGE FILTER
     
 LICENSING
 ---------------
-	CC-BY-NC 
-	http://creativecommons.org/licenses/by-nc/4.0/
+	The art assets are licensed under: CC-BY-NC 
+        http://creativecommons.org/licenses/by-nc/4.0/
+    
+    The plugin code is licensed under: Apache License 2.0
+        http://www.apache.org/licenses/LICENSE-2.0.html
 
 AUTHOR
 ---------------
 	Nils277
     
-CONTIBUTIONS
+CONTRIBUTIONS
 ---------------
-    The Hitche system used "Infernal Robotics" from SIRKUT and ZIW as reference implementation.
+    The hitch system used "Infernal Robotics" from SIRKUT and ZIW as reference implementation.
     The Fuel-Switch is based on the "Firespitter" Fuel-Switch from SNJO

@@ -1,4 +1,18 @@
-﻿
+﻿/*
+ * Copyright (C) 2017 Nils277 (https://github.com/Nils277)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 using KSP.Localization;
 using UnityEngine;
 
@@ -397,15 +411,15 @@ namespace KerbetrotterTools
                 if (((cancelDrift) && (drift == 0)) || (brakeEnabled))
                 {
                     if (mainAxis == MainAxis.FORWARD) {
-                        driftControl = PID(vel[0] * 3, Kp_s, Ki_s, Kd_s, driftControl[1], driftControl[2], 3, 4, 4, 1);
+                        driftControl = PID(vel[0] * 3, Kp_s, Ki_s, Kd_s, driftControl[1], driftControl[2], 3, 4, 6.5f, 1);
                     }
                     else if (mainAxis == MainAxis.UP)
                     {
-                        driftControl = PID(vel[0] * 3, Kp_s, Ki_s, Kd_s, driftControl[1], driftControl[2], 3, 4, 4, 1);
+                        driftControl = PID(vel[0] * 3, Kp_s, Ki_s, Kd_s, driftControl[1], driftControl[2], 3, 4, 6.5f, 1);
                     }
                     else 
                     {
-                        driftControl = PID(vel[1] * 3, Kp_s, Ki_s, Kd_s, driftControl[1], driftControl[2], 3, 4, 4, 1);
+                        driftControl = PID(vel[1] * 3, Kp_s, Ki_s, Kd_s, driftControl[1], driftControl[2], 3, 4, 6.5f, 1);
                     }
                     setDrift = driftControl[0];
                 }
@@ -414,15 +428,15 @@ namespace KerbetrotterTools
                 {
                     if (mainAxis == MainAxis.FORWARD)
                     {
-                        driftControl = PID(targetDrift + vel[0], Kp_s, Ki_s, Kd_s, driftControl[1], driftControl[2], 3, 4, 4, 1);
+                        driftControl = PID(targetDrift + vel[0], Kp_s, Ki_s, Kd_s, driftControl[1], driftControl[2], 3, 4, 6.5f, 1);
                     }
                     else if (mainAxis == MainAxis.UP)
                     {
-                        driftControl = PID(targetDrift + vel[0], Kp_s, Ki_s, Kd_s, driftControl[1], driftControl[2], 3, 4, 4, 1);
+                        driftControl = PID(targetDrift + vel[0], Kp_s, Ki_s, Kd_s, driftControl[1], driftControl[2], 3, 4, 6.5f, 1);
                     }
                     else
                     {
-                        driftControl = PID(targetDrift + vel[1], Kp_s, Ki_s, Kd_s, driftControl[1], driftControl[2], 3, 4, 4, 1);
+                        driftControl = PID(targetDrift + vel[1], Kp_s, Ki_s, Kd_s, driftControl[1], driftControl[2], 3, 4, 6.5f, 1);
                     }
                     setDrift = driftControl[0];
                 }
@@ -439,15 +453,15 @@ namespace KerbetrotterTools
                 {
                     if ((mainAxis == MainAxis.FORWARD))
                     {
-                        speedControl = PID(-vel[1] * 3, Kp_s, Ki_s, Kd_s, speedControl[1], speedControl[2], 3, 4, 4, 1);
+                        speedControl = PID(-vel[1] * 3, Kp_s, Ki_s, Kd_s, speedControl[1], speedControl[2], 3, 4, 6.5f, 1);
                     }
                     else if (mainAxis == MainAxis.UP)
                     {
-                        speedControl = PID(-vel[2] * 3, Kp_s, Ki_s, Kd_s, speedControl[1], speedControl[2], 3, 4, 4, 1);
+                        speedControl = PID(-vel[2] * 3, Kp_s, Ki_s, Kd_s, speedControl[1], speedControl[2], 3, 4, 6.5f, 1);
                     }
                     else
                     {
-                        speedControl = PID(-vel[2] * 3, Kp_s, Ki_s, Kd_s, speedControl[1], speedControl[2], 3, 4, 4, 1);
+                        speedControl = PID(-vel[2] * 3, Kp_s, Ki_s, Kd_s, speedControl[1], speedControl[2], 3, 4, 6.5f, 1);
                     }
                     setAccelerate = speedControl[0];
                 }
@@ -456,15 +470,15 @@ namespace KerbetrotterTools
                 {
                     if ((mainAxis == MainAxis.FORWARD))
                     {
-                        speedControl = PID(targetSpeed - vel[1], Kp_s, Ki_s, Kd_s, speedControl[1], speedControl[2], 3, 4, 4, 1);
+                        speedControl = PID(targetSpeed - vel[1], Kp_s, Ki_s, Kd_s, speedControl[1], speedControl[2], 3, 4, 6.5f, 1);
                     }
                     else if (mainAxis == MainAxis.UP)
                     {
-                        speedControl = PID(targetSpeed - vel[2], Kp_s, Ki_s, Kd_s, speedControl[1], speedControl[2], 3, 4, 4, 1);
+                        speedControl = PID(targetSpeed - vel[2], Kp_s, Ki_s, Kd_s, speedControl[1], speedControl[2], 3, 4, 6.5f, 1);
                     }
                     else
                     {
-                        speedControl = PID(targetSpeed - vel[2], Kp_s, Ki_s, Kd_s, speedControl[1], speedControl[2], 3, 4, 4, 1);
+                        speedControl = PID(targetSpeed - vel[2], Kp_s, Ki_s, Kd_s, speedControl[1], speedControl[2], 3, 4, 6.5f, 1);
                     }
                     setAccelerate = speedControl[0];
                 }

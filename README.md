@@ -71,5 +71,8 @@ Also thanks to [Snjo](http://forum.kerbalspaceprogram.com/index.php?/profile/571
 Last but not least thanks to [Rafael acevedo](http://forum.kerbalspaceprogram.com/index.php?/profile/84946-rafael-acevedo/) for testing and suggestions during the development.
 
 ## License
-
+The art assets are licensed under:
 [CC-BY-NC](https://creativecommons.org/licenses/by-nc/4.0/)
+
+The plugin code is licensed under: 
+[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)

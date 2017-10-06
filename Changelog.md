@@ -1,8 +1,37 @@
+# v1.0.2  *-Fixing the wings-*
+*[Released: 06.OKTOBER.2017]*
+
+**Update:**
+* Recompile for KSP 1.3.1
+        
+**Enhancements:**
+* The textures of the resource storages do now show what they have stored
+* Reduced strenght of 'Cancel lateral speed' option for the engines. (It cause unwanted rotation)
+        
+**New Parts:**
+* Added Drill
+* Added ISRU
+* Added thin version of Flatbed
+* Added thin version of Cargo Bay
+        
+**Bug Fixes:**
+* Added missing texts for the freight canister
+* Fixed engine categories (this time really, take two)
+* Fixed a bug where a resource container removed non switchable resources from the part
+        
+**Mod Support:**
+* Added basic support for MKS
+* Added support for kOS
+* Added support for WindowShine
+        
+**Misc:**
+* Adapted licenses (there are now two separate licenses for code and assets)
+
+        
 # v1.0.1  *-Fixing the wings-*
 *[Released: 14.SEPTEMBER.2017]*
 
 **Bug Fixes:**
-
 * Fixed engine categories (this time really)
 * Removed debug info from right click menu of the hover engines
 * Fixed inconsistens behaviour when hover mode cannot be enabled

@@ -1,4 +1,19 @@
-﻿using System;
+﻿/*
+ * Copyright (C) 2017 Nils277 (https://github.com/Nils277)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -8,7 +23,7 @@ using KSP.Localization;
 namespace KerbetrotterTools
 {
     [KSPModule("Kerbetrotter Resource Switch")]
-    class ModuleKerbetrotterResourceSwitch : PartModule, IPartCostModifier, IPartMassModifier, IModuleInfo
+    class ModuleKerbetrotterResourceSwitch : PartModule, IPartCostModifier, IPartMassModifier, IModuleInfo, IConfigurableResourceModule
     {
         [KSPField]
         public string resourceConfiguration = string.Empty; //Whether the switch is available in flight
@@ -70,6 +85,9 @@ namespace KerbetrotterTools
 
         //Saves wheter the resources are currently vented
         private bool dumping = false;
+
+        //List of listeners for resource changes
+        private List<IResourceChangeListener> listeners = new List<IResourceChangeListener>();
 
         /// <summary>
         /// Get the switchable resources on load to allow the partInfo to be populated
@@ -147,6 +165,12 @@ namespace KerbetrotterTools
 
             //update the texts of the GUI
             updateGUIText(part);
+
+            //init all listeners with the right resource
+            for (int i = 0; i < listeners.Count; i++)
+            {
+                listeners[i].onResourceChanged(switchableResources[selectedResourceID].ID);
+            }
         }
 
         /// <summary>
@@ -157,7 +181,6 @@ namespace KerbetrotterTools
             //update the visibility of the GUI
             updateGUIVisibility(part);
         }
-
 
 
         /// <summary>
@@ -223,6 +246,33 @@ namespace KerbetrotterTools
 
                 //update the particle emitter
                 updateEmitter();
+            }
+        }
+
+        //--------------------Interface------------------
+
+        /// <summary>
+        /// Adds a listener for resource changes to the list
+        /// </summary>
+        /// <param name="listener">The new listener</param>
+        public void addResourceChangeListener(IResourceChangeListener listener)
+        {
+            if ((listener != null) && (!listeners.Contains(listener)))
+            {
+                listener.onResourceChanged(switchableResources[selectedResourceID].ID);
+                listeners.Add(listener);
+            }
+        }
+
+        /// <summary>
+        /// Removes a listener for resource changes from the list
+        /// </summary>
+        /// <param name="listener">The listener to remove</param>
+        public void removeResourceChangeListener(IResourceChangeListener listener)
+        {
+            if ((listener != null) && (listeners.Contains(listener)))
+            {
+                listeners.Remove(listener);
             }
         }
 
@@ -724,6 +774,11 @@ namespace KerbetrotterTools
                             currentPart.AddResource(newResourceNode);
                         }
                     }
+                    //inform all listeners about the switched resource
+                    for (int i = 0; i < listeners.Count; i++)
+                    {
+                        listeners[i].onResourceChanged(switchableResources[selectedResourceID].ID);
+                    }
                 }
             }
         }
@@ -749,7 +804,12 @@ namespace KerbetrotterTools
                 try {
                     float famount = float.Parse(amount, CultureInfo.InvariantCulture.NumberFormat);
                     float fmaxAmount = float.Parse(maxAmount, CultureInfo.InvariantCulture.NumberFormat);
-                    bool bIsWeakable = bool.Parse(isTweakable);
+
+                    bool bIsWeakable = true;
+                    if (isTweakable != null)
+                    {
+                        bIsWeakable = bool.Parse(isTweakable);
+                    }
                     resources.Add(new KerbetrotterDefaultResource(name, famount, fmaxAmount, bIsWeakable));
                 }
                 catch
@@ -798,6 +858,13 @@ namespace KerbetrotterTools
                     }
                     float fMassModifier = float.Parse(massModifier, CultureInfo.InvariantCulture.NumberFormat);
 
+                    //Get the ID of the resource
+                    string ID = "DEFAULT";
+                    if (resourceNodes[i].HasValue("ID"))
+                    {
+                        ID = resourceNodes[i].GetValue("ID");
+                    }
+
                     //Saves whether animating the venting is allowed
                     string animateVenting = resourceNodes[i].GetValue("animateVenting");
                     if (string.IsNullOrEmpty(animateVenting))
@@ -820,7 +887,7 @@ namespace KerbetrotterTools
                         {
                             isTweakable = "true";
                         }
-                        bool bIsWeakable = (isTweakable.ToLower() == "true");
+                        bool bIsWeakable = bool.Parse(isTweakable);
 
 
                         fCostModifier += maxAmount * PartResourceLibrary.Instance.resourceDefinitions[resourceName].unitCost;
@@ -828,7 +895,7 @@ namespace KerbetrotterTools
                     }
 
                     //add the resource to the list of switchable resources
-                    resources.Add(new KerbetrotterSwitchableResource(guiName, fMassModifier* resourceMultiplier, fCostModifier* resourceMultiplier, bAnimateVenting, newResources));
+                    resources.Add(new KerbetrotterSwitchableResource(guiName, ID, fMassModifier * resourceMultiplier, fCostModifier* resourceMultiplier, bAnimateVenting, newResources));
                 }
             }
             catch (Exception e)
@@ -871,14 +938,16 @@ namespace KerbetrotterTools
         public class KerbetrotterSwitchableResource
         {
             public string guiName;
+            public string ID;
             public double massModifier;
             public double costModifier;
             public bool animateVenting;
             public KerbetrotterResourceDefinition[] resources;
 
-            public KerbetrotterSwitchableResource(string guiName, double massModifier, double costModifier, bool animateVenting, KerbetrotterResourceDefinition[] resources)
+            public KerbetrotterSwitchableResource(string guiName, string ID, double massModifier, double costModifier, bool animateVenting, KerbetrotterResourceDefinition[] resources)
             {
                 this.guiName = guiName;
+                this.ID = ID;
                 this.resources = resources;
                 this.massModifier = massModifier;
                 this.costModifier = costModifier;
