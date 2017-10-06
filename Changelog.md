@@ -1,8 +1,8 @@
 # v1.0.2  *-Fixing the wings-*
-*[Released: XX.OKTOBER.2017]*
+*[Released: 06.OKTOBER.2017]*
 
 **Update:**
-* Recompile for KSP 1.3.1 [PENDING]
+* Recompile for KSP 1.3.1
         
 **Enhancements:**
 * The textures of the resource storages do now show what they have stored
