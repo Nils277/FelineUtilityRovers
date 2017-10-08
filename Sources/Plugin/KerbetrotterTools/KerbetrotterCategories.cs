@@ -65,6 +65,9 @@ namespace KerbetrotterTools
         //The instance of this filter
         //public static KerbatrotterCategories Instance;
 
+        //String for the filter by function
+        const string FilterByFunction = "#autoLOC_453547";
+
         /// <summary>
         /// When the class awakes it inits all the filters it found for the KerbatrotterTools
         /// </summary>
@@ -585,7 +588,7 @@ namespace KerbetrotterTools
                     }
 
                     //Find the function filter
-                    PartCategorizer.Category functionFilter = PartCategorizer.Instance.filters.Find(f => f.button.categoryName == "Filter by function");
+                    PartCategorizer.Category functionFilter = PartCategorizer.Instance.filters.Find(f => f.button.categorydisplayName == FilterByFunction);//PartCategorizer.Instance.filters.Find(f => f.button.categoryName == "Filter by function");
 
                     int index = i;
 

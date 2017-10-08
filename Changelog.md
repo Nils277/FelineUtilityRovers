@@ -1,8 +1,14 @@
+#v1.0.3  *-All about functions-*
+*[Released: 08.Oktober.2017]* 
+
+**Bug Fixes:**
+* Fixed category in function filter
+
 # v1.0.2  *-Fixing the wings-*
-*[Released: 06.OKTOBER.2017]*
+*[Released: XX.OKTOBER.2017]*
 
 **Update:**
-* Recompile for KSP 1.3.1
+* Recompile for KSP 1.3.1 [PENDING]
         
 **Enhancements:**
 * The textures of the resource storages do now show what they have stored
@@ -22,7 +28,6 @@
 **Mod Support:**
 * Added basic support for MKS
 * Added support for kOS
-* Added support for WindowShine
         
 **Misc:**
 * Adapted licenses (there are now two separate licenses for code and assets)
