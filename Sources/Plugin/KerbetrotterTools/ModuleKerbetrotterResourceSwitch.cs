@@ -55,6 +55,9 @@ namespace KerbetrotterTools
         [KSPField]
         public string particleEmitter = string.Empty; //The emitter for the particles when the fuel is vented
 
+        [KSPField]
+        public string moduleID = string.Empty; //The id of the module
+
         //The fuel that is currently selected
         [KSPField(isPersistant = true)]
         public int selectedResourceID = -1;
@@ -129,15 +132,38 @@ namespace KerbetrotterTools
                     }
                 }
 
-                int numModule = part.getModuleIndex(this);
+                
+                List<ModuleKerbetrotterResourceSwitch> modules = part.Modules.GetModules<ModuleKerbetrotterResourceSwitch>();
+                ConfigNode[] modulesConfigs = part.partInfo.partConfig.GetNodes("MODULE");
 
-                ConfigNode[] nodes = part.partInfo.partConfig.GetNodes("MODULE");
-                if ((numModule >= 0) && (numModule < nodes.Length) && (nodes[numModule].GetValue("name") == moduleName))
+                //get the index of this module
+                int partModuleIndex = 0;
+                for (int i = 0; i < modules.Count; i++)
                 {
-                    initSwitchableResources(nodes[numModule]);
-                    initialized = true;
+                    if (modules[i] == this)
+                    {
+                        partModuleIndex = i;
+                        break;
+                    }
                 }
-                else
+
+                //get the corresponding config node
+                int configNodeIndex = 0;
+                for (int i = 0; i < modulesConfigs.Length; i++)
+                {
+                    if (modulesConfigs[i].GetValue("name") == moduleName)
+                    {
+                        if (configNodeIndex == partModuleIndex)
+                        {
+                            initSwitchableResources(modulesConfigs[i]);
+                            initialized = true;
+                            break;
+                        }
+                        configNodeIndex++;
+                    }
+                }
+
+                if (!initialized)
                 {
                     Debug.LogError("[KerbetrotterResourceSwitch] " + moduleName + ": Cannot find valid configNode for this module)");
                 }
@@ -259,8 +285,11 @@ namespace KerbetrotterTools
         {
             if ((listener != null) && (!listeners.Contains(listener)))
             {
-                listener.onResourceChanged(switchableResources[selectedResourceID].ID);
-                listeners.Add(listener);
+                if (initialized)
+                {
+                    listener.onResourceChanged(switchableResources[selectedResourceID].ID);
+                    listeners.Add(listener);
+                }
             }
         }
 

@@ -34,6 +34,12 @@ namespace KerbetrotterTools
         public string textureName = string.Empty;
 
         /// <summary>
+        /// The id of the module
+        /// </summary>
+        [KSPField]
+        public string moduleID = string.Empty;
+
+        /// <summary>
         /// The used resource configuration
         /// </summary>
         [KSPField]
@@ -62,11 +68,6 @@ namespace KerbetrotterTools
             if (textureTransform != null)
             {
                 material = textureTransform.GetComponent<Renderer>().material;
-                Debug.Log("[LYNX] material valid: " + material != null);
-            }
-            else
-            {
-                Debug.Log("[LYNX] no transform");
             }
 
             for (int i = 0; i < part.Modules.Count; i++)
@@ -100,16 +101,20 @@ namespace KerbetrotterTools
         {
             if (material != null)
             {
-                Vector2 offset = switchableResources[name];
-                if (offset != null)
-                {
-                    Debug.Log("[LYNX] Setting offset: " + offset.x + " " + offset.y);
-                    material.SetTextureOffset(textureName, offset);
+                if (switchableResources.ContainsKey(name)) { 
+                    Vector2 offset = switchableResources[name];
+                    if (offset != null)
+                    {
+                        material.SetTextureOffset(textureName, offset);
+                    }
+                    else
+                    {
+                        material.SetTextureOffset(textureName, new Vector2(0.0f, 0.0f));
+                    }
                 }
                 else
                 {
                     material.SetTextureOffset(textureName, new Vector2(0.0f, 0.0f));
-                    Debug.Log("[LYNX] Resetting offset");
                 }
             }
         }
@@ -119,16 +124,44 @@ namespace KerbetrotterTools
         /// </summary>
         private void initSwitchableResources()
         {
-            ConfigNode[] modules = part.partInfo.partConfig.GetNodes("MODULE");
-            int index = part.Modules.IndexOf(this);
-            if (index != -1 && index < modules.Length && modules[index].GetValue("name") == moduleName)
+            //ConfigNode[] modules = part.partInfo.partConfig.GetNodes("MODULE");
+
+            bool valid = false;
+            
+            List<ModuleKerbetrotterTextureShift> modules = part.Modules.GetModules<ModuleKerbetrotterTextureShift>();
+            ConfigNode[] modulesConfigs = part.partInfo.partConfig.GetNodes("MODULE");
+
+            //get the index of this module
+            int partModuleIndex = 0;
+            for (int i = 0; i < modules.Count; i++)
             {
-                string[] definitions = modules[index].GetValues("textureOffset");
-                switchableResources = parseResources(definitions);
+                if (modules[i] == this)
+                {
+                    partModuleIndex = i;
+                    break;
+                }
             }
-            else
+
+            //get the corresponding config node
+            int configNodeIndex = 0;
+            for (int i = 0; i < modulesConfigs.Length; i++)
             {
-                Debug.Log("[LYNX] Engine Config NOT found");
+                if (modulesConfigs[i].GetValue("name") == moduleName)
+                {
+                    if (configNodeIndex == partModuleIndex)
+                    {
+                        string[] definitions = modulesConfigs[i].GetValues("textureOffset");
+                        switchableResources = parseResources(definitions);
+                        valid = true;
+                        break;
+                    }
+                    configNodeIndex++;
+                }
+            }
+
+            if (!valid)
+            {
+                Debug.LogError("[ModuleKerbetrotterTextureShift] " + moduleName + ": Cannot find valid configNode for this module");
             }
         }
 
