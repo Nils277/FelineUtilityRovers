@@ -15,7 +15,6 @@
  */
 using KSP.Localization;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace KerbetrotterTools
 {
@@ -51,7 +50,7 @@ namespace KerbetrotterTools
             }
 
             currentConfig++;
-            if (currentConfig > harvesters.Count)
+            if (currentConfig >= harvesters.Count)
             {
                 currentConfig = 0;
             }
@@ -98,6 +97,21 @@ namespace KerbetrotterTools
             if ((currentConfig >= harvesters.Count) || (currentConfig < 0))
             {
                 currentConfig = 0;
+            }
+
+            if (harvesters.Count < 2)
+            {
+                Fields["currentConverter"].guiActive = false;
+                Fields["currentConverter"].guiActiveEditor = false;
+                Events["NextConverter"].guiActive = false;
+                Events["NextConverter"].guiActiveEditor = false;
+                Events["PrevConverter"].guiActive = false;
+                Events["PrevConverter"].guiActiveEditor = false;
+            }
+            else if (harvesters.Count == 2)
+            {
+                Events["PrevConverter"].guiActive = false;
+                Events["PrevConverter"].guiActiveEditor = false;
             }
 
             updateMenuVisibility(changable);

@@ -62,11 +62,11 @@ namespace KerbetrotterTools
         //stores wheter the Community Category Kit is available
         private bool CCKavailable = false;
 
+        //The name of the function filter
+        private string filterName = "#autoLOC_453547";
+
         //The instance of this filter
         //public static KerbatrotterCategories Instance;
-
-        //String for the filter by function
-        const string FilterByFunction = "#autoLOC_453547";
 
         /// <summary>
         /// When the class awakes it inits all the filters it found for the KerbatrotterTools
@@ -588,7 +588,7 @@ namespace KerbetrotterTools
                     }
 
                     //Find the function filter
-                    PartCategorizer.Category functionFilter = PartCategorizer.Instance.filters.Find(f => f.button.categorydisplayName == FilterByFunction);//PartCategorizer.Instance.filters.Find(f => f.button.categoryName == "Filter by function");
+                    PartCategorizer.Category functionFilter = PartCategorizer.Instance.filters.Find(f => f.button.categorydisplayName == filterName);
 
                     int index = i;
 

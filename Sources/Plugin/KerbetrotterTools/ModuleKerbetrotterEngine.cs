@@ -251,7 +251,7 @@ namespace KerbetrotterTools
         private float thrustDivider = 1.0f;
 
         //the current profile
-        private int currentProfile = 0; 
+        private int currentProfile = 0;
 
         //-----------------------------Strings--------------------------
 
@@ -1005,14 +1005,39 @@ namespace KerbetrotterTools
         private void loadModes(ConfigNode node)
         {
             engineModes = new List<KerbetrotterEngineMode>();
+            bool valid = false;
 
-            ConfigNode[] modules = part.partInfo.partConfig.GetNodes("MODULE");
-            int index = part.Modules.IndexOf(this);
-            if (index != -1 && index < modules.Length && modules[index].GetValue("name") == moduleName)
+            List<ModuleKerbetrotterEngine> modules = part.Modules.GetModules<ModuleKerbetrotterEngine>();
+            ConfigNode[] modulesConfigs = part.partInfo.partConfig.GetNodes("MODULE");
+
+            //get the index of this module
+            int partModuleIndex = 0;
+            for (int i = 0; i < modules.Count; i++)
             {
-                loadModesInternal(modules[index]);
+                if (modules[i] == this)
+                {
+                    partModuleIndex = i;
+                    break;
+                }
             }
-            else
+
+            //get the corresponding config node
+            int configNodeIndex = 0;
+            for (int i = 0; i < modulesConfigs.Length; i++)
+            {
+                if (modulesConfigs[i].GetValue("name") == moduleName)
+                {
+                    if (configNodeIndex == partModuleIndex)
+                    {
+                        loadModesInternal(modulesConfigs[i]);
+                        valid = true;
+                        break;
+                    }
+                    configNodeIndex++;
+                }
+            }
+
+            if (!valid)
             {
                 Debug.Log("[LYNX] Engine Config NOT found");
             }
