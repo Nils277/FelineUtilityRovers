@@ -1,3 +1,13 @@
+#v1.0.4  *-Keep driving-*
+*[Release: 13.OCTOBER.2017]*
+
+**Bug Fixes:**
+
+* Fixed collider of thin Cargo Bay
+* Fixed label of the small freight kontainer
+* Removed debug logs from the Texture Switch
+* Fixed a rare error in the resource switch when a module of another mod cannot be loaded
+
 #v1.0.3  *-All about functions-*
 *[Released: 08.Oktober.2017]* 
 
