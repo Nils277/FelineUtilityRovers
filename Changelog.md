@@ -18,7 +18,7 @@
 *[Released: 06.OCTOBER.2017]*
 
 **Update:**
-* Recompile for KSP 1.3.1 [PENDING]
+* Recompile for KSP 1.3.1
         
 **Enhancements:**
 * The textures of the resource storages do now show what they have stored
