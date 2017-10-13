@@ -14,7 +14,7 @@
 **Bug Fixes:**
 * Fixed category in function filter
 
-# v1.0.2  *-Solid Paint-*
+# v1.0.2  *-The future is now-*
 *[Released: 06.OCTOBER.2017]*
 
 **Update:**
