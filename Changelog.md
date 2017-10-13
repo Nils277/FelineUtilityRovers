@@ -9,13 +9,13 @@
 * Fixed a rare error in the resource switch when a module of another mod cannot be loaded
 
 # v1.0.3  *-All about functions-*
-*[Released: 08.Oktober.2017]* 
+*[Released: 08.OCTOBER.2017]* 
 
 **Bug Fixes:**
 * Fixed category in function filter
 
 # v1.0.2  *-Fixing the wings-*
-*[Released: XX.OKTOBER.2017]*
+*[Released: 06.OCTOBER.2017]*
 
 **Update:**
 * Recompile for KSP 1.3.1 [PENDING]
