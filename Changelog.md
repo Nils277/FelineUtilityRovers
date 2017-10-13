@@ -1,5 +1,5 @@
 # v1.0.4  *-Keep driving-*
-*[Release: 13.OCTOBER.2017]*
+*[Released: 13.OCTOBER.2017]*
 
 **Bug Fixes:**
 
