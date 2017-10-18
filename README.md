@@ -11,14 +11,28 @@ contain crew cabins, a laboratory or even bellowed joints to be more flexible in
 <!---![](http://i.imgur.com/O762Vfm.png)--->
 
 ## Features 
-![](https://i.imgur.com/EPj0d8B.png)
+| **Joints and Hitches** | **Hover Engines** |
+| --- | --- |
+| ![](https://i.imgur.com/el4REAQ.png) | ![](https://i.imgur.com/ekFOX8F.png) |
+
+| **IVAs in all crewed parts** | **Custom Wheels** |
+| --- | --- |
+| ![](https://i.imgur.com/QyWDwZl.png) | ![](https://i.imgur.com/Xay7q6C.png) |
+
+| **Fits in MK3 Cargo Bay** | **Configurable Containers** |
+| --- | --- |
+| ![](https://i.imgur.com/klQSmlB.png) | ![](https://i.imgur.com/AlAwhIZ.png) |
 
 
 <!---![](http://i.imgur.com/O762Vfm.png)--->
 
 ## Galleries 
-[![](http://i.imgur.com/8SHPkw2.png)](http://imgur.com/a/fOPRK)
-[![](http://i.imgur.com/pVShxBH.png)](https://www.youtube.com/watch?v=nMHhR1amxVc)  
+| **Mod Images** | **Video** |
+| --- | --- |
+| [![](https://i.imgur.com/7qQXxm9.png)](http://imgur.com/a/fOPRK) | [![](https://i.imgur.com/NALenYi.png)](https://www.youtube.com/watch?v=nMHhR1amxVc)   |
+
+
+
 
 <!---![](http://i.imgur.com/O762Vfm.png)--->  
 ## Translations  
@@ -31,9 +45,6 @@ contain crew cabins, a laboratory or even bellowed joints to be more flexible in
 ### Looking for help:
 If anyone is interested to translate FUR into Japanese ![](http://i.imgur.com/M93S44Z.png) (or the other languages 
 that will be supported), please let me know!  
-
-***Important***: Please contact me before you start with the translation. It already happend more than once that  
-multiple persons worked on a translation for the same texts and therefore their efforts were in vain.  
 
 You can find all the texts that need translation here: [Texts](https://github.com/Nils277/FelineUtilityRovers/tree/master/Translation). (1968 Words)  
 

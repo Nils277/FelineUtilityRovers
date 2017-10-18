@@ -1,5 +1,5 @@
 # v1.0.4  *-Keep driving-*
-*[Release: 13.OCTOBER.2017]*
+*[Released: 13.OCTOBER.2017]*
 
 **Bug Fixes:**
 
@@ -9,16 +9,16 @@
 * Fixed a rare error in the resource switch when a module of another mod cannot be loaded
 
 # v1.0.3  *-All about functions-*
-*[Released: 08.Oktober.2017]* 
+*[Released: 08.OCTOBER.2017]* 
 
 **Bug Fixes:**
 * Fixed category in function filter
 
-# v1.0.2  *-Fixing the wings-*
-*[Released: XX.OKTOBER.2017]*
+# v1.0.2  *-The future is now-*
+*[Released: 06.OCTOBER.2017]*
 
 **Update:**
-* Recompile for KSP 1.3.1 [PENDING]
+* Recompile for KSP 1.3.1
         
 **Enhancements:**
 * The textures of the resource storages do now show what they have stored
