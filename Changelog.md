@@ -1,3 +1,31 @@
+# v1.0.5  *-Science Away-*
+*[Released: 19.DECEMBER.2017]*
+
+**Enhancements:**
+
+* The user is now warned when trying to activate the hover mode when the engines are stowed
+
+**New Parts:**
+
+* Added Material Bay for the Rover
+* Nuclear Fuel is now stored in a separate tank and can be transfered
+
+**Localization:**
+
+* Partially updated chinese translation. Thanks to [ssd21345](http://forum.kerbalspaceprogram.com/index.php?/profile/146209-ssd21345/)
+* Updated brazilian-portuguese translations. Thanks to [FellipeC](http://forum.kerbalspaceprogram.com/index.php?/profile/77983-fellipec/)
+* Updated spanish translations. Thanks to [bice](http://forum.kerbalspaceprogram.com/index.php?/profile/152599-bice/)
+* Updated russion translations. Thanks to [Sebra](https://forum.kerbalspaceprogram.com/index.php?/profile/174461-sebra/)
+
+**Mod Support:**
+
+* Enhanced support for Simple Construction
+* Updated support for USI-LS
+
+**Bug Fixes:**
+
+* Fixed missing light toggle in the right click menu for rear lights
+
 # v1.0.4  *-Keep driving-*
 *[Released: 13.OCTOBER.2017]*
 
