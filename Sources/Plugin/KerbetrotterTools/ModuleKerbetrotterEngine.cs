@@ -1209,9 +1209,6 @@ namespace KerbetrotterTools
         {
             if (ignited)
             {
-                engineState = EngineState.Running;
-                status = engine_state_running;
-
                 //check if in atmosphere
                 bool inAtmosphere = ((vessel.mainBody.atmosphere) && (vessel.atmDensity > 0.0f));
 
@@ -1240,7 +1237,7 @@ namespace KerbetrotterTools
                 }
                 else if (hoverEnabled)
                 {
-                    //check if the engine is can hover
+                    //check if the engine can hover
                     Vector3 downVed = Quaternion.LookRotation(Vector3.Normalize(vessel.mainBody.transform.position - heightTransform.position)) * Vector3.forward;
 
                     for (int i = 0; i < thrustTransforms.Length; i++)
@@ -1253,6 +1250,11 @@ namespace KerbetrotterTools
                         }
                     }
 
+                }
+                else
+                {
+                    engineState = EngineState.Running;
+                    status = engine_state_running;
                 }
             }
             else

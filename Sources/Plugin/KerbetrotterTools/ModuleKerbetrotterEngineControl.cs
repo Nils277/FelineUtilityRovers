@@ -137,6 +137,10 @@ namespace KerbetrotterTools
         [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#LOC_KERBETROTTER.control.speed.d"), UI_FloatRange(affectSymCounterparts = UI_Scene.All, minValue = 0, maxValue = 1f, stepIncrement = 0.01f)]
         public float Kd_s = 0.1f;
 
+        //saves if the user has been warned
+        [KSPField(isPersistant = true)]
+        private bool warned = false;
+
         //----------------------------Interaction-------------------------
 
         /// <summary>
@@ -321,6 +325,19 @@ namespace KerbetrotterTools
                 {
                     updateMajorAxis();
                     animOk = true;
+                }
+
+                if (!validSituation && engine.HoverEnabled)
+                {
+                    if (!warned)
+                    {
+                        ScreenMessages.PostScreenMessage(new ScreenMessage(Localizer.Format("#LOC_KERBETROTTER.engine.hoverwarning"), 3f, ScreenMessageStyle.UPPER_CENTER));
+                        warned = true;
+                    }
+                }
+                else
+                {
+                    warned = false;
                 }
                 animOk = validSituation;
             }

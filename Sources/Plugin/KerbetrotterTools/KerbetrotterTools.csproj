@@ -70,6 +70,7 @@
     <Compile Include="ModuleKerbetrotterMeshToggle.cs" />
     <Compile Include="ModuleKerbetrotterMeshSwitch.cs" />
     <Compile Include="ModuleKerbetrotterMultiLight.cs" />
+    <Compile Include="ModuleKerbetrotterNuclearStorage.cs" />
     <Compile Include="ModuleKerbetrotterResourceSwitch.cs" />
     <Compile Include="ModuleKerbetrotterLight.cs" />
     <Compile Include="ModuleKerbetrotterRotateBetween.cs" />
