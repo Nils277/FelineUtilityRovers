@@ -15,7 +15,7 @@
 * Partially updated chinese translation. Thanks to [ssd21345](http://forum.kerbalspaceprogram.com/index.php?/profile/146209-ssd21345/)
 * Updated brazilian-portuguese translations. Thanks to [FellipeC](http://forum.kerbalspaceprogram.com/index.php?/profile/77983-fellipec/)
 * Updated spanish translations. Thanks to [bice](http://forum.kerbalspaceprogram.com/index.php?/profile/152599-bice/)
-* Updated russion translations. Thanks to [Sebra](https://forum.kerbalspaceprogram.com/index.php?/profile/174461-sebra/)
+* Updated russian translations. Thanks to [Sebra](https://forum.kerbalspaceprogram.com/index.php?/profile/174461-sebra/)
 
 **Mod Support:**
 
