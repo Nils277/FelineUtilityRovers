@@ -80,25 +80,25 @@ namespace KerbetrotterTools
 
         //------------------------Interface-------------------
 
-        [KSPField(guiName = "#autoLOC_6001467", guiActive = false, guiActiveEditor = false), UI_Toggle(affectSymCounterparts = UI_Scene.All)]
+        [KSPField(guiName = "#autoLOC_6001467", guiActive = false, guiActiveEditor = false, isPersistant = true), UI_Toggle(affectSymCounterparts = UI_Scene.All)]
         public bool allowSteer = true;
 
-        [KSPField(guiName = "#autoLOC_6001468", guiActive = false, guiActiveEditor = false), UI_Toggle(affectSymCounterparts = UI_Scene.All, enabledText = "Inverted", disabledText = "Normal")]
+        [KSPField(guiName = "#autoLOC_6001468", guiActive = false, guiActiveEditor = false, isPersistant = true), UI_Toggle(affectSymCounterparts = UI_Scene.All, enabledText = "Inverted", disabledText = "Normal")]
         public bool invertSteering = false;
 
-        [KSPField(guiName = "#LOC_KERBETROTTER.engine.control.accelerate", guiActive = false, guiActiveEditor = false), UI_Toggle(affectSymCounterparts = UI_Scene.All)]
+        [KSPField(guiName = "#LOC_KERBETROTTER.engine.control.accelerate", guiActive = false, isPersistant = true, guiActiveEditor = false), UI_Toggle(affectSymCounterparts = UI_Scene.All)]
         public bool allowAccelerate = true;
 
-        [KSPField(guiName = "#LOC_KERBETROTTER.engine.control.accelerate.direction", guiActive = false, guiActiveEditor = false), UI_Toggle(affectSymCounterparts = UI_Scene.All, enabledText = "Inverted", disabledText = "Normal")]
+        [KSPField(guiName = "#LOC_KERBETROTTER.engine.control.accelerate.direction", guiActive = false, guiActiveEditor = false, isPersistant = true), UI_Toggle(affectSymCounterparts = UI_Scene.All, enabledText = "Inverted", disabledText = "Normal")]
         public bool invertAccelerate = false;
 
-        [KSPField(guiName = "#LOC_KERBETROTTER.engine.control.cancelrotation", guiActive = true), UI_Toggle(affectSymCounterparts = UI_Scene.All)]
+        [KSPField(guiName = "#LOC_KERBETROTTER.engine.control.cancelrotation", guiActive = true, isPersistant = true), UI_Toggle(affectSymCounterparts = UI_Scene.All)]
         public bool cancelRotation = true;
 
-        [KSPField(guiName = "#LOC_KERBETROTTER.engine.control.canceldrift", guiActive = true), UI_Toggle(affectSymCounterparts = UI_Scene.All)]
+        [KSPField(guiName = "#LOC_KERBETROTTER.engine.control.canceldrift", guiActive = true, isPersistant = true), UI_Toggle(affectSymCounterparts = UI_Scene.All)]
         public bool cancelDrift = true;
 
-        [KSPField(guiName = "#LOC_KERBETROTTER.engine.control.ground", guiActive = true), UI_Toggle(affectSymCounterparts = UI_Scene.All)]
+        [KSPField(guiName = "#LOC_KERBETROTTER.engine.control.ground", guiActive = true, isPersistant = true), UI_Toggle(affectSymCounterparts = UI_Scene.All)]
         public bool pointToGround = true;
 
         /// <summary>
