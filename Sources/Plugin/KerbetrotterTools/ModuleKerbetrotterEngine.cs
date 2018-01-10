@@ -1215,6 +1215,9 @@ namespace KerbetrotterTools
                 //check for water
                 bool inWater = ((vessel.mainBody.ocean) && (FlightGlobals.getAltitudeAtPos(heightTransform.position) < 0.0f));
 
+                engineState = EngineState.Running;
+                status = engine_state_running;
+
                 if (engineModes[currentEngineMode].FlameOut)
                 {
                     engineState = EngineState.Flameout;
@@ -1250,11 +1253,6 @@ namespace KerbetrotterTools
                         }
                     }
 
-                }
-                else
-                {
-                    engineState = EngineState.Running;
-                    status = engine_state_running;
                 }
             }
             else

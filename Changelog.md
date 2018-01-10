@@ -1,3 +1,30 @@
+# v1.0.6 *-Let there be ligh....ahhh i'm blind!-*
+*[Released: 10.JANUARY.2018]*
+
+**Localization:**
+
+* Updated chinese translation. Thanks to [Levin845](http://forum.kerbalspaceprogram.com/index.php?/profile/176530-levin845/)
+* Updated brazilian-portuguese translations. Thanks to [FellipeC](http://forum.kerbalspaceprogram.com/index.php?/profile/77983-fellipec/)
+* Updated spanish translations. Thanks to [bice](http://forum.kerbalspaceprogram.com/index.php?/profile/152599-bice/)
+* Updated russian translations. Thanks to [Sebra](https://forum.kerbalspaceprogram.com/index.php?/profile/174461-sebra/)
+
+**Enhancements:**
+
+* Added airlocks to all crewed parts so kerbals can enter cargo bays and flatbeds directly
+* Renamed deploy toggle option of the Attachable Truster to be more intuitive
+
+**New Parts:**
+
+* Special part for an easier attachment of the hover engines to the site of the rovers
+
+**Bug Fixes:**
+
+* Fixed several light issues on rear airlock and rear fueltank
+* Fixed bug where the hover engines do not start when enabling hover mode before enabling the engines
+* Fixed typo in the science jr.
+* The Rear Drill is now translated properly
+* The settings for the hover engines are now saved correctly
+
 # v1.0.5  *-Science Away-*
 *[Released: 19.DECEMBER.2017]*
 
