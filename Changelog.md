@@ -1,3 +1,18 @@
+# v1.0.7 *-Flying high-* 
+*[Released: 6.FEBRUARY.2018]* 
+
+**Enhancements:**
+
+* The hover engine now has two modes - "Hold Terrain Distance" and "Hold Altitude"
+* Hover engines now use stock modules (allows compatibility with mods like TCA and MechJeb)
+* Added additional attach node to extendible docking part to allow attachment of decoupler
+
+**Bug Fixes:**
+
+* Added missing USI-LS support to Truck Cockpit
+* Fixed compatibility issues with the Simple Construction mod
+* Fixed mirrored text on Small Fueltank
+
 # v1.0.6 *-Let there be ligh....ahhh i'm blind!-*
 *[Released: 10.JANUARY.2018]*
 

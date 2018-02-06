@@ -55,6 +55,7 @@
     <Compile Include="KerbetrotterPIDProfile.cs" />
     <Compile Include="KerbetrotterEngineVesselControl.cs" />
     <Compile Include="KerbetrotterEngineMode.cs" />
+    <Compile Include="ModuleKerbetrotterEngineFX.cs" />
     <Compile Include="ModuleKerbetrotterConstrainedLookAt.cs" />
     <Compile Include="ModuleKerbetrotterConverter.cs" />
     <Compile Include="ModuleKerbetrotterDockingAdjustment.cs" />

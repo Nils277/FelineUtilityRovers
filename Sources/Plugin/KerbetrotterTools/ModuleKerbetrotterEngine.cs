@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2017 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,15 @@ using KSP.Localization;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using System;
 
 namespace KerbetrotterTools
 {
-    class ModuleKerbetrotterEngine : PartModule, IThrustProvider, IModuleInfo, IResourceConsumer, IEngineStatus
+    class ModuleKerbetrotterEngine : PartModule, IModuleInfo
     {
         //-----------------------------Engine Settigns----------------------------
 
         /// <summary>
-        /// The name of the transforms to apply the thrust to
+        /// The transform of the thrust vector to control
         /// </summary>
         [KSPField]
         public string thrustVectorTransformName = "thrustTransform";
@@ -36,24 +35,6 @@ namespace KerbetrotterTools
         /// </summary>
         [KSPField]
         public string heightTransformName = "heigthTransform";
-
-        /// <summary>
-        /// The minimal thrust of the engine
-        /// </summary>
-        //[KSPField]
-        public float minThrust = 0.0f;
-
-        /// <summary>
-        /// The maximal thrust of the enginet
-        /// </summary>
-        //[KSPField]
-        public float maxThrust = 100.0f;
-
-        /// <summary>
-        /// The speed the thrust of the engine updates
-        /// </summary>
-        [KSPField]
-        public float thrustSpeed = 0.1f;
 
         /// <summary>
         /// The minimal height for hovering
@@ -66,30 +47,18 @@ namespace KerbetrotterTools
         /// </summary>
         [KSPField]
         public float maxHoverHeight = 100.0f;
-
-        /// <summary>
-        /// Sets whether the engine can hover or not
-        /// </summary>
-        [KSPField]
-        public bool allowHover = false;
-
+        
         /// <summary>
         /// The thrust limiter setting
         /// </summary>
-        [KSPField(isPersistant = true, guiActive = true, guiActiveEditor = true, guiName = "#autoLOC_6001363"), UI_FloatRange(minValue = 0f, maxValue = 100f, stepIncrement = 0.5f,affectSymCounterparts = UI_Scene.All)]
+        [KSPField(isPersistant = true, guiActive = true, guiActiveEditor = true, guiName = "#autoLOC_6001363"), UI_FloatRange(minValue = 0f, maxValue = 100f, stepIncrement = 0.5f, affectSymCounterparts = UI_Scene.All)]
         public float thrustLimiter = 100.0f;
-
+        
         /// <summary>
         /// The height offset for the engine to balance it out
         /// </summary>
         [KSPField(isPersistant = true, guiActive = true, guiActiveEditor = true, guiName = "#LOC_KERBETROTTER.engine.offset"), UI_FloatRange(minValue = -2, maxValue = 2f, stepIncrement = 0.01f, affectSymCounterparts = UI_Scene.All)]
         public float heightOffset = 0.0f;
-
-        /// <summary>
-        /// The type of the engine
-        /// </summary>
-        [KSPField]
-        public EngineType engineType = EngineType.Generic;
 
         /// <summary>
         /// The status of the engine
@@ -124,16 +93,10 @@ namespace KerbetrotterTools
         //----------------------------Visual feedback of the engine-------------------------
 
         /// <summary>
-        /// The status of the engine
+        /// The current hover mode
         /// </summary>
-        [KSPField(guiName = "#autoLOC_475347", guiActive = true)]
-        public string status = "#autoLOC_6001078";
-
-        /// <summary>
-        /// The engine mode active to the player
-        /// </summary>
-        [KSPField(guiName = "#LOC_KERBETROTTER.engine.flightMode", guiActive = true)]
-        public string engineMode = "";
+        [KSPField(guiName = "#LOC_KERBETROTTER.engine.mode.title", guiActive = true)]
+        public string mode = "#LOC_KERBETROTTER.engine.mode.terrain";
 
         /// <summary>
         /// Whether the engine mode is enabled or not
@@ -143,17 +106,6 @@ namespace KerbetrotterTools
 
 
         //-----------------------------Saved engine state--------------------
-
-        /// <summary>
-        /// Saves whether the engine is turned on
-        /// </summary>
-        [KSPField(isPersistant = true)]
-        private bool ignited = false;
-
-        /// <summary>
-        /// Saves if the engines is staged
-        /// </summary>
-        private bool staged = false;
 
         /// <summary>
         /// The height to hover at for this engine
@@ -186,54 +138,33 @@ namespace KerbetrotterTools
         private bool hoverEnabled = false;
 
         /// <summary>
-        /// Value holding the smoothed throttle value for the engine
-        /// </summary>
-        [KSPField(isPersistant = true)]
-        private float engineThrottle = 0.0f;
-
-        /// <summary>
-        /// The current mode of the engine
-        /// </summary>
-        [KSPField(isPersistant = true)]
-        private int currentEngineMode = 0;
-
-        /// <summary>
         /// Whether the user has a custom PID profile
         /// </summary>
         [KSPField(isPersistant = true)]
         private bool customPID = false;
 
+        /// <summary>
+        /// saves the mode of the engine
+        /// </summary>
+        [KSPField(isPersistant = true)]
+        private bool holdAltitude = false;
+
         //----------------------------Private members------------------------
 
-        //The transforms the apply the thrust to
-        private Transform[] thrustTransforms;
+        //the thrust transformt to change
+        private Transform thrustTransform;
 
         //The transform the get the height
         public Transform heightTransform;
 
-        //Value holding the throttle value set for the vessel
-        private float vesselThrottle = 0.0f;
-
         //The local rotation from the height transform Stored for convenience purposes
         private Quaternion heightLocalRotation;
-
-        //the current thrust of the engine
-        private float engineThrust = 0.0f;
 
         //saves whether the height should be changed
         private float heightChange = 0;
 
-        // the propellants used by the engine
-        private List<KerbetrotterEngineMode> engineModes = new List<KerbetrotterEngineMode>();
-
         // the profiles for different planets
         private List<KerbetrotterPIDProfile> profiles = new List<KerbetrotterPIDProfile>();
-
-        // the smoothed throttle for the effects
-        private float effectvalue = 0.0f;
-
-        // The status of the engine
-        public EngineState engineState;
 
         //sets whether the the advanced controls are visible
         private bool showAdvancedControls = false;
@@ -247,53 +178,35 @@ namespace KerbetrotterTools
         //The correction for the altitude
         private float alitudeCorrection;
 
-        //the divider when multiple thrusts are present
-        private float thrustDivider = 1.0f;
-
         //the current profile
         private int currentProfile = 0;
 
+        //the engine that is controlled
+        private ModuleEngines primaryEngine;
+
+        //the engine that is controlled
+        private ModuleEngines secondaryEngine;
+
+        //the engine that is controlled
+        private MultiModeEngine engineMode;
+
+        //when the engine is on hold
+        private bool onHold = false;
+
+        private bool isIgnited = false;
+
+
+        private float lastPercentage = 100.0f;
+
         //-----------------------------Strings--------------------------
 
-        string engine_hover_enabled = string.Empty;
-        string engine_hover_disabled = string.Empty;
-        string engine_state_inative = string.Empty;
-        string engine_state_running = string.Empty;
-        string engine_state_flameout = string.Empty;
-        string engine_state_noAtmo = string.Empty;
-        string engine_state_noOxy = string.Empty;
-        string engine_state_noWater = string.Empty;
-        string engine_state_onHold = string.Empty;
+        private static string engine_hover_enabled = Localizer.Format("#autoLOC_900889");
+        private static string engine_hover_disabled = Localizer.Format("#autoLOC_900890");
+        private static string engine_state_onHold = Localizer.Format("#LOC_KERBETROTTER.engine.state.onHold");
+        private static string engine_mode_terrain = Localizer.Format("#LOC_KERBETROTTER.engine.mode.terrain");
+        private static string engine_mode_altitude = Localizer.Format("#LOC_KERBETROTTER.engine.mode.altitude");
 
         //----------------------------Interaction-----------------------
-
-        /// <summary>
-        /// Event to toggle the engine mode
-        /// </summary>
-        [KSPEvent(guiName = "#LOC_KERBETROTTER.engine.mode.change", guiActive = true, guiActiveEditor = true, guiActiveUnfocused = true, unfocusedRange = 5f)]
-        public void ToggleMode()
-        {
-            currentEngineMode++;
-            if (currentEngineMode >= engineModes.Count)
-            {
-                currentEngineMode = 0;
-            }
-            updateEngineMode();
-
-            //update all symmetrical modules
-            int index = part.getModuleIndex(this);
-            for (int i = 0; i < part.symmetryCounterparts.Count; i++)
-            {
-                if (part.symmetryCounterparts[i].Modules.Count > index)
-                {
-                    PartModule module = part.symmetryCounterparts[i].Modules[index];
-                    if (module is ModuleKerbetrotterEngine)
-                    {
-                        ((ModuleKerbetrotterEngine)module).setMode(currentEngineMode);
-                    }
-                }
-            }
-        }
 
         /// <summary>
         /// Event to toggle the hover
@@ -314,6 +227,30 @@ namespace KerbetrotterTools
                     if (module is ModuleKerbetrotterEngine)
                     {
                         ((ModuleKerbetrotterEngine)module).setHoverEnabled(hoverEnabled, true);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Action to toggle the hover effect
+        /// </summary>
+        [KSPEvent(guiName = "#LOC_KERBETROTTER.engine.mode.switch", guiActive = true, guiActiveEditor = true, guiActiveUnfocused = true, unfocusedRange = 5f)]
+        public void ToggleHoverMode()
+        {
+            holdAltitude = !holdAltitude;
+            updateHoverStatus();
+
+            //update all symmetrical modules
+            int index = part.getModuleIndex(this);
+            for (int i = 0; i < part.symmetryCounterparts.Count; i++)
+            {
+                if (part.symmetryCounterparts[i].Modules.Count > index)
+                {
+                    PartModule module = part.symmetryCounterparts[i].Modules[index];
+                    if (module is ModuleKerbetrotterEngine)
+                    {
+                        ((ModuleKerbetrotterEngine)module).setHoverMode(holdAltitude, true);
                     }
                 }
             }
@@ -352,75 +289,11 @@ namespace KerbetrotterTools
         /// <summary>
         /// Toggle the Visibility of the advanced controls of the engine controller
         /// </summary>
-        [KSPEvent(guiName = "Show Engine Settings", guiActive = true, guiActiveEditor = true, guiActiveUnfocused = true, unfocusedRange = 5f)]
+        [KSPEvent(guiName = "#LOC_KERBETROTTER.engine.advanced.show", guiActive = true, guiActiveEditor = true, guiActiveUnfocused = true, unfocusedRange = 5f)]
         public void ToogleControls()
         {
             showAdvancedControls = !showAdvancedControls;
-            updateAndvanceControlVisibility();
-        }
-
-        /// <summary>
-        /// Event to activate the engine
-        /// </summary>
-        [KSPEvent(guiName = "#autoLOC_6001382", guiActive = true, guiActiveUnfocused = true, unfocusedRange = 5f)]
-        public void Activate()
-        {
-            ignited = true;
-            staged = true;
-            updateHoverStatus();
-            updateEngineIgnitionStatus();
-            updateActivationCounterparts();
-        }
-
-        /// <summary>
-        /// Event to shut the engine down
-        /// </summary>
-        [KSPEvent(guiName = "#autoLOC_6001381", guiActive = true, guiActiveUnfocused = true, unfocusedRange = 5f)]
-        public void Deactivate()
-        {
-            ignited = false;
-            updateHoverStatus();
-            updateEngineIgnitionStatus();
-            updateActivationCounterparts();
-        }
-
-        /// <summary>
-        /// Action to activate the engine
-        /// </summary>
-        /// <param name="param"></param>
-        [KSPAction("#autoLOC_6001382")]
-        public void ActivateAction(KSPActionParam param)
-        {
-            ignited = true;
-            staged = true;
-            updateHoverStatus();
-            updateEngineIgnitionStatus();
-        }
-
-        /// <summary>
-        /// Action to shut the engine down
-        /// </summary>
-        [KSPAction("#autoLOC_6001381")]
-        public void DeactivateAction(KSPActionParam param)
-        {
-            ignited = false;
-            updateHoverStatus();
-            updateEngineIgnitionStatus();
-        }
-
-        /// <summary>
-        /// Action to toggle the engine
-        /// </summary>
-        [KSPAction("#autoLOC_6001380")]
-        public void ToggleAction(KSPActionParam param)
-        {
-            ignited = !ignited;
-            if (ignited)
-            {
-                staged = true;
-            }
-            updateHoverStatus();
-            updateEngineIgnitionStatus();
+            updateAndvancedControlVisibility();
         }
 
         /// <summary>
@@ -455,17 +328,13 @@ namespace KerbetrotterTools
         }
 
         /// <summary>
-        /// Action to toggle the engine mode
+        /// Action to toggle the hover effect
         /// </summary>
-        [KSPAction("#autoLOC_6001393")]
-        public void ToggleModeAction(KSPActionParam param)
+        [KSPAction("#LOC_KERBETROTTER.engine.mode.switch")]
+        public void ToggleHoverModeAction(KSPActionParam param)
         {
-            currentEngineMode++;
-            if (currentEngineMode >= engineModes.Count)
-            {
-                currentEngineMode = 0;
-            }
-            updateEngineMode();
+            holdAltitude = !holdAltitude;
+            updateHoverStatus();
         }
 
         //----------------------------Life Cycle------------------------
@@ -477,8 +346,6 @@ namespace KerbetrotterTools
         public override void OnLoad(ConfigNode partNode)
         {
             base.OnLoad(partNode);
-
-            loadModesInternal(partNode);
         }
 
         /// <summary>
@@ -492,18 +359,7 @@ namespace KerbetrotterTools
 
         public override string GetInfo()
         {
-            StringBuilder info = new StringBuilder();
-            bool showMode = (engineModes.Count > 1);
-
-            for (int i = 0; i < engineModes.Count; i++)
-            {
-                info.Append(engineModes[i].getDescription(showMode));
-                if (i < engineModes.Count-1)
-                {
-                    info.AppendLine();
-                }
-            }
-            return info.ToString();
+            return Localizer.Format("#LOC_KERBETROTTER.engine.desc");
         }
 
         /// <summary>
@@ -514,49 +370,71 @@ namespace KerbetrotterTools
         {
             base.OnStart(state);
 
-            part.stagingIcon = "LIQUID_ENGINE";
+            //find the MultiModeEngine if available
+            for (int i = 0; i < part.Modules.Count; i++)
+            {
+                if (part.Modules[i] is MultiModeEngine)
+                {
+                    engineMode = (MultiModeEngine)part.Modules[i];
+                    break;
+                }
+            }
 
-            loadTexts();
+            //find all the engines
+            for (int i = 0; i < part.Modules.Count; i++)
+            {
+                if (part.Modules[i] is ModuleEngines || part.Modules[i] is ModuleEnginesFX)
+                {
+                    if (engineMode == null)
+                    {
+                        primaryEngine = (ModuleEngines)part.Modules[i];
+                        break;
+                    }
+                    else if (engineMode.primaryEngineID == ((ModuleEngines)part.Modules[i]).engineID)
+                    {
+                        primaryEngine = (ModuleEngines)part.Modules[i];
+                    }
+                    else
+                    {
+                        secondaryEngine = (ModuleEngines)part.Modules[i];
+                    }
+                }
+            }
 
-            thrustTransforms = part.FindModelTransforms(thrustVectorTransformName.Trim());
-            heightTransform = part.FindModelTransform(heightTransformName);
+            primaryEngine.Fields["thrustPercentage"].guiActive = false;
+            primaryEngine.Fields["thrustPercentage"].guiActiveEditor = false;
+            if (primaryEngine is ModuleKerbetrotterEngineFX)
+            {
+                primaryEngine.Fields["thrustLimiter"].guiActive = false;
+                primaryEngine.Fields["thrustLimiter"].guiActiveEditor = false;
+                ((ModuleKerbetrotterEngineFX)primaryEngine).setControlled(true);
+            }
+
+            if (secondaryEngine != null)
+            {
+                secondaryEngine.Fields["thrustPercentage"].guiActive = false;
+                secondaryEngine.Fields["thrustPercentage"].guiActiveEditor = false;
+                if (secondaryEngine is ModuleKerbetrotterEngineFX)
+                {
+                    secondaryEngine.Fields["thrustLimiter"].guiActive = false;
+                    secondaryEngine.Fields["thrustLimiter"].guiActiveEditor = false;
+                    ((ModuleKerbetrotterEngineFX)secondaryEngine).setControlled(true);
+                }
+            }
+
+            thrustTransform = part.FindModelTransform(thrustVectorTransformName.Trim());
+            heightTransform = part.FindModelTransform(heightTransformName.Trim());
             heightLocalRotation = heightTransform.localRotation;
 
-            if ((thrustTransforms != null) && (thrustTransforms.Length > 0)) {
-                thrustDivider = 1.0f / thrustTransforms.Length;
-            }
-            updateEngineIgnitionStatus();
             updateHoverStatus();
-            loadModes(part.partInfo.partConfig);
             LoadPIDProfiles(part.partInfo.partConfig);
-            updateEngineMode();
-            updateAndvanceControlVisibility();
+            updateAndvancedControlVisibility();
+
+            lastPercentage = thrustLimiter;
 
             if ((!customPID))
             {
                 ResetProfile();
-            }
-
-            if (engineModes.Count < 2)
-            {
-                Events["ToggleMode"].guiActive = false;
-                Events["ToggleMode"].guiActiveEditor = false;
-                Actions["ToggleAction"].active = false;
-                Fields["engineMode"].guiActive = false;
-            }
-
-            if (!allowHover)
-            {
-                Events["ToggleHover"].guiActive = false;
-                Events["ToggleHover"].guiActiveEditor = false;
-                Events["ToogleControls"].guiActive = false;
-                Events["ToogleControls"].guiActiveEditor = false;
-                Actions["ToggleHoverAction"].active = false;
-                Actions["EnableHoverAction"].active = false;
-                Actions["DisableHoverAction"].active = false;
-                Fields["hovering"].guiActive = false;
-                Fields["heightOffset"].guiActive = false;
-                Fields["heightOffset"].guiActiveEditor = false;
             }
         }
 
@@ -569,23 +447,20 @@ namespace KerbetrotterTools
         }
 
         /// <summary>
-        /// Activate the engine
-        /// </summary>
-        public override void OnActive()
-        {
-            ignited = true;
-            staged = true;
-            updateHoverStatus();
-            updateEngineIgnitionStatus();
-        }
-
-        /// <summary>
         /// Update for every physicss tic
         /// </summary>
         public virtual void FixedUpdate()
         {
+            ModuleEngines engine = (engineMode == null || engineMode.runningPrimary) ? primaryEngine : secondaryEngine;
+
             if (!HighLogic.LoadedSceneIsFlight)
             {
+                if (HighLogic.LoadedSceneIsEditor)
+                {
+
+                    engine.thrustPercentage = thrustLimiter;
+                }
+
                 updateStatus();
                 return;
             }
@@ -593,71 +468,79 @@ namespace KerbetrotterTools
             //the final throttle setting for the engine
             float finalThrottle = 0.0f;
 
-            updateStatus();
+            //get the currently running engine
+            //ModuleEngines engine = (engineMode == null || engineMode.runningPrimary) ? primaryEngine : secondaryEngine;
 
-            if (engineState == EngineState.Running)
+            if (engine.isActiveAndEnabled && engine.EngineIgnited && !engine.flameout)
             {
                 //when hovering point the transform to the surface
                 if (hoverEnabled)
                 {
-                    //when the control height is not set, set it
+                    //update the set height
                     if (heightSet)
                     {
                         hoverHeight -= heightChange * TimeWarp.fixedDeltaTime * 2;
-                        if (hoverHeight > maxHoverHeight)
+                        if (!holdAltitude)
                         {
-                            hoverHeight = maxHoverHeight;
-                        }
-                        else if (hoverHeight < minHoverHeight)
-                        {
-                            hoverHeight = minHoverHeight;
+                            if (hoverHeight > maxHoverHeight)
+                            {
+                                hoverHeight = maxHoverHeight;
+                            }
+                            else if (hoverHeight < minHoverHeight)
+                            {
+                                hoverHeight = minHoverHeight;
+                            }
                         }
                     }
 
                     //when the desired height is set, hover
                     if (heightSet)
                     {
-                        //get the actual height from the surface
-                        float height = getSurfaceDistance();
+                        float height = holdAltitude? getAltitude() :getSurfaceDistance();
 
                         if (!float.IsNaN(height))
                         {
                             finalThrottle = PID(height);
                         }
                     }
-                }
-                //else the engine works in normal conditions
-                else
-                {
-                    heightTransform.localRotation = heightLocalRotation;
-                    finalThrottle = (thrustLimiter / 100.0f) * vesselThrottle;
-                }                
-            }
+                    else
+                    {
+                        finalThrottle = 0.0f;
+                    }
+                    if (onHold)
+                    {
+                        finalThrottle = 0.0f;
+                    }
 
-            //smoothly update the engine throttle
-            if (finalThrottle > engineThrottle)
-            {
-                engineThrottle = engineThrottle + TimeWarp.deltaTime / thrustSpeed;
-                if (engineThrottle > finalThrottle)
-                {
-                    engineThrottle = finalThrottle;
-                }
-            }
-            else if (finalThrottle < engineThrottle)
-            {
-                engineThrottle = engineThrottle - TimeWarp.deltaTime / thrustSpeed;
-                if (engineThrottle < finalThrottle)
-                {
-                    engineThrottle = finalThrottle;
-                }
-            }
-            
-            //apply the thrust to the engines when the are active
-            if (engineThrottle > 0)
-            {
-                applyThrust();
-            }
+                    if (engine != null)
+                    {
+                        float throttle = vessel.ctrlState.mainThrottle;
+                        float wantedThrottle = finalThrottle * thrustLimiter;
 
+                        //make the throttle of the engine independent of the trottle setting
+                        if ((throttle * 100.0f < wantedThrottle) || (throttle < 0.01))
+                        {
+                            engine.thrustPercentage = 100;
+                            engine.throttleMin = Mathf.Clamp((throttle - (wantedThrottle / 100.0f)) / (throttle - 1), 0.0f, 1.0f);
+                        }
+                        else
+                        {
+                            engine.thrustPercentage = Mathf.Clamp(wantedThrottle / throttle, 0.0f, 100.0f);
+                            engine.throttleMin = 0;
+                        }
+                    }
+                }
+                else if (lastPercentage != thrustLimiter)
+                {
+                    engine.thrustPercentage = thrustLimiter;
+                    lastPercentage = thrustLimiter;
+                }
+            }
+            else if (engine.flameout)
+            {
+                engine.thrustPercentage = 0;
+                engine.minThrust = 0;
+            }
             updateStatus();
         }
 
@@ -672,16 +555,19 @@ namespace KerbetrotterTools
 
             if (HighLogic.LoadedSceneIsFlight)
             {
-                //get the contral data from the vessel
-                vesselThrottle = vessel.ctrlState.mainThrottle;
-
                 if (hoverEnabled && heightSet)
                 {
                     heightChange = vessel.ctrlState.Y;
                 }
+            }
 
-                //update the effects of the engine
-                updateEffects();
+            //get the currently running engine
+            ModuleEngines engine = (engineMode == null || engineMode.runningPrimary) ? primaryEngine : secondaryEngine;
+
+            if (isIgnited != engine.EngineIgnited)
+            {
+                updateHoverStatus();
+                isIgnited = engine.EngineIgnited;
             }
         }
 
@@ -699,6 +585,32 @@ namespace KerbetrotterTools
         }
 
         /// <summary>
+        /// Get whether the engine is running
+        /// </summary>
+        public bool isRunning
+        {
+            get
+            {
+                //get the currently running engine
+                ModuleEngines engine = (engineMode == null || engineMode.runningPrimary) ? primaryEngine : secondaryEngine;
+                return engine.isActiveAndEnabled & engine.EngineIgnited && !engine.flameout;
+            }
+        }
+
+        /// <summary>
+        /// Get the throttle setting
+        /// </summary>
+        public float throttleSetting
+        {
+            get
+            {
+                //get the currently running engine
+                ModuleEngines engine = (engineMode == null || engineMode.runningPrimary) ? primaryEngine : secondaryEngine;
+                return engine.currentThrottle;
+            }
+        }
+
+        /// <summary>
         /// Get whether the hover of the engine is enbled
         /// </summary>
         public bool HoverEnabled
@@ -710,60 +622,23 @@ namespace KerbetrotterTools
         }
 
         /// <summary>
-        /// Get the status of the engine
-        /// </summary>
-        public EngineState EngineStatus
-        {
-            get
-            {
-                return engineState;
-            }
-        }
-
-        /// <summary>
-        /// The public field for the throttle of the engine
-        /// </summary>
-        public float Throttle
-        {
-            get
-            {
-                return engineThrottle;
-            }
-        }
-
-        /// <summary>
-        /// Set wheter the engines ia activated or not
-        /// </summary>
-        /// <param name="activated">True when the engine should be activated, else false</param>
-        public void setActivated(bool activated)
-        {
-            ignited = activated;
-            staged = activated;
-            updateHoverStatus();
-            updateEngineIgnitionStatus();
-        }
-
-        /// <summary>
-        /// Set the mode if the engine
-        /// </summary>
-        /// <param name="mode">The new mode of the engine</param>
-        public void setMode(int mode)
-        {
-            currentEngineMode = mode;
-            updateEngineMode();
-        }
-
-        /// <summary>
         /// Set whether the engine should hover
         /// </summary>
-        /// <param name="hover">True when hover should be enabled, else flase</param>
+        /// <param name="hover">True when hover should be enabled, else false</param>
         public void setHoverEnabled(bool hover, bool fireEvent)
         {
-            if (allowHover)
-            {
-                hoverEnabled = hover;
-                updateHoverStatus(fireEvent);
-            }
+            hoverEnabled = hover;
+            updateHoverStatus(fireEvent);
+        }
+
+        /// <summary>
+        /// Set whether the engine should hold the altitude
+        /// </summary>
+        /// <param name="hover">True when hover should hold the altitude, else false</param>
+        public void setHoverMode(bool holdAltitude, bool fireEvent)
+        {
+            this.holdAltitude = holdAltitude;
+            updateHoverStatus(fireEvent);
         }
 
         /// <summary>
@@ -813,6 +688,7 @@ namespace KerbetrotterTools
         /// <param name="height">The hover height</param>
         public void setHoverHeight(float height)
         {
+            Debug.Log("[HOVER] Height Set: " + height + " Enabled: " + hoverEnabled);
             if (hoverEnabled)
             {
                 hoverHeight = height;
@@ -910,24 +786,24 @@ namespace KerbetrotterTools
             }
         }
 
-        //Update the visible mode of the engine
-        private void updateEngineMode()
-        {
-            if (currentEngineMode < engineModes.Count)
-            {
-                engineMode = engineModes[currentEngineMode].Name;
-            }
-            else
-            {
-                engineMode = engine_hover_disabled;
-            }
-
-        }
-
         //update the hover status, sets whether an event should be fired or not
         private void updateHoverStatus(bool fireEvent)
         {
-            if ((!hoverEnabled) || (!ignited))
+            //get the currently running engine
+            ModuleEngines engine = (engineMode == null || engineMode.runningPrimary) ? primaryEngine : secondaryEngine;
+
+            if (!hoverEnabled)
+            {
+                primaryEngine.throttleMin = 0.0f;
+                primaryEngine.thrustPercentage = thrustLimiter;
+                if (secondaryEngine != null)
+                {
+                    secondaryEngine.throttleMin = 0.0f;
+                    secondaryEngine.thrustPercentage = thrustLimiter;
+                }
+            }
+
+            if ((!hoverEnabled) || (!engine.EngineIgnited))
             {
                 PID_errorSum = 0;
                 PID_lastError = 0;
@@ -935,10 +811,11 @@ namespace KerbetrotterTools
                 heightSet = false;
             }
             if (fireEvent) {
-                KerbetrotterEngineHoverEvent.onEngineHover.Fire(this, hoverEnabled & ignited);
+                KerbetrotterEngineHoverEvent.onEngineHover.Fire(this, hoverEnabled & engine.EngineIgnited, holdAltitude);
             }
             hovering = hoverEnabled ? engine_hover_enabled : engine_hover_disabled;
             Events["ToggleHover"].guiName = hoverEnabled? Localizer.Format("#LOC_KERBETROTTER.engine.mode.switch_free") : Localizer.Format("#LOC_KERBETROTTER.engine.mode.switch_hover");
+            mode = holdAltitude ? engine_mode_altitude : engine_mode_terrain;
         }
 
         //update the status of the hover mode
@@ -947,9 +824,8 @@ namespace KerbetrotterTools
             updateHoverStatus(true);
         }
 
-
         //update the visibility of the advanced controls
-        private void updateAndvanceControlVisibility()
+        private void updateAndvancedControlVisibility()
         {
             // controls in flight
             Fields["pidProfile"].guiActive = showAdvancedControls;
@@ -969,80 +845,6 @@ namespace KerbetrotterTools
             Events["ResetProfile"].guiActiveEditor = showAdvancedControls & customPID;
         }
 
-        //Load all the texts that are used
-        private void loadTexts()
-        {
-            engine_hover_disabled = Localizer.Format("#autoLOC_900890");
-            engine_hover_enabled = Localizer.Format("#autoLOC_900889");
-            engine_state_inative = Localizer.Format("#autoLOC_6001078");
-            engine_state_running = Localizer.Format("#autoLOC_7001223");
-            engine_state_flameout = Localizer.Format("#autoLOC_219016");
-            engine_state_noAtmo = Localizer.Format("#LOC_KERBETROTTER.engine.state.noAtmosphere");
-            engine_state_noOxy = Localizer.Format("#LOC_KERBETROTTER.engine.state.noOxygen");
-            engine_state_noWater = Localizer.Format("#LOC_KERBETROTTER.engine.state.notInWater");
-            engine_state_onHold = Localizer.Format("#LOC_KERBETROTTER.engine.state.onHold");
-        }
-
-        //Update the activation of all symmetry counterparts
-        private void updateActivationCounterparts()
-        {
-            //update all symmetrical modules
-            int index = part.getModuleIndex(this);
-            for (int i = 0; i < part.symmetryCounterparts.Count; i++)
-            {
-                if (part.symmetryCounterparts[i].Modules.Count > index)
-                {
-                    PartModule module = part.symmetryCounterparts[i].Modules[index];
-                    if (module is ModuleKerbetrotterEngine)
-                    {
-                        ((ModuleKerbetrotterEngine)module).setActivated(ignited);
-                    }
-                }
-            }
-        }
-
-        // Load the needed propellants
-        private void loadModes(ConfigNode node)
-        {
-            engineModes = new List<KerbetrotterEngineMode>();
-            bool valid = false;
-
-            List<ModuleKerbetrotterEngine> modules = part.Modules.GetModules<ModuleKerbetrotterEngine>();
-            ConfigNode[] modulesConfigs = part.partInfo.partConfig.GetNodes("MODULE");
-
-            //get the index of this module
-            int partModuleIndex = 0;
-            for (int i = 0; i < modules.Count; i++)
-            {
-                if (modules[i] == this)
-                {
-                    partModuleIndex = i;
-                    break;
-                }
-            }
-
-            //get the corresponding config node
-            int configNodeIndex = 0;
-            for (int i = 0; i < modulesConfigs.Length; i++)
-            {
-                if (modulesConfigs[i].GetValue("name") == moduleName)
-                {
-                    if (configNodeIndex == partModuleIndex)
-                    {
-                        loadModesInternal(modulesConfigs[i]);
-                        valid = true;
-                        break;
-                    }
-                    configNodeIndex++;
-                }
-            }
-
-            if (!valid)
-            {
-                Debug.Log("[LYNX] Engine Config NOT found");
-            }
-        }
-
         //Load the profiles for the PID controller
         private void LoadPIDProfiles(ConfigNode node)
         {
@@ -1060,17 +862,6 @@ namespace KerbetrotterTools
         }
 
         // Load the needed propellants
-        private void loadModesInternal(ConfigNode node)
-        {
-            ConfigNode[] propConfig = node.GetNodes("MODE");
-            for (int i = 0; i < propConfig.Length; i++)
-            {
-                KerbetrotterEngineMode mode = new KerbetrotterEngineMode(propConfig[i], maxThrust);
-                engineModes.Add(mode);
-            }
-        }
-
-        // Load the needed propellants
         private void LoadPIDProfilesInternal(ConfigNode node)
         {
             ConfigNode[] propConfig = node.GetNodes("PID-PROFILE");
@@ -1081,66 +872,14 @@ namespace KerbetrotterTools
             }
         }
 
-        // Apply the thrust to the engine, depending on the parameters
-        private void applyThrust()
-        {
-            if ((thrustTransforms == null) || (thrustTransforms.Length == 0) || (GetComponent<Rigidbody>() == null))
-            {
-                return;
-            }
-
-            float thrust = 0;
-
-            //get the maximal thrust depending on atmosphere
-            if (engineModes.Count > currentEngineMode)
-            {
-                thrust = engineModes[currentEngineMode].getThrust(vessel.speed, (float)vessel.atmDensity, engineThrottle, part) * thrustDivider;
-            }
-
-            //apply thrust to all engines
-            for (int i = 0; i < thrustTransforms.Length; i++)
-            {
-                GetComponent<Rigidbody>().AddForceAtPosition(-thrustTransforms[i].forward * thrust, thrustTransforms[i].position);
-            }
-        }
-
-        // Update the visibility of the events to activate and deactivate the engine
-        private void updateEngineIgnitionStatus()
-        {
-            Events["Activate"].guiActive = !ignited;
-            Events["Deactivate"].guiActive = ignited;
-        }
-
-        // Update of the particle and sound effects
-        private void updateEffects()
-        {
-            if (ignited && (engineState == EngineState.Running))
-            {
-                float r = 0;
-                //add some nouse to prevent interferences from the controller
-                if (engineThrottle > 0)
-                {
-                    r = (UnityEngine.Random.value - 0.5f) * 0.015f;
-                }
-                
-                effectvalue = Mathf.Lerp(effectvalue + r, engineThrottle, 0.1f);
-                if (effectvalue < 0.01f)
-                {
-                    effectvalue = 0.0f;
-                }
-
-                part.Effect("running", Mathf.Clamp(effectvalue, 0.01f, 1f));
-            }
-            else
-            {
-                part.Effect("running", 0f);
-            }
-        }
-
         // PID controller to update the height of the engines
         private float PID(float height)
         {
-            float error = hoverHeight - height - alitudeCorrection + heightOffset;
+            float error = hoverHeight - height + heightOffset;
+            if (!holdAltitude)
+            {
+                error -= alitudeCorrection;
+            }
 
             //proportional part
             float p_out = Kp * error / 10;
@@ -1164,9 +903,21 @@ namespace KerbetrotterTools
         }
 
         // Get the distance to the surface from the current part
+        public float getAltitude()
+        {
+            return FlightGlobals.getAltitudeAtPos(heightTransform.position);
+        }
+
+        // Get the distance to the surface from the current part
         public float getSurfaceDistance()
         {
             altitude = FlightGlobals.getAltitudeAtPos(heightTransform.position);
+
+            if (holdAltitude)
+            {
+                return altitude;
+            }
+
             float distance = 0;
 
             RaycastHit hit;
@@ -1207,164 +958,28 @@ namespace KerbetrotterTools
         // Update the status if the engine
         private void updateStatus()
         {
-            if (ignited)
+            //get the currently running engine
+            ModuleEngines engine = (engineMode == null || engineMode.runningPrimary) ? primaryEngine : secondaryEngine;
+            if (engine.EngineIgnited)
             {
-                //check if in atmosphere
-                bool inAtmosphere = ((vessel.mainBody.atmosphere) && (vessel.atmDensity > 0.0f));
-
-                //check for water
-                bool inWater = ((vessel.mainBody.ocean) && (FlightGlobals.getAltitudeAtPos(heightTransform.position) < 0.0f));
-
-                engineState = EngineState.Running;
-                status = engine_state_running;
-
-                if (engineModes[currentEngineMode].FlameOut)
-                {
-                    engineState = EngineState.Flameout;
-                    status = engine_state_flameout;
-                }
-                else if (engineModes[currentEngineMode].NeedsAtmosphere && !inAtmosphere)
-                {
-                    engineState = EngineState.MissingAtmosphere;
-                    status = engine_state_noAtmo;
-                }
-                else if (engineModes[currentEngineMode].NeedsOxygen && (!(vessel.mainBody.atmosphereContainsOxygen) || !inAtmosphere))
-                {
-                    engineState = EngineState.MissingOxygen;
-                    status = engine_state_noOxy;
-                }
-                else if (engineModes[currentEngineMode].NeedsWater && !inWater)
-                {
-                    engineState = EngineState.MissingWater;
-                    status = engine_state_noWater;
-                }
-                else if (hoverEnabled)
+                if (hoverEnabled)
                 {
                     //check if the engine can hover
                     Vector3 downVed = Quaternion.LookRotation(Vector3.Normalize(vessel.mainBody.transform.position - heightTransform.position)) * Vector3.forward;
 
-                    for (int i = 0; i < thrustTransforms.Length; i++)
+                    if (Vector3.Angle(downVed, thrustTransform.forward) > 60)
                     {
-                        if (Vector3.Angle(downVed, thrustTransforms[i].forward) > 60)
-                        {
-                            engineState = EngineState.OnHold;
-                            status = engine_state_onHold;
-                            break;
-                        }
+                        engine.status = engine_state_onHold;
+                        onHold = true;
                     }
-
+                    else
+                    {
+                        onHold = false;
+                    }
                 }
             }
-            else
-            {
-                engineState = EngineState.Inactive;
-                status = engine_state_inative;
-            }
-            //isRunning = ignited && !flameout && inAtmosphere;
         }
 
-        //----------------------------Interfaces------------------------
-
-        //------IThrustProvider------
-
-        /// <summary>
-        /// Get the current thrust of the engine
-        /// </summary>
-        /// <returns>The current thrust</returns>
-        public float GetCurrentThrust()
-        {
-            return engineThrust;
-        }
-
-        /// <summary>
-        /// Get the type of the engine
-        /// </summary>
-        /// <returns>The type of the engine</returns>
-        public EngineType GetEngineType()
-        {
-            return engineType;
-        }
-
-        /// <summary>
-        /// Get the maximal thrust from this part
-        /// </summary>
-        /// <returns></returns>
-        public float GetMaxThrust()
-        {
-            return maxThrust * (thrustLimiter / 100.0f);
-        }
-
-        /// <summary>
-        /// Get The center of thrust of this part and its direction
-        /// </summary>
-        /// <param name="qry">The query for the center of thrust</param>
-        public void OnCenterOfThrustQuery(CenterOfThrustQuery qry)
-        {
-            Vector3 position = Vector3.zero;
-            Vector3 direction = Vector3.zero;
-
-            //sum up all directions and positions
-            for (int i = 0; i < thrustTransforms.Length; i++)
-            {
-                position += thrustTransforms[i].position - part.transform.position;
-                direction += thrustTransforms[i].forward;
-            }
-
-            qry.pos = part.transform.position + (position / thrustTransforms.Length);
-            qry.dir = direction.normalized;
-            qry.thrust = maxThrust * (thrustLimiter / 100.0f);
-
-        }
-
-        //------IEngineStatus------
-
-        /// <summary>
-        /// Get whether the engine is operational
-        /// </summary>
-        public bool isOperational
-        {
-            get
-            {
-                return (engineState == EngineState.Running);
-            }
-        }
-
-        /// <summary>
-        /// Get the normalized output of the engine 
-        /// </summary>
-        public float normalizedOutput
-        {
-            get
-            {
-                if (engineModes.Count > currentEngineMode)
-                {
-                    return engineThrottle * engineModes[currentEngineMode].getThrustModifier();
-                }
-                return engineThrottle;
-            }
-        }
-
-        /// <summary>
-        /// Get the throttle setting of this engine
-        /// </summary>
-        public float throttleSetting
-        {
-            get
-            {
-                return engineThrottle;
-            }
-        }
-
-        /// <summary>
-        /// Get the name of this engine
-        /// </summary>
-        public string engineName
-        {
-            get
-            {
-                return EngineName;
-            }
-        }
 
         /// <summary>
         /// Get the altitude of this engine
@@ -1404,58 +1019,6 @@ namespace KerbetrotterTools
         public string GetPrimaryField()
         {
             return null;
-        }
-
-        //------IResourceConsumer------
-
-        /// <summary>
-        /// Get the consumed resources by the engine
-        /// </summary>
-        /// <returns>List of consumed resources</returns>
-        public List<PartResourceDefinition> GetConsumedResources()
-        {
-            List<PartResourceDefinition> definitions = new List<PartResourceDefinition>();
-            if (engineModes.Count > currentEngineMode)
-            {
-                for (int i = 0; i < engineModes[currentEngineMode].propellants.Count; i++)
-                {
-                    definitions.Add(PartResourceLibrary.Instance.GetDefinition(engineModes[currentEngineMode].propellants[i].name));
-                }
-            }
-            return definitions;
-        }
-
-        //----------------------------------------Enums--------------------------------
-        /// <summary>
-        /// The state of the engine. 
-        /// </summary>
-        public enum EngineState
-        {
-            Inactive,
-            Running,
-            Flameout,
-            MissingAtmosphere,
-            MissingOxygen,
-            MissingWater,
-            InWater,
-            OnHold
-        };
-
-        /// <summary>
-        /// Class holding the information about the needed propellants
-        /// </summary>
-        private class EnginePropellant
-        {
-            public EnginePropellant(string name, float amount)
-            {
-                this.name = name;
-                this.amount = amount;
-                ID = name.GetHashCode();
-            }
-
-            public string name;
-            public int ID;
-            public float amount;
         }
     }
 }

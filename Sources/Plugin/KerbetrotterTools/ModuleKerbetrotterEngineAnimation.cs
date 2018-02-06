@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2017 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,8 +67,11 @@ namespace KerbetrotterTools
         //the transform to rotate;
         private Transform[] rotationTransforms;
 
-        //the engine
+        //the kerbetrotter engine
         private ModuleKerbetrotterEngine engine;
+
+        //the stock engine
+        private ModuleKerbetrotterEngineFX boatEngine;
 
         //wheter the animation is valid
         private bool valid;
@@ -100,6 +103,13 @@ namespace KerbetrotterTools
                     if ((part.Modules[i] is ModuleKerbetrotterEngine) && (((ModuleKerbetrotterEngine)part.Modules[i]).EngineName == engineName))
                     {
                         engine = (ModuleKerbetrotterEngine)part.Modules[i];
+                        Debug.Log("[ENGINE ANIMATION] Found ModuleKerbetrotterEngine");
+                        break;
+                    }
+                    if ((part.Modules[i] is ModuleKerbetrotterEngineFX) && (((ModuleKerbetrotterEngineFX)part.Modules[i]).engineID == engineName))
+                    {
+                        boatEngine = (ModuleKerbetrotterEngineFX)part.Modules[i];
+                        Debug.Log("[ENGINE ANIMATION] Found ModuleKerbetrotterBoatEngine");
                         break;
                     }
                 }
@@ -107,7 +117,7 @@ namespace KerbetrotterTools
             minDegSec = 360 * minRotationSpeed;
             maxDegSec = 360 * maxRotationSpeed;
 
-            valid = (rotationTransforms != null) & (rotationTransforms.Length > 0) & (engine != null);
+            valid = (rotationTransforms != null) & (rotationTransforms.Length > 0) & ((engine != null) || (boatEngine != null));
         }
 
         /// <summary>
@@ -124,17 +134,35 @@ namespace KerbetrotterTools
 
             float angleRate = 0;
 
-            if (!engine.isOperational)
+            if (engine != null)
             {
-                angleRate = 0;
+                if (!engine.isRunning)
+                {
+                    angleRate = 0;
+                }
+                else if (speedCurve != null)
+                {
+                    angleRate = Mathf.Lerp(minDegSec, maxDegSec, Mathf.Clamp(speedCurve.Evaluate(engine.throttleSetting), 0, 1));
+                }
+                else
+                {
+                    angleRate = Mathf.Lerp(minDegSec, maxDegSec, Mathf.Clamp(engine.throttleSetting, 0, 1));
+                }
             }
-            else if (speedCurve != null)
+            else if (boatEngine != null)
             {
-                angleRate = Mathf.Lerp(minDegSec, maxDegSec, Mathf.Clamp(speedCurve.Evaluate(engine.throttleSetting), 0, 1));
-            }
-            else
-            {
-                angleRate = Mathf.Lerp(minDegSec, maxDegSec, Mathf.Clamp(engine.throttleSetting, 0, 1));
+                if ((!boatEngine.isActiveAndEnabled) || (!boatEngine.EngineIgnited))
+                {
+                    angleRate = 0;
+                }
+                else if (speedCurve != null)
+                {
+                    angleRate = Mathf.Lerp(minDegSec, maxDegSec, Mathf.Clamp(speedCurve.Evaluate(boatEngine.currentThrottle), 0, 1));
+                }
+                else
+                {
+                    angleRate = Mathf.Lerp(minDegSec, maxDegSec, Mathf.Clamp(boatEngine.currentThrottle, 0, 1));
+                }
             }
 
             smoothRate = Mathf.Lerp(smoothRate, angleRate, TimeWarp.deltaTime / speedChangeRate);
@@ -172,6 +200,7 @@ namespace KerbetrotterTools
         public void OnDestroy()
         {
             engine = null;
+            boatEngine = null;
             rotationTransforms = null;
         }
     }
