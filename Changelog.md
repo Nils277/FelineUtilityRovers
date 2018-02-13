@@ -5,6 +5,7 @@
 
 * Fixed compatibility with TCA
 * Fixed log spam of hover engine
+* Fixed flag and color of the truck cockpit
 
 # v1.0.7 *-Flying high-* 
 *[Released: 6.FEBRUARY.2018]* 
