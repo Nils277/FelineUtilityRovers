@@ -1,11 +1,19 @@
-v1.0.7 [Released: XX.FEBRUARY.2018] ~Flying high~
+v1.1.0 [Released XX.MARCH.2018] ~It's so shiny!~
+    Visual:
+        - Added specular information to all textures                                                        IN PROCESS
+        - Added normal maps to all parts                                                                    IN PROCESS
+    Mod Support:
+        - Added native support for Textures Unlimited                                                       IN PROCESS
+-------------------------------------------------------
+v1.0.7 [Released: 6.FEBRUARY.2018] ~Flying high~
     Enhancements:
-        - The hover engine now has two modes - "Hold Terrain Distance" and "Hold Altitude"                  TESTING
-        - Hover engines now use stock modules (allows compatibility with mods like TCA and MechJeb)         TESTING
+        - The hover engine now has two modes - "Hold Terrain Distance" and "Hold Altitude"
+        - Hover engines now use stock modules (allows compatibility with mods like TCA and MechJeb)
+        - Added additional attach node to extendible docking part to allow attachment of decoupler          TODO CHECK
     Bug Fixes:
-        - Added missing USI-LS support to Truck Cockpit                                                     TESTING
-        - Fixed compatibility issues with the Simple Construction mod                                       TESTING
-        - Fixed mirrored text on Small Fueltank                                                             TESTING
+        - Added missing USI-LS support to Truck Cockpit
+        - Fixed compatibility issues with the Simple Construction mod
+        - Fixed mirrored text on Small Fueltank
 -------------------------------------------------------        
 v1.0.6 [Released: 10.JANUARY.2018] ~Let there be ligh....ahhh i'm blind!~
     Localization:
@@ -26,7 +34,7 @@ v1.0.6 [Released: 10.JANUARY.2018] ~Let there be ligh....ahhh i'm blind!~
         - The settings for the hover engines are now saved correctly
 -------------------------------------------------------
 v1.0.5 [Released: 19.DECEMBER.2017] ~Science Away~
-    Enhancements:
+    Enhancements:<
         - The user is now warned when trying to activate the hover mode when the engines are stowed
     New Parts:
         - Added Material Bay for the Rover
