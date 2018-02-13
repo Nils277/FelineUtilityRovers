@@ -403,23 +403,11 @@ namespace KerbetrotterTools
 
             primaryEngine.Fields["thrustPercentage"].guiActive = false;
             primaryEngine.Fields["thrustPercentage"].guiActiveEditor = false;
-            if (primaryEngine is ModuleKerbetrotterEngineFX)
-            {
-                primaryEngine.Fields["thrustLimiter"].guiActive = false;
-                primaryEngine.Fields["thrustLimiter"].guiActiveEditor = false;
-                ((ModuleKerbetrotterEngineFX)primaryEngine).setControlled(true);
-            }
 
             if (secondaryEngine != null)
             {
                 secondaryEngine.Fields["thrustPercentage"].guiActive = false;
                 secondaryEngine.Fields["thrustPercentage"].guiActiveEditor = false;
-                if (secondaryEngine is ModuleKerbetrotterEngineFX)
-                {
-                    secondaryEngine.Fields["thrustLimiter"].guiActive = false;
-                    secondaryEngine.Fields["thrustLimiter"].guiActiveEditor = false;
-                    ((ModuleKerbetrotterEngineFX)secondaryEngine).setControlled(true);
-                }
             }
 
             thrustTransform = part.FindModelTransform(thrustVectorTransformName.Trim());
@@ -688,7 +676,7 @@ namespace KerbetrotterTools
         /// <param name="height">The hover height</param>
         public void setHoverHeight(float height)
         {
-            Debug.Log("[HOVER] Height Set: " + height + " Enabled: " + hoverEnabled);
+            //Debug.Log("[HOVER] Height Set: " + height + " Enabled: " + hoverEnabled);
             if (hoverEnabled)
             {
                 hoverHeight = height;
@@ -857,7 +845,7 @@ namespace KerbetrotterTools
             }
             else
             {
-                Debug.Log("[LYNX] Engine Config NOT found");
+                Debug.LogError("[LYNX] Engine Config NOT found");
             }
         }
 

@@ -55,13 +55,13 @@
     <Compile Include="KerbetrotterPIDProfile.cs" />
     <Compile Include="KerbetrotterEngineVesselControl.cs" />
     <Compile Include="KerbetrotterEngineMode.cs" />
-    <Compile Include="ModuleKerbetrotterEngineFX.cs" />
     <Compile Include="ModuleKerbetrotterConstrainedLookAt.cs" />
     <Compile Include="ModuleKerbetrotterConverter.cs" />
     <Compile Include="ModuleKerbetrotterDockingAdjustment.cs" />
     <Compile Include="ModuleKerbetrotterEngine.cs" />
     <Compile Include="ModuleKerbetrotterEngineAnimation.cs" />
     <Compile Include="ModuleKerbetrotterEngineControl.cs" />
+    <Compile Include="ModuleKerbetrotterEngineIntake.cs" />
     <Compile Include="ModuleKerbetrotterHarvesterSwitch.cs" />
     <Compile Include="ModuleKerbetrotterHitch.cs" />
     <Compile Include="ModuleKerbetrotterInternalUpdater.cs" />

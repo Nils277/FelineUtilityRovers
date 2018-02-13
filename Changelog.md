@@ -1,3 +1,11 @@
+# v1.0.8 *-Throttling up-*
+*[Released: 13.FEBRUARY.2018] 
+
+**Bug Fixes:**
+
+* Fixed compatibility with TCA
+* Fixed log spam of hover engine
+
 # v1.0.7 *-Flying high-* 
 *[Released: 6.FEBRUARY.2018]* 
 
