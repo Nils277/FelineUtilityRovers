@@ -1,15 +1,32 @@
 v1.1.0 [Released XX.MARCH.2018] ~It's so shiny!~
+    Update:
+        - Recompile for KSP 1.4.0                                                                           TODO
     Visual:
         - Added specular information to all textures                                                        IN PROCESS
-        - Added normal maps to all parts                                                                    IN PROCESS
+        - Added normal maps for all parts and IVAs                                                          IN PROCESS
+
     Mod Support:
-        - Added native support for Textures Unlimited                                                       IN PROCESS
+        - Added limited support for Textures Unlimited
+ -------------------------------------------------------
+v1.0.10 [Released: 08.MARCH.2018] ~Lasagna v1.4~   
+    Update:
+        - Recompile for KSP 1.4                                                                             TODO      
+-------------------------------------------------------
+v1.0.9 [Released: 08.MARCH.2018] ~Lasagna v1.3~   
+    Bug Fixes:
+        - Fixed small fuel-tank not switching plaque correctly                                              TESTING
+-------------------------------------------------------
+v1.0.8 [Released: 13.FEBRUARY.2018] ~Throttling up~
+    Bug Fixes:
+        - Fixed compatibility with TCA
+        - Fixed log spam of hover engine
+        - Fixed flag and color of the truck cockpit
 -------------------------------------------------------
 v1.0.7 [Released: 6.FEBRUARY.2018] ~Flying high~
     Enhancements:
         - The hover engine now has two modes - "Hold Terrain Distance" and "Hold Altitude"
         - Hover engines now use stock modules (allows compatibility with mods like TCA and MechJeb)
-        - Added additional attach node to extendible docking part to allow attachment of decoupler          TODO CHECK
+        - Added additional attach node to extendible docking part to allow attachment of decoupler
     Bug Fixes:
         - Added missing USI-LS support to Truck Cockpit
         - Fixed compatibility issues with the Simple Construction mod
@@ -34,7 +51,7 @@ v1.0.6 [Released: 10.JANUARY.2018] ~Let there be ligh....ahhh i'm blind!~
         - The settings for the hover engines are now saved correctly
 -------------------------------------------------------
 v1.0.5 [Released: 19.DECEMBER.2017] ~Science Away~
-    Enhancements:<
+    Enhancements:
         - The user is now warned when trying to activate the hover mode when the engines are stowed
     New Parts:
         - Added Material Bay for the Rover
