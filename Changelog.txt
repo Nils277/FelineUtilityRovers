@@ -1,20 +1,3 @@
-v1.1.0 [Released XX.MARCH.2018] ~It's so shiny!~
-    Update:
-        - Recompile for KSP 1.4.0                                                                           TODO
-    Visual:
-        - Added specular information to all textures                                                        IN PROCESS
-        - Added normal maps for all parts and IVAs                                                          IN PROCESS
-
-    Mod Support:
-        - Added limited support for Textures Unlimited
- -------------------------------------------------------
-v1.0.10 [Released: 08.MARCH.2018] ~Lasagna v1.4~   
-    Update:
-        - Recompile for KSP 1.4                                                                             TODO      
--------------------------------------------------------
-v1.0.9 [Released: 08.MARCH.2018] ~Lasagna v1.3~   
-    Bug Fixes:
-        - Fixed small fuel-tank not switching plaque correctly                                              TESTING
 -------------------------------------------------------
 v1.0.8 [Released: 13.FEBRUARY.2018] ~Throttling up~
     Bug Fixes:
