@@ -1,3 +1,8 @@
+v1.0.9 [Released: 08.MARCH.2018] ~Lasagna v1.3~   
+    Bug Fixes:
+        - Fixed small fuel-tank not switching plaque correctly
+        - Fixed model error in roof fuel cell
+-------------------------------------------------------
 v1.0.8 [Released: 13.FEBRUARY.2018] ~Throttling up~
     Bug Fixes:
         - Fixed compatibility with TCA
