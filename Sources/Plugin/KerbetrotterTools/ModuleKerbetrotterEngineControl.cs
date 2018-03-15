@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2017 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -123,19 +123,19 @@ namespace KerbetrotterTools
         /// The proportional part of the controller
         /// </summary>
         [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#LOC_KERBETROTTER.control.speed.p"), UI_FloatRange(affectSymCounterparts = UI_Scene.All, minValue = 0, maxValue = 1f, stepIncrement = 0.01f)]
-        public float Kp_s = 0.4f;
+        public float Kp_s = 0.5f;
 
         /// <summary>
         /// The integral part of the controller
         /// </summary>
         [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#LOC_KERBETROTTER.control.speed.i"), UI_FloatRange(affectSymCounterparts = UI_Scene.All, minValue = 0, maxValue = 1f, stepIncrement = 0.01f)]
-        public float Ki_s = 0.2f;
+        public float Ki_s = 0.65f;
 
         /// <summary>
         /// The differential part of the controller
         /// </summary>
         [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "#LOC_KERBETROTTER.control.speed.d"), UI_FloatRange(affectSymCounterparts = UI_Scene.All, minValue = 0, maxValue = 1f, stepIncrement = 0.01f)]
-        public float Kd_s = 0.1f;
+        public float Kd_s = 0.2f;
 
         //saves if the user has been warned
         [KSPField(isPersistant = true)]
@@ -346,7 +346,7 @@ namespace KerbetrotterTools
             Vector3 downVed = Quaternion.LookRotation(Vector3.Normalize(vessel.mainBody.transform.position - referenceTransform.position)) * Vector3.forward;
             validSituation &= Vector3.Angle(downVed, referenceTransform.forward) < (60 + maxAngle);
 
-            bool engineRunning = (engine == null) || (engine.HoverEnabled && (engine.EngineStatus == ModuleKerbetrotterEngine.EngineState.Running));
+            bool engineRunning = (engine == null) || (engine.HoverEnabled && (engine.isRunning));
 
             //when the engine is in a valid situation
             if (engineRunning && validSituation)

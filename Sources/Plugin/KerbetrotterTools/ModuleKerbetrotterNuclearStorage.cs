@@ -1,4 +1,19 @@
-﻿using KSP.Localization;
+﻿/*
+ * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+using KSP.Localization;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -68,9 +83,6 @@ namespace KerbetrotterTools
 
         //The part to transfer fuel to
         private Part transferTarget = null;
-
-        //Bool whether this part is the target for transfer
-        private bool isTarget = false;
 
         //saves whether the part can store nuclear waste
         private bool hasWasteStorage = false;
@@ -529,7 +541,7 @@ namespace KerbetrotterTools
         {
             if (isTarget)
             {
-
+                //Debug.Log("LYNX_NUCLEAR: Setting Target: " + target.name);
                 target.highlightColor.r = transferColor.r;
                 target.highlightColor.g = transferColor.g;
                 target.highlightColor.b = transferColor.b;
@@ -538,6 +550,7 @@ namespace KerbetrotterTools
             //set the default highlight color
             else
             {
+                //Debug.Log("LYNX_NUCLEAR: Resetting Target: " + target.name);
                 target.highlightColor.r = defaultColor.r;
                 target.highlightColor.g = defaultColor.g;
                 target.highlightColor.b = defaultColor.b;

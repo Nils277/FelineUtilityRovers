@@ -61,6 +61,7 @@
     <Compile Include="ModuleKerbetrotterEngine.cs" />
     <Compile Include="ModuleKerbetrotterEngineAnimation.cs" />
     <Compile Include="ModuleKerbetrotterEngineControl.cs" />
+    <Compile Include="ModuleKerbetrotterEngineIntake.cs" />
     <Compile Include="ModuleKerbetrotterHarvesterSwitch.cs" />
     <Compile Include="ModuleKerbetrotterHitch.cs" />
     <Compile Include="ModuleKerbetrotterInternalUpdater.cs" />

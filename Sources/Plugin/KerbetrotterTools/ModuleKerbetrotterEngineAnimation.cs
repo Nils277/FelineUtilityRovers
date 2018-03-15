@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2017 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,8 +67,12 @@ namespace KerbetrotterTools
         //the transform to rotate;
         private Transform[] rotationTransforms;
 
-        //the engine
-        private ModuleKerbetrotterEngine engine;
+        //the normal engine
+        private ModuleEngines engine;
+
+        //the hover engine
+        private ModuleKerbetrotterEngine kEngine;
+
 
         //wheter the animation is valid
         private bool valid;
@@ -97,17 +101,22 @@ namespace KerbetrotterTools
             {
                 for (int i = 0; i < part.Modules.Count; i++)
                 {
-                    if ((part.Modules[i] is ModuleKerbetrotterEngine) && (((ModuleKerbetrotterEngine)part.Modules[i]).EngineName == engineName))
+                    if ((part.Modules[i] is ModuleEngines) && (((ModuleEngines)part.Modules[i]).engineID == engineName))
                     {
-                        engine = (ModuleKerbetrotterEngine)part.Modules[i];
+                        engine = (ModuleEngines)part.Modules[i];
+                        //Debug.Log("[ENGINE ANIMATION] Found ModuleEngines");
+                    }
+                    if (part.Modules[i] is ModuleKerbetrotterEngine)
+                    {
+                        kEngine = (ModuleKerbetrotterEngine)part.Modules[i];
+                        //Debug.Log("[ENGINE ANIMATION] Found ModuleKerbetrotterEngine");
                         break;
                     }
                 }
             }
             minDegSec = 360 * minRotationSpeed;
             maxDegSec = 360 * maxRotationSpeed;
-
-            valid = (rotationTransforms != null) & (rotationTransforms.Length > 0) & (engine != null);
+            valid = (rotationTransforms != null) & (rotationTransforms.Length > 0) && ((engine != null) || (kEngine != null));
         }
 
         /// <summary>
@@ -124,17 +133,35 @@ namespace KerbetrotterTools
 
             float angleRate = 0;
 
-            if (!engine.isOperational)
+            if (kEngine != null)
             {
-                angleRate = 0;
+                if (!kEngine.isRunning)
+                {
+                    angleRate = 0;
+                }
+                else if (speedCurve != null)
+                {
+                    angleRate = Mathf.Lerp(minDegSec, maxDegSec, Mathf.Clamp(speedCurve.Evaluate(kEngine.throttleSetting), 0, 1));
+                }
+                else
+                {
+                    angleRate = Mathf.Lerp(minDegSec, maxDegSec, Mathf.Clamp(kEngine.throttleSetting, 0, 1));
+                }
             }
-            else if (speedCurve != null)
+            else if (engine != null)
             {
-                angleRate = Mathf.Lerp(minDegSec, maxDegSec, Mathf.Clamp(speedCurve.Evaluate(engine.throttleSetting), 0, 1));
-            }
-            else
-            {
-                angleRate = Mathf.Lerp(minDegSec, maxDegSec, Mathf.Clamp(engine.throttleSetting, 0, 1));
+                if (!engine.isActiveAndEnabled || !engine.EngineIgnited || engine.flameout)
+                {
+                    angleRate = 0;
+                }
+                else if (speedCurve != null)
+                {
+                    angleRate = Mathf.Lerp(minDegSec, maxDegSec, Mathf.Clamp(speedCurve.Evaluate(engine.throttleSetting), 0, 1));
+                }
+                else
+                {
+                    angleRate = Mathf.Lerp(minDegSec, maxDegSec, Mathf.Clamp(engine.throttleSetting, 0, 1));
+                }
             }
 
             smoothRate = Mathf.Lerp(smoothRate, angleRate, TimeWarp.deltaTime / speedChangeRate);
@@ -172,6 +199,7 @@ namespace KerbetrotterTools
         public void OnDestroy()
         {
             engine = null;
+            kEngine = null;
             rotationTransforms = null;
         }
     }
