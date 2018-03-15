@@ -1,3 +1,10 @@
+#1.1.1 and v1.2.1  *-A bumpy ride-*
+*[Released 15.MARCH.2018]*
+
+**Bug Fixes:**
+
+* Fixed loading error of Platform Ramp
+
 # 1.2.0 *-It's so shiny! V2!-*
 *[Released 15.MARCH.2018]*
 
