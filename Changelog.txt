@@ -1,7 +1,17 @@
-v1.0.9 [Released: 08.MARCH.2018] ~Lasagna v1.3~   
+v1.1.0 [Released: 15.MARCH.2018] ~It's so shiny!~
+    Visual:
+        - Added specular information to all textures
+        - Added normal maps for all Parts, IVAs and Props
+        - Fixed several texture inaccuracies
+    New Parts:
+        - Added Material bay that fits inside the service bay
+        - Added Radiator for the roof
+    Mod Support:
+        - Added basic support for Textures Unlimited
+        - Added support for indicator lights
     Bug Fixes:
         - Fixed small fuel-tank not switching plaque correctly
-        - Fixed model error in roof fuel cell
+        - Fixed logged warnings of Docking Bay Port for CLS
 -------------------------------------------------------
 v1.0.8 [Released: 13.FEBRUARY.2018] ~Throttling up~
     Bug Fixes:
@@ -38,7 +48,7 @@ v1.0.6 [Released: 10.JANUARY.2018] ~Let there be ligh....ahhh i'm blind!~
         - The settings for the hover engines are now saved correctly
 -------------------------------------------------------
 v1.0.5 [Released: 19.DECEMBER.2017] ~Science Away~
-    Enhancements:<
+    Enhancements:
         - The user is now warned when trying to activate the hover mode when the engines are stowed
     New Parts:
         - Added Material Bay for the Rover

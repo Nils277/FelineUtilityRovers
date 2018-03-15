@@ -1,3 +1,27 @@
+# v1.1.0 *-It's so shiny!-*
+*[Released: 15.MARCH.2018]*
+
+**Visual:**
+
+* Added specular information to all textures
+* Added normal maps for all Parts, IVAs and Props
+* Fixed several texture inaccuracies
+
+**New Parts:**
+
+* Added Material bay that fits inside the service bay
+* Added Radiator for the roof
+
+**Mod Support:**
+
+* Added basic support for Textures Unlimited
+* Added support for indicator lights
+
+**Bug Fixes:**
+
+* Fixed small fuel-tank not switching plaque correctly
+* Fixed logged warnings of Docking Bay Port for CLS
+
 # v1.0.8 *-Throttling up-*
 *[Released: 13.FEBRUARY.2018] 
 
