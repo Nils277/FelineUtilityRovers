@@ -1,3 +1,9 @@
+v1.2.0 [Released 15.MARCH.2018] ~It's so shiny! V2!~
+    Update:
+        - Recompile for KSP 1.4.1
+        - Updated KSPModFileLocalizer to version 0.2.3.0
+        - Adjusted friction of wheels for better controllability
+-------------------------------------------------------
 v1.1.0 [Released: 15.MARCH.2018] ~It's so shiny!~
     Visual:
         - Added specular information to all textures
