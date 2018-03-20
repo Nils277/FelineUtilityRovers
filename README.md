@@ -39,7 +39,7 @@ contain crew cabins, a laboratory or even bellowed joints to be more flexible in
 ![](http://i.imgur.com/cXO4NUi.png) Español by [bice](http://forum.kerbalspaceprogram.com/index.php?/profile/152599-bice/)  
 ![](http://i.imgur.com/mFRcn0a.png) Русский by [Tirathangil](https://github.com/Tirathangil)  
 ![](http://i.imgur.com/JyqfJ1P.png) 中国语文 by [ssd21345](http://forum.kerbalspaceprogram.com/index.php?/profile/146209-ssd21345/), [vosskftw](http://forum.kerbalspaceprogram.com/index.php?/profile/175031-vosskftw/) and [Levin845](http://forum.kerbalspaceprogram.com/index.php?/profile/176530-levin845/)  
-![](http://i.imgur.com/THVD1ot.jpg) Português (do Brasil) by [FellipeC](http://forum.kerbalspaceprogram.com/index.php?/profile/77983-fellipec/)  
+![](https://i.imgur.com/bYvpByj.png) Português (do Brasil) by [FellipeC](http://forum.kerbalspaceprogram.com/index.php?/profile/77983-fellipec/)  
 ![](http://i.imgur.com/SuHOnKm.png) Deutsch by [Nils277](http://forum.kerbalspaceprogram.com/index.php?/profile/122414-nils277/)  
 
 ### Looking for help:
