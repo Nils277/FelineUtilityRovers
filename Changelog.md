@@ -214,7 +214,7 @@
 
 **Localization:**
 * Added chinese translation ![](http://i.imgur.com/JyqfJ1P.png). Thanks to [ssd21345](http://forum.kerbalspaceprogram.com/index.php?/profile/146209-ssd21345/), [vosskftw](http://forum.kerbalspaceprogram.com/index.php?/profile/175031-vosskftw/) and [Levin845](http://forum.kerbalspaceprogram.com/index.php?/profile/176530-levin845/)
-* Added (brazilian) portuguese translation ![](http://i.imgur.com/THVD1ot.jpg). Thanks to [FellipeC](http://forum.kerbalspaceprogram.com/index.php?/profile/77983-fellipec/)
+* Added (brazilian) portuguese translation ![](https://i.imgur.com/bYvpByj.png). Thanks to [FellipeC](http://forum.kerbalspaceprogram.com/index.php?/profile/77983-fellipec/)
 * Added german translation ![](http://i.imgur.com/SuHOnKm.png)
 * Updated spanish translations for new parts. Thanks to [bice](http://forum.kerbalspaceprogram.com/index.php?/profile/152599-bice/)
 * Added some missing translations for Kerbalism
