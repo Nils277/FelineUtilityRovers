@@ -10,6 +10,7 @@
 * Fixed Normalmap of the Science in a Box part
 * Fixed Portrait view of Mobile Lab
 * Fixed mesh of fuelcell for the roof
+* Fixed some spelling mistakes in various languages (thanks to [Sebra](https://forum.kerbalspaceprogram.com/index.php?/profile/174461-sebra/) and [DasSkelett](https://github.com/DasSkelett))
 
 #1.1.1 and v1.2.1  *-A bumpy ride-*
 *[Released 15.MARCH.2018]*
