@@ -1,4 +1,4 @@
-v1.2.2 [Released 20.MARCH.2018] ~Blind Spot~
+v1.2.2 [Released 21.MARCH.2018] ~Blind Spot~
     Mod Support:
         - Updated support for Unlimited Textures
     Bug Fixes:
