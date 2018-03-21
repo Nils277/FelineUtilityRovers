@@ -200,8 +200,8 @@ namespace KerbetrotterTools
 
         //-----------------------------Strings--------------------------
 
-        private static string engine_hover_enabled = Localizer.Format("#autoLOC_900889");
-        private static string engine_hover_disabled = Localizer.Format("#autoLOC_900890");
+        private static string engine_hover_enabled = Localizer.Format("#autoLOC_6001074");
+        private static string engine_hover_disabled = Localizer.Format("#autoLOC_6001073");
         private static string engine_state_onHold = Localizer.Format("#LOC_KERBETROTTER.engine.state.onHold");
         private static string engine_mode_terrain = Localizer.Format("#LOC_KERBETROTTER.engine.mode.terrain");
         private static string engine_mode_altitude = Localizer.Format("#LOC_KERBETROTTER.engine.mode.altitude");

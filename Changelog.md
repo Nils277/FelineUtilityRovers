@@ -1,3 +1,16 @@
+#1.2.2  *-Blind Spot-*
+*[Released 20.MARCH.2018]*
+
+**Mod Support:**
+
+* Updated support for Unlimited Textures
+
+**Bug Fixes:**
+
+* Fixed Normalmap of the Science in a Box part
+* Fixed Portrait view of Mobile Lab
+* Fixed mesh of fuelcell for the roof
+
 #1.1.1 and v1.2.1  *-A bumpy ride-*
 *[Released 15.MARCH.2018]*
 
