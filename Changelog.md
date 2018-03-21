@@ -1,5 +1,5 @@
 
-# 1.2.2  *-Blind Spot-*
+# v1.2.2  *-Blind Spot-*
 *[Released 20.MARCH.2018]*
 
 **Mod Support:**
