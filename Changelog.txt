@@ -1,3 +1,7 @@
+v1.2.3 [Released 22.MARCH.2018] ~Italiano~
+    Localization:
+        - Added italian translation. Thanks to Simog
+-------------------------------------------------------        
 v1.2.2 [Released 21.MARCH.2018] ~Blind Spot~
     Mod Support:
         - Updated support for Unlimited Textures
