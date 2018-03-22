@@ -3,7 +3,7 @@
 
 **Localization:**
 
-* Added italian translation. Thanks to Simog
+* Added italian translation ![](https://i.imgur.com/qg9rZcs.png). Thanks to [Simog](https://forum.kerbalspaceprogram.com/index.php?/profile/179328-simog/)
 
 # v1.2.2  *-Blind Spot-*
 *[Released 21.MARCH.2018]*
