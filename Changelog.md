@@ -1,6 +1,12 @@
+#1.2.2  *-Italiano-*
+*[Released 22.MARCH.2018]*
+
+**Localization:**
+
+* Added italian translation. Thanks to Simog
 
 #1.2.2  *-Blind Spot-*
-*[Released 20.MARCH.2018]*
+*[Released 21.MARCH.2018]*
 
 **Mod Support:**
 
