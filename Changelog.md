@@ -20,7 +20,7 @@
 
 * Tweaked support for Textures Unlimited
 
-# v1.2.2 *-Italiano-*
+# v1.2.3 *-Italiano-*
 *[Released 22.MARCH.2018]*
 
 **Localization:**
