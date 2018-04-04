@@ -1,4 +1,5 @@
-![](http://i.imgur.com/HYWMzVh.png)   
+![](http://i.imgur.com/HYWMzVh.png)  
+![](https://i.imgur.com/pCUz5E2.png) ![](http://i.imgur.com/cXO4NUi.png) ![](http://i.imgur.com/mFRcn0a.png) ![](http://i.imgur.com/JyqfJ1P.png) ![](https://i.imgur.com/bYvpByj.png) ![](http://i.imgur.com/SuHOnKm.png) ![](https://i.imgur.com/qg9rZcs.png)  
 ![](https://i.imgur.com/De1xAAr.png)
 
 Kerbetrotter Ltd. is happy to announce its newest creation from the Feline Utility Rover series: The Lynx Rover.  
@@ -37,14 +38,14 @@ contain crew cabins, a laboratory or even bellowed joints to be more flexible in
 <!---![](http://i.imgur.com/O762Vfm.png)--->  
 ## Translations  
 ![](http://i.imgur.com/cXO4NUi.png) Español by [bice](http://forum.kerbalspaceprogram.com/index.php?/profile/152599-bice/)  
-![](http://i.imgur.com/mFRcn0a.png) Русский by [Tirathangil](https://github.com/Tirathangil)  
+![](http://i.imgur.com/mFRcn0a.png) Русский by [Tirathangil](https://github.com/Tirathangil) and [Sebra](https://forum.kerbalspaceprogram.com/index.php?/profile/174461-sebra/)  
 ![](http://i.imgur.com/JyqfJ1P.png) 中国语文 by [ssd21345](http://forum.kerbalspaceprogram.com/index.php?/profile/146209-ssd21345/), [vosskftw](http://forum.kerbalspaceprogram.com/index.php?/profile/175031-vosskftw/) and [Levin845](http://forum.kerbalspaceprogram.com/index.php?/profile/176530-levin845/)  
 ![](https://i.imgur.com/bYvpByj.png) Português (do Brasil) by [FellipeC](http://forum.kerbalspaceprogram.com/index.php?/profile/77983-fellipec/)  
-![](http://i.imgur.com/SuHOnKm.png) Deutsch by [Nils277](http://forum.kerbalspaceprogram.com/index.php?/profile/122414-nils277/) and [DasSkelett](https://github.com/DasSkelett)
+![](http://i.imgur.com/SuHOnKm.png) Deutsch by [Nils277](http://forum.kerbalspaceprogram.com/index.php?/profile/122414-nils277/) and [DasSkelett](https://github.com/DasSkelett)  
 ![](https://i.imgur.com/qg9rZcs.png) Italiano by [Simog](https://forum.kerbalspaceprogram.com/index.php?/profile/179328-simog/)  
 
 ### Looking for help:
-If anyone is interested to translate FUR into Japanese ![](http://i.imgur.com/M93S44Z.png), French ![](https://i.imgur.com/r27hbde.png) or Italian ![](https://i.imgur.com/qg9rZcs.png) , please let me know!  
+If anyone is interested to translate FUR into Japanese ![](http://i.imgur.com/M93S44Z.png) or French ![](https://i.imgur.com/r27hbde.png) , please let me know!  
 
 You can find all the texts that need translation here: [Texts](https://github.com/Nils277/FelineUtilityRovers/tree/master/Translation). (1968 Words)  
 
