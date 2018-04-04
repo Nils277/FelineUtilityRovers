@@ -50,6 +50,8 @@ namespace KerbetrotterTools
         //saves whether the visibility has been updated yet or not
         public bool initialized = false;
 
+        private List<MeshToggleListener> listeners = new List<MeshToggleListener>();
+
         /// <summary>
         /// Find the transforms that can be toggled
         /// </summary>
@@ -72,6 +74,14 @@ namespace KerbetrotterTools
             }
 
             updateMeshes();
+        }
+
+        /// <summary>
+        /// Free all resources when the part is destroyed
+        /// </summary>
+        public void OnDestroy()
+        {
+            listeners.Clear();
         }
 
         /// <summary>
@@ -135,6 +145,20 @@ namespace KerbetrotterTools
             updateMeshes();
         }
 
+        public void addListener(MeshToggleListener listener)
+        {
+            if (!listeners.Contains(listener)) {
+                listeners.Add(listener);
+            }
+        }
+
+        public void removeListener(MeshToggleListener listener)
+        {
+            if (listeners.Contains(listener)) {
+                listeners.Remove(listener);
+            }
+        }
+
         /// <summary>
         /// Update the meshes of the part
         /// </summary>
@@ -146,6 +170,17 @@ namespace KerbetrotterTools
                 transforms[i].gameObject.SetActive(transformsVisible);
             }
             updateGUI();
+
+            for (int i = 0; i < listeners.Count; i++)
+            {
+                listeners[i].meshToggled(transformsVisible);
+            }
+        }
+
+
+        public interface MeshToggleListener
+        {
+            void meshToggled(bool enabled);
         }
     }
 }
