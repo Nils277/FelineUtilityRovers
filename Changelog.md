@@ -1,4 +1,26 @@
-# v1.2.2  *-Italiano-*
+# v1.2.4 *-Ten Four-*
+*[Released 04.APRIL.2018]*
+
+**Update:**
+
+* Recompile for KSP 1.4.2
+* Updated KSPModFileLocalizer to version 0.2.3.1
+
+**Enhancements:**
+
+* You can now enable vertical connetions ports on the docking bay
+
+**Bug Fixes:**
+
+* Fixed support for indicator lights from ISRU
+* Fixed cabin lights of rear airlock and mobile lab
+* Fixed some textures for Textures Unlimited support
+
+**Mod Support:**
+
+* Tweaked support for Textures Unlimited
+
+# v1.2.2 *-Italiano-*
 *[Released 22.MARCH.2018]*
 
 **Localization:**
