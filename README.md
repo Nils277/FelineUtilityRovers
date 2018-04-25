@@ -40,7 +40,7 @@ contain crew cabins, a laboratory or even bellowed joints to be more flexible in
 **Русский** by [Tirathangil](https://github.com/Tirathangil) and [Sebra](https://forum.kerbalspaceprogram.com/index.php?/profile/174461-sebra/)  
 **中国语文** by [ssd21345](http://forum.kerbalspaceprogram.com/index.php?/profile/146209-ssd21345/), [vosskftw](http://forum.kerbalspaceprogram.com/index.php?/profile/175031-vosskftw/) and [Levin845](http://forum.kerbalspaceprogram.com/index.php?/profile/176530-levin845/)  
 **Português (do Brasil)** by [FellipeC](http://forum.kerbalspaceprogram.com/index.php?/profile/77983-fellipec/)  
-**Deutsch** by [DasSkelett](https://forum.kerbalspaceprogram.com/index.php?/profile/188118-dasskelett/) and [Nils277](http://forum.kerbalspaceprogram.com/index.php?/profile/122414-nils277/) 
+**Deutsch** by [DasSkelett](https://forum.kerbalspaceprogram.com/index.php?/profile/188118-dasskelett/) and [Nils277](http://forum.kerbalspaceprogram.com/index.php?/profile/122414-nils277/)  
 **Italiano** by [Simog](https://forum.kerbalspaceprogram.com/index.php?/profile/179328-simog/)  
 
 ### Looking for help:
