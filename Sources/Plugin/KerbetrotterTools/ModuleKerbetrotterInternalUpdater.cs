@@ -54,7 +54,7 @@ namespace KerbetrotterTools
         public override void OnAwake()
         {
             GameEvents.onVesselWasModified.Add(OnReferenceUpdate);
-            GameEvents.onVesselChange.Add(OnReferenceUpdate);
+            //GameEvents.onVesselChange.Add(OnReferenceUpdate);
             GameEvents.onVesselGoOffRails.Add(OnReferenceUpdate);
         }
 
@@ -64,7 +64,7 @@ namespace KerbetrotterTools
         public void OnDestroy()
         {
             GameEvents.onVesselWasModified.Remove(OnReferenceUpdate);
-            GameEvents.onVesselChange.Remove(OnReferenceUpdate);
+            //GameEvents.onVesselChange.Remove(OnReferenceUpdate);
             GameEvents.onVesselGoOffRails.Remove(OnReferenceUpdate);
             childrenWithInternal.Clear();
         }

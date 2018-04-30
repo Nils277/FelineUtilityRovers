@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace KerbetrotterTools
@@ -30,6 +31,20 @@ namespace KerbetrotterTools
         {
             base.OnStart(state);
 
+            string[] disabledGroupNames = disabledTransformName.Split(',');
+            string[] enabledGroupNames = enabledTransformName.Split(',');
+            disabledTransforms.Clear();
+            enalbedTransforms.Clear();
+
+            refresh();
+
+
+
+            meshToggled(stateEnabled);
+        }
+
+        private void refresh()
+        {
             string[] disabledGroupNames = disabledTransformName.Split(',');
             string[] enabledGroupNames = enabledTransformName.Split(',');
             disabledTransforms.Clear();
@@ -83,8 +98,32 @@ namespace KerbetrotterTools
             {
                 Debug.LogError("[Kerbetrotter] Did not find switcher");
             }
+        }
 
-            meshToggled(stateEnabled);
+        /// <summary>
+        /// Register for events when the main body changed
+        /// </summary>
+        public override void OnAwake()
+        {
+            base.OnAwake();
+            GameEvents.onVesselChange.Add(onVesselChange);
+        }
+
+        /// <summary>
+        /// Free all resources when the part is destroyed
+        /// </summary>
+        public void OnDestroy()
+        {
+            GameEvents.onVesselChange.Remove(onVesselChange);
+        }
+
+        private void onVesselChange(Vessel v)
+        {
+            if (v == vessel)
+            {
+                refresh();
+                meshToggled(stateEnabled);
+            }
         }
 
         public void meshToggled(bool enabled)
