@@ -50,43 +50,44 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IConfigurableResourceModule.cs" />
-    <Compile Include="IResourceChangeListener.cs" />
-    <Compile Include="KerbetrotterCategories.cs" />
-    <Compile Include="KerbetrotterConfiguration.cs" />
-    <Compile Include="KerbetrotterEngineHoverEvent.cs" />
-    <Compile Include="KerbetrotterPIDProfile.cs" />
-    <Compile Include="KerbetrotterEngineVesselControl.cs" />
-    <Compile Include="KerbetrotterEngineMode.cs" />
-    <Compile Include="ModuleKerbetrotterConstrainedLookAt.cs" />
-    <Compile Include="ModuleKerbetrotterConverter.cs" />
-    <Compile Include="ModuleKerbetrotterDockingAdjustment.cs" />
-    <Compile Include="ModuleKerbetrotterEngine.cs" />
-    <Compile Include="ModuleKerbetrotterEngineAnimation.cs" />
-    <Compile Include="ModuleKerbetrotterEngineControl.cs" />
-    <Compile Include="ModuleKerbetrotterEngineIntake.cs" />
-    <Compile Include="ModuleKerbetrotterHarvesterSwitch.cs" />
-    <Compile Include="ModuleKerbetrotterHitch.cs" />
-    <Compile Include="ModuleKerbetrotterInternalUpdater.cs" />
-    <Compile Include="ModuleKerbetrotterJointHelper.cs" />
-    <Compile Include="ModuleKerbetrotterEditorMesh.cs" />
-    <Compile Include="ModuleKerbetrotterMeshHide.cs" />
-    <Compile Include="ModuleKerbetrotterMeshToggle.cs" />
-    <Compile Include="ModuleKerbetrotterMeshSwitch.cs" />
-    <Compile Include="ModuleKerbetrotterMultiLight.cs" />
-    <Compile Include="ModuleKerbetrotterNuclearStorage.cs" />
-    <Compile Include="ModuleKerbetrotterInternalSwitch.cs" />
-    <Compile Include="ModuleKerbetrotterResourceSwitch.cs" />
-    <Compile Include="ModuleKerbetrotterLight.cs" />
-    <Compile Include="ModuleKerbetrotterRotateBetween.cs" />
-    <Compile Include="ModuleKerbetrotterTextureShift.cs" />
-    <Compile Include="ModuleKerbetrotterTransparendPodHelper.cs" />
-    <Compile Include="PartExtentions.cs" />
+    <Compile Include="Switching\ISwitchListener.cs" />
+    <Compile Include="Editor\KerbetrotterCategories.cs" />
+    <Compile Include="Editor\KerbetrotterConfiguration.cs" />
+    <Compile Include="Switching\KerbetrotterConverterSetup.cs" />
+    <Compile Include="HoverEngine\KerbetrotterEngineHoverEvent.cs" />
+    <Compile Include="HoverEngine\KerbetrotterPIDProfile.cs" />
+    <Compile Include="HoverEngine\KerbetrotterEngineVesselControl.cs" />
+    <Compile Include="Misc\Visual\ModuleKerbetrotterConstrainedLookAt.cs" />
+    <Compile Include="Misc\Gameplay\ModuleKerbetrotterConverter.cs" />
+    <Compile Include="Switching\ModuleKerbetrotterConverterSwitch.cs" />
+    <Compile Include="Misc\Gameplay\ModuleKerbetrotterDockingAdjustment.cs" />
+    <Compile Include="HoverEngine\ModuleKerbetrotterEngine.cs" />
+    <Compile Include="HoverEngine\ModuleKerbetrotterEngineAnimation.cs" />
+    <Compile Include="HoverEngine\ModuleKerbetrotterEngineControl.cs" />
+    <Compile Include="HoverEngine\ModuleKerbetrotterEngineIntake.cs" />
+    <Compile Include="Switching\ModuleKerbetrotterHarvesterSwitch.cs" />
+    <Compile Include="Hitch\ModuleKerbetrotterHitch.cs" />
+    <Compile Include="Hitch\ModuleKerbetrotterInternalUpdater.cs" />
+    <Compile Include="Hitch\ModuleKerbetrotterJointHelper.cs" />
+    <Compile Include="Editor\ModuleKerbetrotterEditorMesh.cs" />
+    <Compile Include="Misc\Visual\ModuleKerbetrotterMeshHide.cs" />
+    <Compile Include="Misc\Gameplay\ModuleKerbetrotterMeshToggle.cs" />
+    <Compile Include="Switching\ModuleKerbetrotterMeshSwitch.cs" />
+    <Compile Include="Misc\Visual\ModuleKerbetrotterMultiLight.cs" />
+    <Compile Include="Misc\Gameplay\ModuleKerbetrotterNuclearStorage.cs" />
+    <Compile Include="Switching\ModuleKerbetrotterInternalSwitch.cs" />
+    <Compile Include="Switching\ModuleKerbetrotterResourceSwitch.cs" />
+    <Compile Include="Misc\Visual\ModuleKerbetrotterLight.cs" />
+    <Compile Include="Misc\Visual\ModuleKerbetrotterRotateBetween.cs" />
+    <Compile Include="Switching\ModuleKerbetrotterSwitchMaster.cs" />
+    <Compile Include="Switching\ModuleKerbetrotterTextureShift.cs" />
+    <Compile Include="Misc\Visual\ModuleKerbetrotterTransparendPodHelper.cs" />
+    <Compile Include="HoverEngine\PartExtentions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y "$(TargetPath)" "C:\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\GameData\KerbetrotterLtd\000_KerbetrotterTools\Plugins\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>echo D|xcopy /y "$(TargetPath)" "C:\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\GameData\KerbetrotterLtd\000_KerbetrotterTools\Plugins\$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
