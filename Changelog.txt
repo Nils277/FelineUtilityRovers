@@ -1,3 +1,11 @@
+v1.2.6 [Released 03.MAY.2018] ~Out of control~
+    Update:
+        - Updated KSPModFileLocalizer to version 0.2.3.2
+    General:
+        - Overhaul of Switching framework
+    Bug Fixes:
+        - Fixed critical bug from Hitches/Joints to cause offset on subsequent parts
+-------------------------------------------------------
 v1.2.5 [Released 30.APRIL.2018] ~Preparations~
     Update:
         - Recompile for KSP 1.4.3 
