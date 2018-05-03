@@ -1,4 +1,4 @@
-#v1.2.6 *-Out of control-*
+# v1.2.6 *-Out of control-*
 *[Released 03.MAY.2018]*
 **Update:**
 
