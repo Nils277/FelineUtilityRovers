@@ -1,4 +1,5 @@
 #v1.2.7 *-Doppler effect-*
+
 *[Released 24.SEPTEMBER.2018]*
 
 **Update:**
@@ -16,6 +17,9 @@
 * The version file now links to the correct website
 
 #v1.2.6 *-Out of control-*
+
+# v1.2.6 *-Out of control-*
+
 *[Released 03.MAY.2018]*
 
 **Update:**
