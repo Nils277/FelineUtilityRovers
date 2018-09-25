@@ -16,8 +16,6 @@
 * Adjusted light position for rear airlock and rear fueltank
 * The version file now links to the correct website
 
-#v1.2.6 *-Out of control-*
-
 # v1.2.6 *-Out of control-*
 
 *[Released 03.MAY.2018]*
