@@ -1,18 +1,18 @@
 {
     "NAME":"Feline Utility Rover",
-    "URL":"https://raw.githubusercontent.com/Nils277/FelineUtilityRover/master/FOR_RELEASE/GameData/FelineUtilityRover/FelineUtilityRover.version",
+    "URL":"https://raw.githubusercontent.com/Nils277/FelineUtilityRovers/master/For%20Release/GameData/KerbetrotterLtd/FelineUtilityRover/FelineUtilityRover.version",
     "DOWNLOAD":"https://github.com/Nils277/FelineUtilityRovers/releases",
     
     "GITHUB":{
         "USERNAME":"Nils277",
-        "REPOSITORY":"FelineUtilityRover",
+        "REPOSITORY":"FelineUtilityRovers",
         "ALLOW_PRE_RELEASE":false
     }, 
 
     "VERSION": {
         "MAJOR": 1,
         "MINOR": 2,
-        "PATCH": 7
+        "PATCH": 8
     },
 
     "KSP_VERSION": {

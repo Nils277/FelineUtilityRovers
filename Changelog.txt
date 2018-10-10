@@ -1,3 +1,8 @@
+v1.2.8 [Released 10.OCTOBER.2018] ~Weird Fish~
+    Bug Fixes:
+        - Fixed plugin code for resource switching
+        - Fixed some errors in the version file
+-------------------------------------------------------
 v1.2.7 [Released 24.SEPTEMBER.2018] ~Doppler effect~
     Update:
         - Recompile for KSP 1.4.5
