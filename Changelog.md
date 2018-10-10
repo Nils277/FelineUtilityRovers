@@ -1,5 +1,13 @@
-# v1.2.7 *-Doppler effect-*
 
+# v1.2.8 *-Weird Fish-*
+*[Released 10.OCTOBER.2018]* 
+
+**Bug Fixes:**
+
+* Fixed plugin code for resource switching
+* Fixed some errors in the version file
+
+# v1.2.7 *-Doppler effect-*
 *[Released 24.SEPTEMBER.2018]*
 
 **Update:**
@@ -17,7 +25,6 @@
 * The version file now links to the correct website
 
 # v1.2.6 *-Out of control-*
-
 *[Released 03.MAY.2018]*
 
 **Update:**
