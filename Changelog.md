@@ -1,4 +1,16 @@
+# v1.2.9 *-Profiling Numbers-*
+*[Released 25.JANUARY.2019]*
 
+**Update:**
+
+* Recompile for KSP 1.6.1
+* Updated KSPModFileLocalizer to version 0.2.3.3
+
+**Bug Fixes:**
+
+* Fixed height of the Malemute Adapter
+* Fixed Hitches breaking when the vessel docks
+        
 # v1.2.8 *-Weird Fish-*
 *[Released 10.OCTOBER.2018]* 
 
