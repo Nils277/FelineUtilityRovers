@@ -128,6 +128,9 @@ namespace KerbetrotterTools
         //The last value of the damping of the hitch
         private float lastDamping = -1.0f;
 
+        //Counter for tries to init the joints
+        private int numFixTries = 0;
+
         //==================================================
         //FAR related things
         //==================================================
@@ -175,6 +178,9 @@ namespace KerbetrotterTools
 
         // The part that is currently the parent of this part
         private Part currentParent = null;
+
+        // Holds whethe the coroutine is initializing the joint at the moment
+        private bool isInitializing;
 
         //==================================================
         //User Interaction 
@@ -303,7 +309,7 @@ namespace KerbetrotterTools
             //Initialize the joints when in flight mode
             if (HighLogic.LoadedSceneIsFlight)
             {
-                
+                isInitializing = true;
                 StartCoroutine(WaitAndInitialize());
                 
                 //save the initial rotation of the part
@@ -328,6 +334,7 @@ namespace KerbetrotterTools
                 InitReferences(false);
                 InitJoint();
                 UpdateUI();
+                isInitializing = false;
             }
             else
             {
@@ -435,19 +442,30 @@ namespace KerbetrotterTools
             //only run when in valid state
             if ((HighLogic.LoadedSceneIsFlight) && (!isOnRails) && (part.State != PartStates.DEAD))
             {
-                //when the attachment is not valid (yet), do nothing
-                if ((!isValidAttachment) || (joint == null))
+                //when the attachment is not valid
+                if ((!isValidAttachment) && (numFixTries < 10) && !isInitializing)
                 {
+                    Debug.LogError("[KERBETROTTER] FixedUpdate: invalid Attachment. Fixing: " + numFixTries);
+                    InitReferences(false);
+                    numFixTries++;
+
+                }
+                else if(!isValidAttachment)
+                {
+                    Debug.LogError("[KERBETROTTER] FixedUpdate: invalid Attachment. Cannot be recovered");
                     return;
                 }
-
-                /*if ((!isValidAttachment) && (numTries < 10))
+                else
                 {
-                    Debug.LogError("[KERBETROTTER] FixedUpdate invalid Attachment " + numTries);
+                    numFixTries = 0;
+                }
 
-                    //InitReferences(false);
-                    numTries++;
-                }*/
+                if ((joint == null) && (hasParent) && (isValidAttachment) && !isInitializing)
+                {
+                    Debug.Log("[KERBETROTTER] FixedUpdate: Creating Joint");
+                    InitJoint();
+                    UpdateUI();
+                }
 
                 //update the joint (
                 UpdateJointLockState();
@@ -465,8 +483,6 @@ namespace KerbetrotterTools
                 {
                     rotation2 = Conjugate(ReferenceTransforms[1].rotation) * transform.rotation;
                 }
-
-
                 
                 //update the original position and orientation of this part and all childs
                 part.UpdateOrgPosAndRot(vessel.rootPart);
@@ -500,13 +516,6 @@ namespace KerbetrotterTools
         /// </summary>
         public void UpdateJointLockState()
         {
-            /*if ((joint == null) && (hasParent) && (isValidAttachment))
-            {
-                Debug.Log("[KERBETROTTER] UpdateJoint: Creating");
-                InitJoint();
-                UpdateUI();
-            }*/
-
             if (isLockEngaged && jointUnlocked)
             {
                 Debug.Log("[KerbetrotterTools:Hitch] UpdateJoint: Locking!");
