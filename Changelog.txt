@@ -1,3 +1,8 @@
+v1.2.10 [Released 22.MARCH.2019] ~Extraterrestrial Life~
+    Mod Support:
+        - Update to support the lastest USI-LS version
+        - Enhanced support for Textures Unlimited
+-------------------------------------------------------
 v1.2.9 [Released 25.JANUARY.2019] ~Profiling Numbers~
     Update:
         - Recompile for KSP 1.6.1

@@ -1,0 +1,276 @@
+@REFLECTION_CONFIG[default]:NEEDS[TexturesUnlimited] 
+{
+	%enabled = true
+}
+
+//Adding the PBR shader to the normal parts
+@PART[Lynx_*]:NEEDS[TexturesUnlimited] {
+	MODULE
+	{
+		name = KSPTextureSwitch
+		sectionName = Appearance
+		currentTextureSet = KerbetrotterLtd_Base
+        textureSet = KerbetrotterLtd_Base
+    }
+}
+
+//Default texture setup
+KSP_TEXTURE_SET:NEEDS[TexturesUnlimited]
+{
+	name = KerbetrotterLtd_Base
+	title = Standard
+	recolorable = false
+
+    //Plastics
+	MATERIAL
+	{
+		shader = SSTU/PBR/StockMetallicBumped
+        
+        inheritTexture = _MainTex
+		inheritTexture = _BumpMap
+		inheritTexture = _Emissive
+		
+        mesh = Aperture_Left
+        mesh = Aperture_Right
+        mesh = Base      
+        mesh = Base_Wide
+        mesh = Bellow_2
+        mesh = Bellow_2_001
+        mesh = Bellow_2_002
+        mesh = Bellow_2_003
+        mesh = Bellow_2_004
+        mesh = Bellow_2_005
+        mesh = Bellow_2_006
+        mesh = Bellow_2_007
+        mesh = Bellow_2_008
+        mesh = Cover_Left
+        mesh = Cover_Right
+        mesh = Dock
+        //mesh = Front
+        mesh = Platform
+        mesh = Left
+        mesh = Lights_red
+        mesh = Lights_white
+        mesh = No_Light        
+        mesh = Pivot1
+        mesh = Pivot11
+        mesh = Pivot12
+        mesh = Pivot13
+        mesh = Pivot14
+        mesh = Pivot2
+        mesh = Pivot21
+        mesh = Pivot22
+        mesh = Pivot23
+        mesh = Pivot24        
+        mesh = Ramp
+        mesh = Ramp2
+        mesh = Ramp3
+        //mesh = Rear
+        mesh = Red_Light
+        mesh = Right
+        mesh = RotorArm
+        mesh = RotorCase
+        //mesh = Sides
+        //mesh = SubC
+        mesh = White_Light
+        mesh = Wheel
+        //mesh = Panel1
+        //mesh = Panel2
+        
+        PROPERTY
+		{
+			name = _Metal
+			float = 0.0
+		}
+	}
+    
+    //Plastics 2
+	MATERIAL
+	{
+		shader = SSTU/PBR/StockMetallicBumped
+        
+        inheritTexture = _MainTex
+		inheritTexture = _BumpMap
+		inheritTexture = _Emissive
+		
+        mesh = Base_2
+        mesh = Front
+        mesh = Rear
+        mesh = Sides
+        mesh = Panel1
+        mesh = Panel2
+        mesh = SubC
+        
+        PROPERTY
+		{
+			name = _Metal
+			float = 0.0
+		}
+	}
+        
+    //Metal
+    MATERIAL
+	{
+		shader = SSTU/PBR/StockMetallicBumped
+       
+        inheritTexture = _MainTex
+		inheritTexture = _BumpMap
+		inheritTexture = _Emissive       
+       
+        mesh = Arm
+        mesh = Cover
+        mesh = Door
+        mesh = Door1
+        mesh = Door2
+        mesh = Drill1
+        mesh = Drill2
+        mesh = Foot
+        mesh = Ladder
+        mesh = Lamp
+        mesh = Main
+        mesh = Metal
+        mesh = Nozzle
+        mesh = Plate
+        mesh = Pneumatics
+        mesh = RotorAnchor
+        mesh = Rudder
+        mesh = Slate
+        mesh = Underbody
+        mesh = Sleeve
+        mesh = Suspension
+        mesh = Piston
+        mesh = Rot
+        mesh = Pneuma1
+        mesh = Pneuma2
+        mesh = Cylinder1
+        mesh = Cylinder2
+        mesh = MetalDoor1
+        mesh = MetalDoor2
+        mesh = MetalDoor3
+        mesh = MetalDoor4
+        
+        PROPERTY
+		{
+			name = _Color
+			color = 1.3,1.3,1.3
+		}
+        
+        PROPERTY
+		{
+			name = _Metal   
+			float = 0.8
+		}
+	}
+    //Metal
+    MATERIAL
+	{
+		shader = SSTU/PBR/StockMetallicBumped
+       
+        inheritTexture = _MainTex
+		inheritTexture = _BumpMap
+		inheritTexture = _Emissive       
+       
+        mesh = Plate_2
+        mesh = Underbody_2
+        
+        PROPERTY
+		{
+			name = _Color
+			color = 1.3,1.3,1.3
+		}
+        
+        PROPERTY
+		{
+			name = _Metal   
+			float = 0.8
+		}
+	}
+    //Shiny Metal
+    MATERIAL
+	{
+    
+		shader = SSTU/PBR/StockMetallicBumped 
+        
+        inheritTexture = _MainTex
+		inheritTexture = _BumpMap
+		inheritTexture = _Emissive
+        
+        mesh = Handle
+        mesh = Propeller
+        mesh = Rotor
+        
+        PROPERTY
+		{
+			name = _Color
+			color = 1.3,1.3,1.3
+		}
+        
+        PROPERTY
+		{
+			name = _Metal
+			float = 0.8
+		}
+	}
+    //Plaques
+    MATERIAL
+	{
+		shader = SSTU/PBR/StockMetallicBumped 
+        
+        inheritTexture = _MainTex
+		inheritTexture = _BumpMap
+		inheritTexture = _Emissive
+        
+        mesh = Plaque
+        mesh = Plaque2
+        
+        PROPERTY
+		{
+			name = _Metal
+			float = 0.4
+		}
+	}
+    //Windows
+	MATERIAL
+	{
+		shader = SSTU/PBR/Metallic
+        
+        texture = _MainTex, KerbetrotterLtd/FelineUtilityRover/Assets/Parts/PBR/Windows
+		inheritTexture = _BumpMap
+		inheritTexture = _Emissive
+        
+		mesh = Windows
+        
+        PROPERTY
+		{
+			name = _Metal
+			float = 0.75
+		}
+		PROPERTY
+		{
+			name = _Smoothness
+			float = 0.95
+		}
+	}
+    //Lights
+    MATERIAL
+	{
+		shader = SSTU/PBR/Metallic
+        
+        inheritTexture = _MainTex
+		inheritTexture = _BumpMap
+		inheritTexture = _Emissive
+        
+		mesh = Lights
+        
+        PROPERTY
+		{
+			name = _Metal
+			float = 0.0
+		}
+		PROPERTY
+		{
+			name = _Smoothness
+			float = 0.90
+		}
+	}
+}
