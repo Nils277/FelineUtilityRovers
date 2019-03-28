@@ -1,10 +1,9 @@
 # v1.2.10 *-Profiling Numbers-*
-*[Released 22.MARCH.2019]*
+*[Released 28.MARCH.2019]*
 
 **Mod Support:**
 
 * Update to support the lastest USI-LS version
-* Enhanced support for Textures Unlimited
 
 # v1.2.9 *-Profiling Numbers-*
 *[Released 25.JANUARY.2019]*
