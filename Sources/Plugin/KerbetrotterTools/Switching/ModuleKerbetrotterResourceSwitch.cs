@@ -589,15 +589,8 @@ namespace KerbetrotterTools
             //update the texts in the gui
             updateGUIText(part);
 
-            //Find and refresh the ui
-            if (tweakableUI == null)
-            {
-                tweakableUI = part.FindActionWindow();
-            }
-            if (tweakableUI != null)
-            {
-                tweakableUI.displayDirty = true;
-            }
+            //Refresh the ui
+            part.updateActionWindow();
         }
 
         /// <summary>
@@ -773,6 +766,21 @@ namespace KerbetrotterTools
                 }
             }
         }
+
+        private void updateUI()
+        {
+            UIPartActionWindow[] windows = FindObjectsOfType<UIPartActionWindow>();
+            foreach (UIPartActionWindow window in windows)
+            {
+                if (window.part == part)
+                {
+                    window.ClearList();
+                    window.displayDirty = true;
+                    return;
+                }
+            }
+        }
+
 
         /// <summary>
         /// Get the list of resources that are by default in this part

@@ -1,3 +1,28 @@
+# v1.2.11 *-Still alive-*
+*[Released 02.APRIL.2020]*
+
+**Update:**
+
+* Recompile for KSP 1.9.1
+* Temporarily removed KSPedia entries due to problems with 1.9.X
+* Updated KSPModFileLocalizer to version 0.2.3.5
+
+**Enhancements:**
+
+* Adapted lab science multiplier to be more balanced
+
+**Mod Support:**
+
+* Fixed support for the rear drill for MKS
+* Fixed config typo for realfuels
+* Updated support for BonVoyage. Thanks to Thanks to [jarosm](https://github.com/jarosm)
+* Updated support for Pathfinder. Thanks to Thanks to [jarosm](https://github.com/jarosm)
+		
+**Bug Fixes:**
+
+* Fixed UI update after switching resources of tanks
+* Fixed lights of the rear drill
+
 # v1.2.10 *-Profiling Numbers-*
 *[Released 28.MARCH.2019]*
 

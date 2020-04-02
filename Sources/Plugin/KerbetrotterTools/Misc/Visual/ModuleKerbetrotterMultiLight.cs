@@ -86,6 +86,7 @@ namespace KerbetrotterTools
                 for (int i = 0; i < transformNames.Length; i++)
                 {
                     LightSetting lightSetting = new LightSetting();
+
                     //get all the transforms
                     lightSetting.transforms.AddRange(part.FindModelTransforms(transformNames[i].Trim()));
 
@@ -141,6 +142,11 @@ namespace KerbetrotterTools
         /// <param name="state">the new state of the animation</param>
         private void updateLights(float state)
         {
+            if (lightSettings == null || lightSettings.Count == 0)
+            {
+                return;
+            }
+
             //when the active model changes
             if (oldModelNum != numModel)
             {
