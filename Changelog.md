@@ -1,3 +1,17 @@
+#  v1.2.12  *-A long nap-*
+*[Released 16.APRIL.2021]*
+
+**Update:**
+
+* Recompile for KSP 1.11.2
+* Updated KSPModFileLocalizer to version 0.2.3.7
+* Re-Added KSPedia entries (they work again YAY!)
+
+**Enhancements:**
+
+* Added support for inventory and construction features from KSP 1.11.*
+* Addd two new storage container for inventories
+
 # v1.2.11 *-Still alive-*
 *[Released 02.APRIL.2020]*
 
