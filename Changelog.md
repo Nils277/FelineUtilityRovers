@@ -16,7 +16,6 @@
 * Added resource converter for OSE Workshop (switchable for ISRU)
 * Updated support for USI-LS. Thanks to [Nicky21](https://forum.kerbalspaceprogram.com/index.php?/profile/187393-nicky21/)
 * Added support for SystemHeat. Thanks to [Grimmas](https://forum.kerbalspaceprogram.com/index.php?/profile/207818-grimmas/)
-* Added rudimentary interation with MKS/WOLF. Thanks to [Grimmas](https://forum.kerbalspaceprogram.com/index.php?/profile/207818-grimmas/)
 * Removed support for Textures Unlimited because of incompatibilities, that have to be fixed in a later update
 
 **Bug Fixes:**
