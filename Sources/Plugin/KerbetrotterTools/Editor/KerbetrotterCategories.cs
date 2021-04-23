@@ -438,7 +438,7 @@ namespace KerbetrotterTools
 
                         if (usedCategories.Contains(PartCategories.Cargo))
                         {
-                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Cargo", Localizer.GetStringByTag("##autoLOC_8320001"), ic_cargo, p => (filterCategories(p, PartCategories.Cargo, index)));
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Cargo", Localizer.GetStringByTag("#autoLOC_8320001"), ic_cargo, p => (filterCategories(p, PartCategories.Cargo, index)));
                         }
                     }
                 }
