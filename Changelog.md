@@ -1,3 +1,29 @@
+#  v1.3.0  *-Engineers wanted-*
+*[Released XX.APRIL.2021]*
+
+**General:**
+
+* Most switching (visual, harvester, resources and converter) can now only be done by an Engineer Kerbal on EVA now
+* Added missing cargo category to filter subcategory
+
+**Localization:**
+
+* Fixed typos in english and german texts. Thanks to [Grimmas](https://forum.kerbalspaceprogram.com/index.php?/profile/207818-grimmas/)
+* Added Japanese translation. Thanks to [kerbalxploder]{https://forum.kerbalspaceprogram.com/index.php?/profile/207009-kerbalxploder/}
+
+**Mod Support:**
+
+* Added resource converter for OSE Workshop (switchable for ISRU)
+* Updated support for USI-LS. Thanks to [Nicky21](https://forum.kerbalspaceprogram.com/index.php?/profile/187393-nicky21/)
+* Added support for SystemHeat. Thanks to [Grimmas](https://forum.kerbalspaceprogram.com/index.php?/profile/207818-grimmas/)
+* Added rudimentary interation with MKS/WOLF. Thanks to [Grimmas](https://forum.kerbalspaceprogram.com/index.php?/profile/207818-grimmas/)
+* Removed support for Textures Unlimited because of incompatibilities, that have to be fixed in a later update
+
+**Bug Fixes:**
+
+* Fixed missing name of new inventory module
+* Fixed some plugin errors
+
 #  v1.2.12  *-A long nap-*
 *[Released 16.APRIL.2021]*
 
