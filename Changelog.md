@@ -9,7 +9,6 @@
 **Localization:**
 
 * Fixed typos in english and german texts. Thanks to [Grimmas](https://forum.kerbalspaceprogram.com/index.php?/profile/207818-grimmas/)
-* Added Japanese translation. Thanks to [kerbalxploder]{https://forum.kerbalspaceprogram.com/index.php?/profile/207009-kerbalxploder/}
 
 **Mod Support:**
 
