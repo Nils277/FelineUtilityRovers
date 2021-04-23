@@ -33,7 +33,6 @@ namespace KerbetrotterTools
         [KSPField(isPersistant = false)]
         public string visibleNames = string.Empty;
 
-
         [KSPField(isPersistant = false)]
         public int noLightNum = -1;
 
@@ -158,15 +157,19 @@ namespace KerbetrotterTools
                         {
                             lightSettings[i].transforms[j].gameObject.SetActive(true);
                         }
-                        if (i != noLightNum)
+
+                        if (Events["ToggleEvent"] != null)
                         {
-                            Events["ToggleEvent"].guiActive = true;
-                            Events["ToggleEvent"].guiActiveEditor = true;
-                        }
-                        else
-                        {
-                            Events["ToggleEvent"].guiActive = false;
-                            Events["ToggleEvent"].guiActiveEditor = false;
+                            if (i != noLightNum)
+                            {
+                                Events["ToggleEvent"].guiActive = true;
+                                Events["ToggleEvent"].guiActiveEditor = true;
+                            }
+                            else
+                            {
+                                Events["ToggleEvent"].guiActive = false;
+                                Events["ToggleEvent"].guiActiveEditor = false;
+                            }
                         }
 
                         for (int j = 0; j < lightSettings[i].lights.Count; j++)

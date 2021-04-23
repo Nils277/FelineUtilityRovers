@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 using KSP.Localization;
+using UnityEngine;
 
 namespace KerbetrotterTools
 {
@@ -22,6 +23,9 @@ namespace KerbetrotterTools
         //-------------------------Parameters----------------------
 
         //The name of the converter
+        private string[] converters = null;
+
+        //The ID of this setup
         private string id = string.Empty;
 
         //Gui name of the converter
@@ -51,6 +55,27 @@ namespace KerbetrotterTools
         }
 
         /// <summary>
+        /// Get whether this setupt contains a converter
+        /// </summary>
+        /// <param name="converter"></param>
+        /// <returns>True when the setup contains the converte, else false</returns>
+        public bool contains(string converter)
+        {
+            if (converters == null)
+            {
+                return false;
+            }
+            foreach (string c in converters)
+            {
+                if (c.Equals(converter)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        /// <summary>
         /// Load the engine config
         /// </summary>
         /// <param name="node">The config node to load from</param>
@@ -64,6 +89,16 @@ namespace KerbetrotterTools
                 if (node.HasValue("ID"))
                 {
                     id = node.GetValue("ID");
+                }
+
+                if (node.HasValue("converter"))
+                {
+                    converters = node.GetValue("converter").Split(',');
+                    for (int i = 0; i < converters.Length; i++)
+                    {
+                        converters[i] = Localizer.Format(converters[i]);
+                        Debug.Log("[KerbetrotterTools:ConverterSwitch] Found converter: " + converters[i]);
+                    }
                 }
 
                 //load whether the mode is default

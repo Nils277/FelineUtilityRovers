@@ -16,13 +16,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 using KSP.Localization;
+using KerbetrotterTools.Switching;
 
 namespace KerbetrotterTools
 {
     /// <summary>
     /// This Class allows to toggle the visibilty of a transform (incluive subtransforms) This also affects the colliders
     /// </summary>
-    class ModuleKerbetrotterMeshToggle : PartModule
+    class ModuleKerbetrotterMeshToggle : ModuleKerbetrotterSwitch
     {
         
         [KSPField]//the names of the transforms
@@ -33,12 +34,6 @@ namespace KerbetrotterTools
 
         [KSPField]//Text to show to show a mesh
         public string hideMeshString = Localizer.GetStringByTag("#LOC_KERBETROTTER.meshtoggle.hide");
-
-        [KSPField]//Whether the toggle is available in flight
-        public bool availableInFlight = true; 
-
-        [KSPField]//Whether the toggle is available in editor
-        public bool availableInEditor = true; 
 
         //--------------persistent states----------------
         [KSPField(isPersistant = true)]
@@ -73,6 +68,8 @@ namespace KerbetrotterTools
                 transforms.AddRange(part.FindModelTransforms(transformGroupNames[k].Trim()));
             }
 
+
+
             updateMeshes();
         }
 
@@ -104,6 +101,8 @@ namespace KerbetrotterTools
                 else if (HighLogic.LoadedSceneIsFlight)
                 {
                     Events["toggleMesh"].active = availableInFlight;
+                    Events["toggleMesh"].guiActiveUnfocused = availableInFlight && evaOnly;
+                    Events["toggleMesh"].externalToEVAOnly = availableInFlight && evaOnly;
                 }
                 else
                 {
@@ -141,6 +140,12 @@ namespace KerbetrotterTools
         [KSPEvent(name = "toggleMesh", guiName = "Toggle Mesh", guiActive = true, guiActiveUnfocused = false, unfocusedRange = 5f, guiActiveEditor = true)]
         public void toggleMesh()
         {
+            if (!actionPossible())
+            {
+                ScreenMessages.PostScreenMessage(new ScreenMessage(mActionError, 2f, ScreenMessageStyle.UPPER_CENTER));
+                return;
+            }
+
             transformsVisible = !transformsVisible;
             updateMeshes();
         }

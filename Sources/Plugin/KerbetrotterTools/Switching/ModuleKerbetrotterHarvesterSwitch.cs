@@ -22,7 +22,7 @@ namespace KerbetrotterTools
     class ModuleKerbetrotterHarvesterSwitch : ModuleKerbetrotterSwitchMaster
     {
         //The displayed type of harvester
-        [KSPField(guiActive = true, guiActiveEditor = true, guiName = "#LOC_KERBETROTTER.resourceswitch.current")]
+        [KSPField(guiActive = true, guiActiveEditor = true, guiName = "#LOC_KERBETROTTER.converter.current")]
         public string activeHarvester = string.Empty;
 
         //-----------------------------Private data----------------------
@@ -52,6 +52,107 @@ namespace KerbetrotterTools
         //the currently selected harvester
         private int selectedHarvester = -1;
 
+        //-------------------------------Life Cycle----------------------------
+
+        /// <summary>
+        /// Register the events for animation changes
+        /// </summary>
+        public override void OnAwake()
+        {
+            base.OnAwake();
+            GameEvents.OnAnimationGroupStateChanged.Add(OnAnimationGroupStateChanged);
+        }
+
+        /// <summary>
+        /// When the module is started
+        /// Initialize all settings and load the setups
+        /// </summary>
+        /// <param name="state">The state at start</param>
+        public override void OnStart(StartState state)
+        {
+            base.OnStart(state);
+
+            //cache the strings for the GUI
+            nextString = Localizer.Format("#LOC_KERBETROTTER.converter.nextRes") + " ";
+            prevString = Localizer.Format("#LOC_KERBETROTTER.converter.prevRes") + " ";
+
+            //load the setups
+            loadSetups(part.partInfo.partConfig);
+
+            //Debug.Log("[KerbetrotterTools:HarvesterSwitch] Loaded " + setups.Count + " setups");
+
+            //find the index of the selected setup
+            for (int i = 0; i < setups.Count; i++)
+            {
+                if (setups[i].ID == currentSetup)
+                {
+                    //Debug.Log("[KerbetrotterTools:HarvesterSwitch] Found selected type: " + i);
+                    selectedHarvester = i;
+                    break;
+                }
+            }
+
+            //when a harvester of that type cannot be found (e.g. string empty) set to first one or to old saved one
+            if (selectedHarvester == -1)
+            {
+                if ((currentConfig >= 0) && (currentConfig < setups.Count))
+                {
+                    selectedHarvester = currentConfig;
+                }
+                else
+                {
+                    selectedHarvester = 0;
+                }
+                //Debug.Log("[KerbetrotterTools:HarvesterSwitch] Found default type: " + selectedHarvester);
+                currentSetup = setups[selectedHarvester].ID;
+                
+            }
+
+            //when there is only one harvester, do not show the switches
+            if (setups.Count < 2)
+            {
+                Fields["activeHarvester"].guiActive = false;
+                Fields["activeHarvester"].guiActiveEditor = false;
+                Events["NextConverter"].guiActive = false;
+                Events["NextConverter"].guiActiveEditor = false;
+                Events["PrevConverter"].guiActive = false;
+                Events["PrevConverter"].guiActiveEditor = false;
+
+                //Debug.Log("[KerbetrotterTools:HarvesterSwitch] Not enough setups, all disabled");
+            }
+            //when there are exactly two harvesters, show only the next button
+            else 
+            {
+                if (setups.Count == 2)
+                {
+                    Events["PrevConverter"].guiActive = false;
+                    Events["PrevConverter"].guiActiveEditor = false;
+                    //Debug.Log("[KerbetrotterTools:HarvesterSwitch] 2 setup, prev disabled");
+                }
+                else
+                {
+                    Events["PrevConverter"].guiActive = evaOnly;
+                }
+                //Debug.Log("[KerbetrotterTools:HarvesterSwitch] Enabling: " + evaOnly);
+                Events["NextConverter"].externalToEVAOnly = evaOnly;
+                Events["NextConverter"].guiActiveUnfocused = evaOnly;
+            }
+
+            updateMenuVisibility(changable);
+            updateHarvester();
+            updateMenuTexts();
+            updateListener(currentSetup);
+        }
+
+        /// <summary>
+        /// Remove this module from the events
+        /// </summary>
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            GameEvents.OnAnimationGroupStateChanged.Remove(OnAnimationGroupStateChanged);
+        }
+
         /// <summary>
         /// Set the next setup for the harvester
         /// </summary>
@@ -60,6 +161,12 @@ namespace KerbetrotterTools
         {
             if (setups == null || setups.Count < 2)
             {
+                return;
+            }
+
+            if (!actionPossible())
+            {
+                ScreenMessages.PostScreenMessage(new ScreenMessage(mActionError, 2f, ScreenMessageStyle.UPPER_CENTER));
                 return;
             }
 
@@ -86,6 +193,12 @@ namespace KerbetrotterTools
                 return;
             }
 
+            if (!actionPossible())
+            {
+                ScreenMessages.PostScreenMessage(new ScreenMessage(mActionError, 2f, ScreenMessageStyle.UPPER_CENTER));
+                return;
+            }
+
             selectedHarvester--;
             if (selectedHarvester < 0)
             {
@@ -96,94 +209,6 @@ namespace KerbetrotterTools
             updateHarvester();
             updateMenuTexts();
             updateListener(currentSetup);
-        }
-
-        //-------------------------------Life Cycle----------------------------
-
-        /// <summary>
-        /// Register the events for animation changes
-        /// </summary>
-        public override void OnAwake()
-        {
-            base.OnAwake();
-            GameEvents.OnAnimationGroupStateChanged.Add(OnAnimationGroupStateChanged);
-        }
-
-        /// <summary>
-        /// When the module is started
-        /// Initialize all settings and load the setups
-        /// </summary>
-        /// <param name="state">The state at start</param>
-        public override void OnStart(StartState state)
-        {
-            base.OnStart(state);
-
-            //cache the strings for the GUI
-            nextString = Localizer.Format("#LOC_KERBETROTTER.resourceswitch.nextRes") + " ";
-            prevString = Localizer.Format("#LOC_KERBETROTTER.resourceswitch.prevRes") + " ";
-
-            //load the setups
-            loadSetups(part.partInfo.partConfig);
-
-            Debug.Log("[KerbetrotterTools:HarvesterSwitch] Loaded " + setups.Count + " setups");
-
-            //find the index of the selected setup
-            for (int i = 0; i < setups.Count; i++)
-            {
-                if (setups[i].ID == currentSetup)
-                {
-                    Debug.Log("[KerbetrotterTools:HarvesterSwitch] Found selected type: " + i);
-                    selectedHarvester = i;
-                    break;
-                }
-            }
-
-            //when a harvester of that type cannot be found (e.g. string empty) set to first one or to old saved one
-            if (selectedHarvester == -1)
-            {
-                if ((currentConfig >= 0) && (currentConfig < setups.Count))
-                {
-                    selectedHarvester = currentConfig;
-                }
-                else
-                {
-                    selectedHarvester = 0;
-                }
-                Debug.Log("[KerbetrotterTools:HarvesterSwitch] Found default type: " + selectedHarvester);
-                currentSetup = setups[selectedHarvester].ID;
-                
-            }
-
-            //when there is only one harvester, do not show the switches
-            if (setups.Count < 2)
-            {
-                Fields["activeHarvester"].guiActive = false;
-                Fields["activeHarvester"].guiActiveEditor = false;
-                Events["NextConverter"].guiActive = false;
-                Events["NextConverter"].guiActiveEditor = false;
-                Events["PrevConverter"].guiActive = false;
-                Events["PrevConverter"].guiActiveEditor = false;
-            }
-            //when there are exactly two harvesters, show only the next button
-            else if (setups.Count == 2)
-            {
-                Events["PrevConverter"].guiActive = false;
-                Events["PrevConverter"].guiActiveEditor = false;
-            }
-
-            updateMenuVisibility(changable);
-            updateHarvester();
-            updateMenuTexts();
-            updateListener(currentSetup);
-        }
-
-        /// <summary>
-        /// Remove this module from the events
-        /// </summary>
-        public override void OnDestroy()
-        {
-            base.OnDestroy();
-            GameEvents.OnAnimationGroupStateChanged.Remove(OnAnimationGroupStateChanged);
         }
 
         //Event when the state of the animation changed
@@ -224,6 +249,7 @@ namespace KerbetrotterTools
         private void updateMenuVisibility(bool visible)
         {
             bool show = visible && (setups != null) && (setups.Count > 1);
+            //Debug.Log("[KerbetrotterTools:HarvesterSwitch] updateMenuVisibility: " + visible + " " + show);
 
             Events["NextConverter"].guiActive = show;
             Events["PrevConverter"].guiActive = show && (setups.Count > 2);
@@ -234,13 +260,13 @@ namespace KerbetrotterTools
         {
             int next = selectedHarvester + 1;
             next = next >= setups.Count ? 0 : next;
-            Events["NextConverter"].guiName = nextString + PartResourceLibrary.Instance.resourceDefinitions[setups[next].resourceName.Trim()].displayName;
+            Events["NextConverter"].guiName = nextString + setups[next].guiName;
 
             int prev = selectedHarvester - 1;
             prev = prev < 0 ? setups.Count - 1 : prev;
-            Events["PrevConverter"].guiName = prevString + PartResourceLibrary.Instance.resourceDefinitions[setups[prev].resourceName.Trim()].displayName;
+            Events["PrevConverter"].guiName = prevString + setups[prev].guiName;
 
-            activeHarvester = PartResourceLibrary.Instance.resourceDefinitions[setups[selectedHarvester].resourceName.Trim()].displayName;
+            activeHarvester = setups[selectedHarvester].guiName;
         }
 
         //Load the setups from the config nodes
@@ -267,6 +293,7 @@ namespace KerbetrotterTools
                     {
                         if (harvesters[j].ResourceName == setup.resourceName)
                         {
+                            //Debug.Log("[KerbetrotterTools:HarvesterSwitch] added setut: " + setup.guiName);
                             setups.Add(setup);
                             break;
                         }
@@ -286,10 +313,22 @@ namespace KerbetrotterTools
         {
             public string ID;
             public string resourceName;
+            public string guiName = string.Empty;
 
             public Setup(ConfigNode node)
             {
                 //load the ID of the mode
+                if (node.HasValue("ID"))
+                {
+                    ID = node.GetValue("ID");
+                }
+
+                //load the gui name
+                if (node.HasValue("guiName"))
+                {
+                    guiName = Localizer.Format(node.GetValue("guiName"));
+                }
+
                 if (node.HasValue("ID"))
                 {
                     ID = node.GetValue("ID");

@@ -32,12 +32,6 @@ namespace KerbetrotterTools
         public float resourceMultiplier = 1.0f; //Whether the switch is available in flight
 
         [KSPField]
-        public bool availableInFlight = true; //Whether the switch is available in flight
-
-        [KSPField]
-        public bool availableInEditor = true; //Whether the switch is available in editor
-
-        [KSPField]
         public bool replaceDefaultResources = false; //Whether to keep the resources that are by default in the part
 
         [KSPField]
@@ -88,6 +82,8 @@ namespace KerbetrotterTools
 
         //Saves wheter the resources are currently vented
         private bool dumping = false;
+
+
 
         /// <summary>
         /// Get the switchable resources on load to allow the partInfo to be populated
@@ -184,11 +180,11 @@ namespace KerbetrotterTools
             }
 
             //update the visibility of the GUI
+            initGUIVisibility();
             updateGUIVisibility(part);
 
             //update the texts of the GUI
             updateGUIText(part);
-
 
             //init all listeners with the right resource
             updateListener(switchableResources[selectedResourceID].ID);
@@ -282,6 +278,12 @@ namespace KerbetrotterTools
         [KSPEvent(name = "nextResourceSetup", guiActive = true, guiActiveEditor = true, guiName = "#LOC_KERBETROTTER.resourceswitch.next")]
         public void nextResourceSetup()
         {
+            if (!actionPossible())
+            {
+                ScreenMessages.PostScreenMessage(new ScreenMessage(mActionError, 2f, ScreenMessageStyle.UPPER_CENTER));
+                return;
+            }
+
             int newResourceID = selectedResourceID + 1;
             if (newResourceID >= switchableResources.Count)
             {
@@ -294,6 +296,12 @@ namespace KerbetrotterTools
         [KSPEvent(name = "prevResourceSetup", guiActive = true, guiActiveEditor = true, guiName = "#LOC_KERBETROTTER.resourceswitch.prev")]
         public void prevResourceSetup()
         {
+            if (!actionPossible())
+            {
+                ScreenMessages.PostScreenMessage(new ScreenMessage(mActionError, 2f, ScreenMessageStyle.UPPER_CENTER));
+                return;
+            }
+
             int newResourceID = selectedResourceID - 1;
             if (newResourceID < 0)
             {
@@ -435,11 +443,34 @@ namespace KerbetrotterTools
                     }
                 }
             }
-
-
             return info.ToString();
         }
-        
+
+        private void initGUIVisibility()
+        {
+            if (HighLogic.LoadedSceneIsEditor)
+            {
+                Events["jettisonResources"].guiActiveEditor = false;
+                Events["nextResourceSetup"].guiActiveEditor = availableInEditor;
+                Events["prevResourceSetup"].guiActiveEditor = availableInEditor;
+            }
+            else if (HighLogic.LoadedSceneIsFlight)
+            {
+                Events["jettisonResources"].guiActive = availableInFlight && allowToEmptyTank;
+                Events["nextResourceSetup"].guiActive = availableInFlight;
+                Events["prevResourceSetup"].guiActive = availableInFlight;
+
+                Events["jettisonResources"].guiActiveUnfocused = evaOnly && availableInFlight && allowToEmptyTank;
+                Events["nextResourceSetup"].guiActiveUnfocused = evaOnly && availableInFlight;
+                Events["prevResourceSetup"].guiActiveUnfocused = evaOnly && availableInFlight;
+
+                Events["jettisonResources"].externalToEVAOnly = evaOnly && availableInFlight && allowToEmptyTank;
+                Events["nextResourceSetup"].externalToEVAOnly = evaOnly && availableInFlight;
+                Events["prevResourceSetup"].externalToEVAOnly = evaOnly && availableInFlight;
+            }
+        }
+
+
         /// <summary>
         /// Update the visibility of the gui depending on state of the part and its resources
         /// </summary>
@@ -459,18 +490,31 @@ namespace KerbetrotterTools
                 else if (HighLogic.LoadedSceneIsFlight)
                 {
                     bool isEmpty = isTankEmpty(currentPart);
-
                     if (switchingNeedsEmptyTank)
                     {
-                        Events["jettisonResources"].guiActive = availableInFlight & allowToEmptyTank & !isEmpty;
-                        Events["nextResourceSetup"].guiActive = availableInFlight & isEmpty & canChange;
-                        Events["prevResourceSetup"].guiActive = availableInFlight & isEmpty & canChange;
+                        Events["jettisonResources"].guiActive = availableInFlight && allowToEmptyTank && !isEmpty;
+                        Events["nextResourceSetup"].guiActive = availableInFlight && isEmpty && canChange;
+                        Events["prevResourceSetup"].guiActive = availableInFlight && isEmpty && canChange;
+
+                        if (evaOnly)
+                        {
+                            Events["jettisonResources"].guiActiveUnfocused = availableInFlight && allowToEmptyTank && !isEmpty;
+                            Events["nextResourceSetup"].guiActiveUnfocused = availableInFlight && isEmpty && canChange;
+                            Events["prevResourceSetup"].guiActiveUnfocused = availableInFlight && isEmpty && canChange;
+                        }
                     }
                     else
                     {
                         Events["jettisonResources"].guiActive = false;
                         Events["nextResourceSetup"].guiActive = availableInFlight & canChange;
                         Events["prevResourceSetup"].guiActive = availableInFlight & canChange;
+                        
+                        if (evaOnly)
+                        {
+                            Events["jettisonResources"].guiActiveUnfocused = false;
+                            Events["nextResourceSetup"].guiActiveUnfocused = availableInFlight & canChange;
+                            Events["prevResourceSetup"].guiActiveUnfocused = availableInFlight & canChange;
+                        }
                     }
                 }
                 else
@@ -478,6 +522,9 @@ namespace KerbetrotterTools
                     Events["jettisonResources"].guiActive = false;
                     Events["nextResourceSetup"].guiActive = false;
                     Events["prevResourceSetup"].guiActive = false;
+                    Events["jettisonResources"].guiActiveUnfocused = false;
+                    Events["nextResourceSetup"].guiActiveUnfocused = false;
+                    Events["prevResourceSetup"].guiActiveUnfocused = false;
                 }
             }
             else 
@@ -485,8 +532,14 @@ namespace KerbetrotterTools
                 Events["jettisonResources"].guiActive = false;
                 Events["nextResourceSetup"].guiActive = false;
                 Events["prevResourceSetup"].guiActive = false;
+                Events["jettisonResources"].guiActiveUnfocused = false;
+                Events["nextResourceSetup"].guiActiveUnfocused = false;
+                Events["prevResourceSetup"].guiActiveUnfocused = false;
             }
         }
+
+
+
 
         /// <summary>
         /// Update the texts displayed in the gui

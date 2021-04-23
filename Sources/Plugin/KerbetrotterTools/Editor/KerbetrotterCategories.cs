@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 using System;
-using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using KSP.UI.Screens;
@@ -25,26 +24,26 @@ namespace KerbetrotterTools
     [KSPAddon(KSPAddon.Startup.MainMenu, true)]
     public class KerbatrotterCategories : MonoBehaviour
     {
-        //create and the icons
+        //create the icons
         private Texture2D[] icon_filter;
 
-        //The textures for the icons of the categories
-        private Texture2D icon_filter_lifesupport = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-        private Texture2D icon_filter_pods = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-        private Texture2D icon_filter_engine = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-        private Texture2D icon_filter_fuel = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-        private Texture2D icon_filter_payload = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-        private Texture2D icon_filter_construction = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-        private Texture2D icon_filter_coupling = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-        private Texture2D icon_filter_electrical = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-        private Texture2D icon_filter_ground = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-        private Texture2D icon_filter_utility = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-        private Texture2D icon_filter_science = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-        private Texture2D icon_filter_thermal = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-        private Texture2D icon_filter_aero = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-        private Texture2D icon_filter_control = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-        private Texture2D icon_filter_communication = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-
+        //The icons for the categories
+        private Texture2D icon_filter_pods = GameDatabase.Instance.GetTexture("KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_pods", false);
+        private Texture2D icon_filter_engine = GameDatabase.Instance.GetTexture("KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_engine", false);
+        private Texture2D icon_filter_fuel = GameDatabase.Instance.GetTexture("KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_fueltank", false);
+        private Texture2D icon_filter_payload = GameDatabase.Instance.GetTexture("KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_payload", false);
+        private Texture2D icon_filter_construction = GameDatabase.Instance.GetTexture("KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_construction", false);
+        private Texture2D icon_filter_coupling = GameDatabase.Instance.GetTexture("KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_coupling", false);
+        private Texture2D icon_filter_electrical = GameDatabase.Instance.GetTexture("KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_electrical", false);
+        private Texture2D icon_filter_ground = GameDatabase.Instance.GetTexture("KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_ground", false);
+        private Texture2D icon_filter_utility = GameDatabase.Instance.GetTexture("KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_utility", false);
+        private Texture2D icon_filter_science = GameDatabase.Instance.GetTexture("KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_science", false);
+        private Texture2D icon_filter_thermal = GameDatabase.Instance.GetTexture("KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_thermal", false);
+        private Texture2D icon_filter_aero = GameDatabase.Instance.GetTexture("KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_aero", false);
+        private Texture2D icon_filter_control = GameDatabase.Instance.GetTexture("KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_control", false);
+        private Texture2D icon_filter_communication = GameDatabase.Instance.GetTexture("KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_communication", false);
+        private Texture2D icon_filter_cargo = GameDatabase.Instance.GetTexture("KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_cargo", false);
+        
         //Sets whether there should be a filter
         internal bool filter = true;
 
@@ -67,16 +66,6 @@ namespace KerbetrotterTools
         {
             DontDestroyOnLoad(this);
 
-            //Dictionary<string, string> strings = Localization.instance.Tags;
-            //string[] keys = new string[strings.Count];
-            //strings.Keys.CopyTo(keys,0);
-
-            //for (int i = 0; i < 10; i++)
-            //{
-            Debug.Log("[LYNX] " + Localizer.GetStringByTag("#LOC_FUR.manufacturer"));
-            //}
-
-
             //search for Community Category Kit
             int numAssemblies = AssemblyLoader.loadedAssemblies.Count;
             for (int i = 0; i < numAssemblies; i++)
@@ -95,13 +84,12 @@ namespace KerbetrotterTools
                 return;
             }
 
-
             //get the filterSetings for the kerbetrotter tools
             KerbetrotterFilterSettings[] filterSettings = KerbetrotterConfiguration.Instance().FilterSettings;
+
             int numFilter = filterSettings.Length;
-
-
             partCategories = new Dictionary<string, PartCategories>[numFilter];
+
             for (int i = 0; i < numFilter; i++)
             {
                 //add all the parts that should be in the list
@@ -130,79 +118,80 @@ namespace KerbetrotterTools
             {
                 for (int i = 0; i < numFilter; i++)
                 {
-                    icon_filter[i] = new Texture2D(32, 32, TextureFormat.ARGB32, false);
-                    if (!icon_filter[i].LoadImage(File.ReadAllBytes(filterSettings[i].FilterIcon)))
+                    icon_filter[i] = GameDatabase.Instance.GetTexture(filterSettings[i].FilterIcon, false);
+                    if (icon_filter[i] == null)
                     {
+                        icon_filter[i] = new Texture2D(32, 32, TextureFormat.ARGB32, false);
                         Debug.LogError("[KerbetrotterTools:Catagory] Awake: loading filter_icon for: " + filterSettings[i].ModName);
                     }
                 }
 
-                if (!icon_filter_pods.LoadImage(File.ReadAllBytes("GameData/KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_pods.png")))
+                if (icon_filter_pods == null)
                 {
                     Debug.LogError("[KerbetrotterTools:Catagory] Awake: loading filter_pods");
                     isValid = false;
                 }
-                if (!icon_filter_aero.LoadImage(File.ReadAllBytes("GameData/KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_aero.png")))
+                if (icon_filter_aero == null)
                 {
                     Debug.LogError("[KerbetrotterTools:Catagory] Awake: loading filter_aero");
                     isValid = false;
                 }
-                if (!icon_filter_control.LoadImage(File.ReadAllBytes("GameData/KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_control.png")))
+                if (icon_filter_control == null)
                 {
                     Debug.LogError("[KerbetrotterTools:Catagory] Awake: loading filter_control");
                     isValid = false;
                 }
-                if (!icon_filter_communication.LoadImage(File.ReadAllBytes("GameData/KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_communication.png")))
+                if (icon_filter_communication == null)
                 {
                     Debug.LogError("[KerbetrotterTools:Catagory] Awake: loading filter_communication");
                     isValid = false;
                 }
-                if (!icon_filter_fuel.LoadImage(File.ReadAllBytes("GameData/KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_fueltank.png")))
+                if (icon_filter_fuel == null)
                 {
                     Debug.LogError("[KerbetrotterTools:Catagory] Awake: loading filter_fueltank");
                     isValid = false;
                 }
-                if (!icon_filter_electrical.LoadImage(File.ReadAllBytes("GameData/KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_electrical.png")))
+                if (icon_filter_electrical == null)
                 {
                     Debug.LogError("[KerbetrotterTools:Catagory] Awake: loading filter_electrical");
                     isValid = false;
                 }
-                if (!icon_filter_thermal.LoadImage(File.ReadAllBytes("GameData/KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_thermal.png")))
+                if (icon_filter_thermal == null)
                 {
                     Debug.LogError("[KerbetrotterTools:Catagory] Awake: loading filter_thermal");
                     isValid = false;
                 }
-                if (!icon_filter_science.LoadImage(File.ReadAllBytes("GameData/KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_science.png")))
+                if (icon_filter_science == null)
                 {
                     Debug.LogError("[KerbetrotterTools:Catagory] Awake: loading filter_science");
                     isValid = false;
                 }
-                if (!icon_filter_engine.LoadImage(File.ReadAllBytes("GameData/KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_engine.png")))
+                if (icon_filter_engine == null)
                 {
                     Debug.LogError("[KerbetrotterTools:Catagory] Awake: loading filter_engine");
                     isValid = false;
                 }
-                if (!icon_filter_ground.LoadImage(File.ReadAllBytes("GameData/KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_ground.png")))
+                if (icon_filter_ground == null)
                 {
                     Debug.LogError("[KerbetrotterTools:Catagory] Awake: loading filter_ground");
                     isValid = false;
                 }
-                if (!icon_filter_coupling.LoadImage(File.ReadAllBytes("GameData/KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_coupling.png")))
+                if (icon_filter_coupling == null)
                 {
                     Debug.LogError("[KerbetrotterTools:Catagory] Awake: loading filter_coupling");
                     isValid = false;
                 }
-                if (!icon_filter_payload.LoadImage(File.ReadAllBytes("GameData/KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_payload.png")))
+                if (icon_filter_payload == null)
                 {
                     Debug.LogError("[KerbetrotterTools:Catagory] Awake: loading filter_payload");
                     isValid = false;
                 }
-                if (!icon_filter_construction.LoadImage(File.ReadAllBytes("GameData/KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_construction.png")))
+                if (icon_filter_construction == null)
                 {
                     Debug.LogError("[KerbetrotterTools:Catagory] Awake: loading filter_construction");
                     isValid = false;
                 }
-                if (!icon_filter_utility.LoadImage(File.ReadAllBytes("GameData/KerbetrotterLtd/000_KerbetrotterTools/Icons/filter_utility.png")))
+                if (icon_filter_utility == null)
                 {
                     Debug.LogError("[KerbetrotterTools:Catagory] Awake: loading filter_utility");
                     isValid = false;
@@ -217,7 +206,6 @@ namespace KerbetrotterTools
 
             //Add the Kerbetrotterfilter to the list of filters
             GameEvents.onGUIEditorToolbarReady.Add(KerbetrotterFilter);
-            //GameEvents.OnGameSettingsApplied.Add(updateFilterSettings);
         }
 
         /// <summary>
@@ -226,30 +214,7 @@ namespace KerbetrotterTools
         protected void OnDestroy()
         {
             GameEvents.onGUIEditorToolbarReady.Remove(KerbetrotterFilter);
-            //GameEvents.OnGameSettingsApplied.Remove(updateFilterSettings);
         }
-
-        /*/// <summary>
-        /// Update the settings from the filters
-        /// </summary>
-        public void updateFilterSettings()
-        {
-            Debug.Log("[KerbetrotterTools] updateFilterSettings");
-            GameEvents.onGUIEditorToolbarReady.Remove(KerbetrotterFunctionFilter);
-
-            if (HighLogic.CurrentGame != null)
-            {
-                RemoveFunctionFilter();
-                AddPartCategories();
-
-                if (HighLogic.CurrentGame.Parameters.CustomParams<KerbetrotterSettings>().groupParts)
-                {
-                    RemovePartCategories();
-                    GameEvents.onGUIEditorToolbarReady.Add(KerbetrotterFunctionFilter);
-                }
-            }
-        }*/
-
 
         /// <summary>
         /// Filters parts by their names
@@ -261,74 +226,6 @@ namespace KerbetrotterTools
             KerbetrotterFilterSettings filterSettings = KerbetrotterConfiguration.Instance().FilterSettings[index];
             return part.name.StartsWith(filterSettings.IncludeFilter) && (string.IsNullOrEmpty(filterSettings.ExcludeFilter) || !part.name.StartsWith(filterSettings.ExcludeFilter));
         }
-
-        /*/// <summary>
-        /// Remove the fuction filte category
-        /// </summary>
-        private void RemoveFunctionFilter()
-        {
-            if (PartCategorizer.Instance != null)
-            {
-                PartCategorizer.Category Filter = PartCategorizer.Instance.filters.Find(f => f.button.categoryName == filterName);
-                if (Filter != null)
-                {
-                    PartCategorizer.Category subFilter = Filter.subcategories.Find(f => f.button.categoryName == functionFilterName);
-                    if (subFilter != null)
-                    {
-                        subFilter.DeleteSubcategory();
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Remove the fuction filte category
-        /// </summary>
-        private void AddFunctionFilter()
-        {
-            if (PartCategorizer.Instance != null)
-            {
-                PartCategorizer.Category Filter = PartCategorizer.Instance.filters.Find(f => f.button.categoryName == filterName);
-                if (Filter != null)
-                {
-                    PartCategorizer.Category subFilter = Filter.subcategories.Find(f => f.button.categoryName == functionFilterName);
-                    if (subFilter != null)
-                    {
-                        subFilter.DeleteSubcategory();
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Add the stored categories to all the parts of KPBS
-        /// </summary>
-        private void AddPartCategories()
-        {
-            if (partCategories != null)
-            {
-                List<AvailablePart> parts = PartLoader.Instance.loadedParts.FindAll(ap => ap.name.StartsWith("KKAOSS"));
-                for (int i = 0; i < parts.Count; i++)
-                {
-                    if (partCategories.ContainsKey(parts[i].name))
-                    {
-                        parts[i].category = partCategories[parts[i].name];
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Remove the categories from all parts of KPBS
-        /// </summary>
-        private void RemovePartCategories()
-        {
-            List<AvailablePart> parts = PartLoader.Instance.loadedParts.FindAll(ap => ap.name.StartsWith("KKAOSS"));
-            for (int i = 0; i < parts.Count; i++)
-            {
-                parts[i].category = PartCategories.none;
-            }
-        }*/
 
         /**
          * Filter the parts by their manufacturer
@@ -380,34 +277,6 @@ namespace KerbetrotterTools
             return false;
         }
 
-
-        /*/// <summary>
-        /// Add the function filter to the filter
-        /// </summary>
-        private void KerbetrotterFunctionFilter()
-        {
-            if (!isValid)
-            {
-                Debug.LogError("[KerbetrotterTools] invalid");
-                return;
-            }
-
-            RUI.Icons.Selectable.Icon filterIconSurfaceStructures = new RUI.Icons.Selectable.Icon("KKAOSS_icon_lifeSupport", icon_surface_structures, icon_surface_structures, true);
-
-            if (filterIconSurfaceStructures == null)
-            {
-                Debug.LogError("[KerbetrotterTools] ERROR filterIconSurfaceStructures cannot be loaded");
-                return;
-            }
-
-            //Find the function filter
-            PartCategorizer.Category functionFilter = PartCategorizer.Instance.filters.Find(f => f.button.categoryName == filterName);
-
-            //Add a new subcategory to the function filter
-            PartCategorizer.AddCustomSubcategoryFilter(functionFilter, functionFilterName, filterIconSurfaceStructures, p => filter_KKAOSS(p));
-        }*/
-
-
         /**
          * The function to add the modules of this mod to a separate category 
          */
@@ -429,7 +298,7 @@ namespace KerbetrotterTools
             //get the filterSetings for the kerbetrotter tools
             KerbetrotterFilterSettings[] filterSettings = KerbetrotterConfiguration.Instance().FilterSettings;
 
-            //icons for KPSS's own category
+            //icons for KSP's own category
             RUI.Icons.Selectable.Icon ic_pods = new RUI.Icons.Selectable.Icon("Kerbetrotter_filter_pods", icon_filter_pods, icon_filter_pods, true);
             RUI.Icons.Selectable.Icon ic_aero = new RUI.Icons.Selectable.Icon("Kerbetrotter_filter_aero", icon_filter_pods, icon_filter_pods, true);
             RUI.Icons.Selectable.Icon ic_control = new RUI.Icons.Selectable.Icon("Kerbetrotter_filter_control", icon_filter_pods, icon_filter_pods, true);
@@ -444,7 +313,8 @@ namespace KerbetrotterTools
             RUI.Icons.Selectable.Icon ic_thermal = new RUI.Icons.Selectable.Icon("Kerbetrotter_filter_thermal", icon_filter_thermal, icon_filter_thermal, true);
             RUI.Icons.Selectable.Icon ic_electrical = new RUI.Icons.Selectable.Icon("Kerbetrotter_filter_electrical", icon_filter_electrical, icon_filter_electrical, true);
             RUI.Icons.Selectable.Icon ic_science = new RUI.Icons.Selectable.Icon("Kerbetrotter_filter_fuel", icon_filter_science, icon_filter_science, true);
-            RUI.Icons.Selectable.Icon ic_lifeSupport = new RUI.Icons.Selectable.Icon("Kerbetrotter_icon_life_support", icon_filter_lifesupport, icon_filter_lifesupport, true);
+            RUI.Icons.Selectable.Icon ic_cargo = new RUI.Icons.Selectable.Icon("Kerbetrotter_filter_cargo", icon_filter_cargo, icon_filter_cargo, true);
+            //RUI.Icons.Selectable.Icon ic_lifeSupport = new RUI.Icons.Selectable.Icon("Kerbetrotter_icon_life_support", icon_filter_lifesupport, icon_filter_lifesupport, true);
 
 
             int numFilter = filterSettings.Length;
@@ -463,7 +333,6 @@ namespace KerbetrotterTools
                     availableCategories.Add(PartCategories.Engine);
                     availableCategories.Add(PartCategories.FuelTank);
                     availableCategories.Add(PartCategories.Ground);
-                    //leftCategories.Add(PartCategories.none);
                     availableCategories.Add(PartCategories.Payload);
                     availableCategories.Add(PartCategories.Pods);
                     availableCategories.Add(PartCategories.Propulsion);
@@ -471,6 +340,7 @@ namespace KerbetrotterTools
                     availableCategories.Add(PartCategories.Structural);
                     availableCategories.Add(PartCategories.Thermal);
                     availableCategories.Add(PartCategories.Utility);
+                    availableCategories.Add(PartCategories.Cargo);
 
                     List<PartCategories> usedCategories = new List<PartCategories>();
 
@@ -495,7 +365,7 @@ namespace KerbetrotterTools
 
                         int index = i;
 
-                        //add subcategories to the KPSS category you just added  #autoLOC_453549
+                        //add subcategories to the category that was just added
                         if (usedCategories.Contains(PartCategories.Pods))
                         {
                             PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Pods", Localizer.GetStringByTag("#autoLOC_453549"),  ic_pods, p => filterCategories(p, PartCategories.Pods, index));
@@ -564,6 +434,11 @@ namespace KerbetrotterTools
                         if (usedCategories.Contains(PartCategories.Utility))
                         {
                             PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Utility", Localizer.GetStringByTag("#autoLOC_453588"), ic_utility, p => (filterCategories(p, PartCategories.Utility, index)));
+                        }
+
+                        if (usedCategories.Contains(PartCategories.Cargo))
+                        {
+                            PartCategorizer.AddCustomSubcategoryFilter(modFilter, "Cargo", Localizer.GetStringByTag("##autoLOC_8320001"), ic_cargo, p => (filterCategories(p, PartCategories.Cargo, index)));
                         }
                     }
                 }
