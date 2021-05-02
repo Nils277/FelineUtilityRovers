@@ -26,10 +26,10 @@ namespace KerbetrotterTools
     class ModuleKerbetrotterResourceSwitch : ModuleKerbetrotterSwitchMaster, IPartCostModifier, IPartMassModifier, IModuleInfo
     {
         [KSPField]
-        public string resourceConfiguration = string.Empty; //Whether the switch is available in flight
+        public string resourceConfiguration = string.Empty; //template used for config
 
         [KSPField]
-        public float resourceMultiplier = 1.0f; //Whether the switch is available in flight
+        public float resourceMultiplier = 1.0f; // how to change the resource amount from the template
 
         [KSPField]
         public bool replaceDefaultResources = false; //Whether to keep the resources that are by default in the part
@@ -68,7 +68,7 @@ namespace KerbetrotterTools
         //The list of resources that can be switched in the tank
         private List<KerbetrotterSwitchableResource> switchableResources;
 
-        //The list of resource that are by default in the part
+        //The list of resources that are by default in the part
         private List<KerbetrotterDefaultResource> defaultResources;
 
         //The UI that has to be updated when a resource has changed
