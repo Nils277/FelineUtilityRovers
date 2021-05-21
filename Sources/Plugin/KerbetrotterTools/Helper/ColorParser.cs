@@ -47,7 +47,7 @@ namespace KerbetrotterTools.Misc.Helper
                         float r = float.Parse(colorStrings[0], CultureInfo.InvariantCulture.NumberFormat);
                         float g = float.Parse(colorStrings[1], CultureInfo.InvariantCulture.NumberFormat);
                         float b = float.Parse(colorStrings[2], CultureInfo.InvariantCulture.NumberFormat);
-                        Color color = new Color(r, g, b);
+                        return new Color(r, g, b);
                     }
                     catch
                     {
