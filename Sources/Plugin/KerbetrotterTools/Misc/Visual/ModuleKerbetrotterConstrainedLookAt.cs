@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,21 +22,35 @@ namespace KerbetrotterTools
     /// </summary>
     public class ModuleKerbetrotterConstrainedLookAt : PartModule
     {
-        //the orientation to copy
+        #region-------------------------Module Settings----------------------
+
+        /// <summary>
+        /// The name of the transform that should be used to copy the rotation from
+        /// </summary>
         [KSPField(isPersistant = false)]
         public string sourceTransformName = string.Empty;
 
-        //the destination for the orientation
+        /// <summary>
+        /// The name of the destination transform
+        /// </summary>
         [KSPField(isPersistant = false)]
         public string destinationTransformName = string.Empty;
 
-        //the reference rotation
+        /// <summary>
+        /// The reference rotation transform
+        /// </summary>
         [KSPField(isPersistant = false)]
         public string referenceTransformName = string.Empty;
 
-        //The axis which should be constrained
+        /// <summary>
+        /// The axis which should be constrained
+        /// </summary>
         [KSPField(isPersistant = false)]
         public Axis constrainedAxis = Axis.X;
+
+        #endregion
+
+        #region-------------------------Private Members----------------------
 
         //The source transform
         private Transform source;
@@ -49,6 +63,10 @@ namespace KerbetrotterTools
 
         //whether the module is valid
         private bool valid = false;
+
+        #endregion
+
+        #region---------------------------Life Cycle-------------------------
 
         /// <summary>
         /// Initialize the module
@@ -89,10 +107,18 @@ namespace KerbetrotterTools
             }
         }
 
+        #endregion
+
+        #region-----------------------------Enums----------------------------
+
+        //The axis that should be contrained
         public enum Axis
         {
             X,
-            Y
+            Y,
+            Z
         }
+
+        #endregion
     }
 }

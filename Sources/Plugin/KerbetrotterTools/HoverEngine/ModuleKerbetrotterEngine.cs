@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,17 @@
  */
 using KSP.Localization;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace KerbetrotterTools
 {
+    /// <summary>
+    /// A control for the engine to create a hover engine
+    /// </summary>
+    [KSPModule("Kerbetrotter Hover Engine")]
     class ModuleKerbetrotterEngine : PartModule, IModuleInfo
     {
-        //-----------------------------Engine Settigns----------------------------
+        #region------------------------Engine Settings-----------------------
 
         /// <summary>
         /// The transform of the thrust vector to control
@@ -90,7 +93,9 @@ namespace KerbetrotterTools
         [KSPField]
         public string EngineName = "Hover Engine";
 
-        //----------------------------Visual feedback of the engine-------------------------
+        #endregion
+
+        #region-----------------Visual feedback of the engine----------------
 
         /// <summary>
         /// The current hover mode
@@ -104,8 +109,9 @@ namespace KerbetrotterTools
         [KSPField(guiName = "#LOC_KERBETROTTER.engine.hovering", guiActive = true)]
         public string hovering = "";
 
+        #endregion
 
-        //-----------------------------Saved engine state--------------------
+        #region--------------------------Saved State-------------------------
 
         /// <summary>
         /// The height to hover at for this engine
@@ -149,7 +155,9 @@ namespace KerbetrotterTools
         [KSPField(isPersistant = true)]
         private bool holdAltitude = false;
 
-        //----------------------------Private members------------------------
+        #endregion
+
+        #region------------------------Private Members-----------------------
 
         //the thrust transformt to change
         private Transform thrustTransform;
@@ -193,9 +201,10 @@ namespace KerbetrotterTools
         //when the engine is on hold
         private bool onHold = false;
 
+        //whether the part is ignited
         private bool isIgnited = false;
 
-
+        //The last percentage
         private float lastPercentage = 100.0f;
 
         //-----------------------------Strings--------------------------
@@ -206,7 +215,9 @@ namespace KerbetrotterTools
         private static string engine_mode_terrain = Localizer.Format("#LOC_KERBETROTTER.engine.mode.terrain");
         private static string engine_mode_altitude = Localizer.Format("#LOC_KERBETROTTER.engine.mode.altitude");
 
-        //----------------------------Interaction-----------------------
+        #endregion
+
+        #region--------------------------Interaction-------------------------
 
         /// <summary>
         /// Event to toggle the hover
@@ -337,7 +348,9 @@ namespace KerbetrotterTools
             updateHoverStatus();
         }
 
-        //----------------------------Life Cycle------------------------
+        #endregion
+
+        #region---------------------------Life Cycle-------------------------
 
         /// <summary>
         /// Get the switchable resources on load to allow the partInfo to be populated
@@ -355,11 +368,6 @@ namespace KerbetrotterTools
         {
             base.OnAwake();
             GameEvents.onVesselSOIChanged.Add(onMainBodyChanged);
-        }
-
-        public override string GetInfo()
-        {
-            return Localizer.Format("#LOC_KERBETROTTER.engine.desc");
         }
 
         /// <summary>
@@ -559,17 +567,16 @@ namespace KerbetrotterTools
             }
         }
 
-        //--------------------------Public interface---------------
+        #endregion
+
+        #region------------------------Public interface----------------------
 
         /// <summary>
         /// Get the height offset
         /// </summary>
         public float HeightOffset
         {
-            get
-            {
-                return heightOffset;
-            }
+            get { return heightOffset; }
         }
 
         /// <summary>
@@ -696,8 +703,84 @@ namespace KerbetrotterTools
             }
         }
 
-        //----------------------------Helper------------------------
 
+        /// <summary>
+        /// Get the distance to the surface from the current part
+        /// </summary>
+        /// <returns>The altidude </returns>
+        public float getAltitude()
+        {
+            return FlightGlobals.getAltitudeAtPos(heightTransform.position);
+        }
+
+        /// <summary>
+        /// Get the distance to the surface from the current part
+        /// </summary>
+        /// <returns>The distance to the surface</returns>
+        public float getSurfaceDistance()
+        {
+            altitude = FlightGlobals.getAltitudeAtPos(heightTransform.position);
+
+            if (holdAltitude)
+            {
+                return altitude;
+            }
+
+            float distance = 0;
+
+            RaycastHit hit;
+            Ray cast = new Ray(heightTransform.position, Vector3.Normalize(vessel.mainBody.transform.position - heightTransform.position));
+
+            if (Physics.Raycast(cast, out hit, maxHoverHeight + 50, raycastMask))
+            {
+
+                float distanceToSurface = hit.distance;
+                distance = distanceToSurface;
+
+                //check if transform is under water
+                if (vessel.mainBody.ocean)
+                {
+                    if (altitude < distanceToSurface)
+                    {
+                        distance = altitude;
+                    }
+                }
+            }
+            else
+            {
+                //when the main body has an ocean, make a sanity check
+                if (vessel.mainBody.ocean)
+                {
+
+                    //float transformheight = FlightGlobals.getAltitudeAtPos(heightTransform.position);
+                    if (altitude <= (maxHoverHeight + 50))
+                    {
+                        distance = altitude;
+                    }
+                }
+            }
+            //visibleHeight = distance;
+            return distance;
+        }
+
+        /// <summary>
+        /// Get the altitude of this engine
+        /// </summary>
+        public float Altitude
+        {
+            get
+            {
+                return altitude;
+            }
+        }
+
+        #endregion
+
+        #region-------------------------Helper Methods-----------------------
+
+        /// <summary>
+        /// Check whether the PID settings changed
+        /// </summary>
         private void checkPIDChanged()
         {
             if ((!customPID) && (profiles.Count > 0))
@@ -713,6 +796,10 @@ namespace KerbetrotterTools
             }
         }
 
+        /// <summary>
+        /// Get whether the main body changed
+        /// </summary>
+        /// <param name="data"></param>
         private void onMainBodyChanged(GameEvents.HostedFromToAction<Vessel, CelestialBody> data)
         {
             if (data.host == vessel)
@@ -721,6 +808,10 @@ namespace KerbetrotterTools
             }
         }
 
+        /// <summary>
+        /// Update the main body
+        /// </summary>
+        /// <param name="mainBody"></param>
         private void UpdateMainBody(CelestialBody mainBody)
         {
             if (profiles.Count == 0)
@@ -774,7 +865,7 @@ namespace KerbetrotterTools
             }
         }
 
-        //update the hover status, sets whether an event should be fired or not
+        //Update the hover status, sets whether an event should be fired or not
         private void updateHoverStatus(bool fireEvent)
         {
             //get the currently running engine
@@ -806,13 +897,17 @@ namespace KerbetrotterTools
             mode = holdAltitude ? engine_mode_altitude : engine_mode_terrain;
         }
 
-        //update the status of the hover mode
+        /// <summary>
+        /// Update the status of the hover mode
+        /// </summary>
         private void updateHoverStatus()
         {
             updateHoverStatus(true);
         }
 
-        //update the visibility of the advanced controls
+        /// <summary>
+        /// Update the visibility of the advanced controls
+        /// </summary>
         private void updateAndvancedControlVisibility()
         {
             // controls in flight
@@ -833,7 +928,10 @@ namespace KerbetrotterTools
             Events["ResetProfile"].guiActiveEditor = showAdvancedControls & customPID;
         }
 
-        //Load the profiles for the PID controller
+        /// <summary>
+        /// Load the profiles for the PID controller
+        /// </summary>
+        /// <param name="node">The config node to load the profile from</param>
         private void LoadPIDProfiles(ConfigNode node)
         {
             profiles = new List<KerbetrotterPIDProfile>();
@@ -849,7 +947,10 @@ namespace KerbetrotterTools
             }
         }
 
-        // Load the needed propellants
+        /// <summary>
+        /// Internal method to load the profiles
+        /// </summary>
+        /// <param name="node">The config node to load the profile from</param>
         private void LoadPIDProfilesInternal(ConfigNode node)
         {
             ConfigNode[] propConfig = node.GetNodes("PID-PROFILE");
@@ -860,7 +961,11 @@ namespace KerbetrotterTools
             }
         }
 
-        // PID controller to update the height of the engines
+        /// <summary>
+        /// PID controller to update the height of the engines
+        /// </summary>
+        /// <param name="height">The height of the engine</param>
+        /// <returns></returns>
         private float PID(float height)
         {
             float error = hoverHeight - height + heightOffset;
@@ -890,60 +995,9 @@ namespace KerbetrotterTools
             return Mathf.Clamp(outputThrottle, 0, 1);
         }
 
-        // Get the distance to the surface from the current part
-        public float getAltitude()
-        {
-            return FlightGlobals.getAltitudeAtPos(heightTransform.position);
-        }
-
-        // Get the distance to the surface from the current part
-        public float getSurfaceDistance()
-        {
-            altitude = FlightGlobals.getAltitudeAtPos(heightTransform.position);
-
-            if (holdAltitude)
-            {
-                return altitude;
-            }
-
-            float distance = 0;
-
-            RaycastHit hit;
-            Ray cast = new Ray(heightTransform.position, Vector3.Normalize(vessel.mainBody.transform.position - heightTransform.position));
-
-            if (Physics.Raycast(cast, out hit, maxHoverHeight+50, raycastMask))
-            {
-
-                float distanceToSurface = hit.distance;
-                distance = distanceToSurface;
-
-                //check if transform is under water
-                if (vessel.mainBody.ocean)
-                {
-                    if (altitude < distanceToSurface)
-                    {
-                        distance = altitude;
-                    }
-                }
-            }
-            else
-            {
-                //when the main body has an ocean, make a sanity check
-                if (vessel.mainBody.ocean)
-                {
-                    
-                    //float transformheight = FlightGlobals.getAltitudeAtPos(heightTransform.position);
-                    if (altitude <= (maxHoverHeight + 50))
-                    {
-                        distance = altitude;
-                    }
-                }
-            }
-            //visibleHeight = distance;
-            return distance;
-        }
-
-        // Update the status if the engine
+        /// <summary>
+        /// Update the status if the engine
+        /// </summary>
         private void updateStatus()
         {
             //get the currently running engine
@@ -968,19 +1022,18 @@ namespace KerbetrotterTools
             }
         }
 
+        #endregion
+
+        #region---------------------------IModuleInfo------------------------
 
         /// <summary>
-        /// Get the altitude of this engine
+        /// Get the Editor info of the module
         /// </summary>
-        public float Altitude
+        /// <returns></returns>
+        public override string GetInfo()
         {
-            get
-            {
-                return altitude;
-            }
+            return Localizer.Format("#LOC_KERBETROTTER.engine.desc");
         }
-
-        //------IModuleInfo------
 
         /// <summary>
         /// Get the title of this module
@@ -1008,5 +1061,7 @@ namespace KerbetrotterTools
         {
             return null;
         }
+
+        #endregion
     }
 }

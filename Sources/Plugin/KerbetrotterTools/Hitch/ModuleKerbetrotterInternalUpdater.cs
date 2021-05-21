@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,18 +23,16 @@ namespace KerbetrotterTools
     /// </summary>
     class ModuleKerbetrotterInternalUpdater : PartModule
     {
-        //==========================================
-        // Members
-        //==========================================
+        #region----------------------Private Members-------------------------
 
         /// <summary>
         /// The list of internal models that should be updated by this module
         /// </summary>
         private List<InternalData> childrenWithInternal = new List<InternalData>();
 
-        //==========================================
-        // Public Interface
-        //==========================================
+        #endregion
+
+        #region----------------------Public Interface------------------------
 
         /// <summary>
         /// Refreshes the list of children and reference positions/rotations
@@ -44,9 +42,9 @@ namespace KerbetrotterTools
             initReferences();
         }
 
-        //==========================================
-        // Events
-        //==========================================
+        #endregion
+
+        #region-------------------------Life Cycle---------------------------
 
         /// <summary>
         /// Instantiate the Module. Register for changes in the vessel
@@ -56,6 +54,15 @@ namespace KerbetrotterTools
             //GameEvents.onVesselWasModified.Add(OnReferenceUpdate);
             GameEvents.onVesselChange.Add(OnReferenceUpdate);
             GameEvents.onVesselGoOffRails.Add(OnReferenceUpdate);
+        }
+
+        /// <summary>
+        /// Initialize the module
+        /// </summary>
+        /// <param name="state">The start state of the part</param>
+        public override void OnStart(StartState state)
+        {
+            initReferences();
         }
 
         /// <summary>
@@ -81,21 +88,6 @@ namespace KerbetrotterTools
             }
         }
 
-        //==========================================
-        // Methods
-        //==========================================
-
-        /// <summary>
-        /// Initialize the module
-        /// </summary>
-        /// <param name="state">The start state of the part</param>
-        public override void OnStart(StartState state)
-        {
-            initReferences();
-        }
-
-
-
         /// <summary>
         /// Updates the position and rotation of the internal models
         /// </summary>
@@ -107,9 +99,9 @@ namespace KerbetrotterTools
                 int numChilds = childrenWithInternal.Count;
 
                 //The conjugate is the same as the inverse for unit quaternions but is less computationally expensive
-                Quaternion inverseRotation = conjugate(vessel.transform.rotation);
+                Quaternion inverseRotation = Quaternion.Inverse(vessel.transform.rotation);
 
-                for (int i = numChilds-1; i >= 0; i--)
+                for (int i = numChilds - 1; i >= 0; i--)
                 {
                     if (childrenWithInternal[i].part.internalModel != null)
                     {
@@ -117,7 +109,7 @@ namespace KerbetrotterTools
                         // Update the orientation of the internal model
                         //=============================================
                         Quaternion currentRotation = inverseRotation * childrenWithInternal[i].part.transform.rotation;
-                        Quaternion rotationDelta = conjugate(currentRotation) * childrenWithInternal[i].referenceRotation;
+                        Quaternion rotationDelta = Quaternion.Inverse(currentRotation) * childrenWithInternal[i].referenceRotation;
 
                         //swap y and z (bad IVA voodoo) this also adjusts the chirality 
                         float tmpY = rotationDelta.y;
@@ -134,6 +126,28 @@ namespace KerbetrotterTools
                         childrenWithInternal[i].part.internalModel.transform.position = childrenWithInternal[i].internalPosition + positionDelta;
                     }
                 }
+            }
+        }
+
+        #endregion
+
+        #region----------------------Helper Methods--------------------------
+
+        /// <summary>
+        /// Initialize the references and original position/orientation of the internal model
+        /// </summary>
+        private void initReferences()
+        {
+            if (HighLogic.LoadedSceneIsFlight)
+            {
+                //empty the list if children with an internal model
+                childrenWithInternal.Clear();
+
+                //The conjugate is the same as the inverse for unit quaternions but is less computationally expensive
+                Quaternion inverseRotation = Quaternion.Inverse(vessel.transform.rotation);
+
+                //initialize all the children with an internal model
+                findPartsWithInternal(part, childrenWithInternal, inverseRotation);
             }
         }
 
@@ -172,42 +186,9 @@ namespace KerbetrotterTools
             }
         }
 
-        /// <summary>
-        /// Initialize the references and original position/orientation of the internal model
-        /// </summary>
-        public void initReferences()
-        {
-            if (HighLogic.LoadedSceneIsFlight)
-            {
-                //empty the list if children with an internal model
-                childrenWithInternal.Clear();
+        #endregion
 
-                //The conjugate is the same as the inverse for unit quaternions but is less computationally expensive
-                Quaternion inverseRotation = conjugate(vessel.transform.rotation);
-
-                //initialize all the children with an internal model
-                findPartsWithInternal(part, childrenWithInternal, inverseRotation);
-            }
-        }
-
-        /// <summary>
-        /// Create the conjugate of the quaternion
-        /// This is the same as the inverse for unit qaternions but is less expensive
-        /// </summary>
-        /// <param name="quat">The quaternion to conjugate</param>
-        /// <returns>The conjugated quaternion</returns>
-        private Quaternion conjugate(Quaternion quat)
-        {
-            Quaternion result = quat;
-            result.x = -result.x;
-            result.y = -result.y;
-            result.z = -result.z;
-            return result;
-        }
-
-        //==========================================
-        // Methods
-        //==========================================
+        #region-------------------Classes and Structs------------------------
 
         /// <summary>
         /// Struct holding all the data needed to update the internal models
@@ -239,5 +220,7 @@ namespace KerbetrotterTools
             /// </summary>
             public Part part;
         }
+
+        #endregion
     }
 }

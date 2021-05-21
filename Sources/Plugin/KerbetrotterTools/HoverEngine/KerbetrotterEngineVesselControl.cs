@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,13 @@ using UnityEngine;
 
 namespace KerbetrotterTools
 {
+    /// <summary>
+    /// Module for vessels that contains hover engine to control these engines
+    /// </summary>
     class KerbetrotterEngineVesselControl : VesselModule
     {
+        #region-------------------------Private Members-----------------------
+
         //List if engines that hold terrain distance
         private List<ModuleKerbetrotterEngine> terrainEngines = new List<ModuleKerbetrotterEngine>();
 
@@ -37,12 +42,19 @@ namespace KerbetrotterTools
         //Wheter the count of new engines has changed
         private bool terrainEnginesChanged = false;
 
+        //Whether the altitide of the engines changes
         private bool altitudeEnginesChanged = false;
 
+        //Whether the altitude mode of the engines switched
         private bool altitudeEnginesSwitched = false;
 
+        #endregion
 
+        #region----------------------------Life Cylce-------------------------
 
+        /// <summary>
+        /// When the vessel awakes
+        /// </summary>
         protected override void OnAwake()
         {
             onEngineHoverChangeEvent = GameEvents.FindEvent<EventData<ModuleKerbetrotterEngine, bool, bool>>("onEngineHover");
@@ -52,7 +64,9 @@ namespace KerbetrotterTools
             }
         }
 
-        //the end of the module, remove from list of engines
+        /// <summary>
+        /// The end of the module, remove from list of engines
+        /// </summary>
         protected void OnDestroy()
         {
             if (onEngineHoverChangeEvent != null)
@@ -61,7 +75,55 @@ namespace KerbetrotterTools
             }
         }
 
-        //event when an engine is added to the hover list
+        /// <summary>
+        /// Fixed update of the module
+        /// </summary>
+        void FixedUpdate()
+        {
+            //when engines for altitude mode were added or removed
+            if (altitudeEnginesChanged)
+            {
+                updateAltitudeEngines();
+                altitudeEnginesChanged = false;
+            }
+            //when engines switch to terrain mode
+            if (altitudeEnginesSwitched)
+            {
+                updateSwitchToTerrainEngines();
+                altitudeEnginesSwitched = false;
+            }
+            //when engines for terrain mode were added or removed
+            if (terrainEnginesChanged)
+            {
+                updateTerrainEngines();
+                terrainEnginesChanged = false;
+            }
+
+            //slightly fit the terrain engines to the distance of the terrain
+            float avgAltitude = 0.0f;
+            for (int i = 0; i < terrainEngines.Count; i++)
+            {
+                avgAltitude += terrainEngines[i].Altitude - terrainEngines[i].HeightOffset;
+            }
+
+            avgAltitude /= terrainEngines.Count;
+            for (int i = 0; i < terrainEngines.Count; i++)
+            {
+                float correction = (terrainEngines[i].Altitude - avgAltitude - terrainEngines[i].HeightOffset) * 0.6666666f;
+                terrainEngines[i].setAltitudeCorrection(correction);
+            }
+        }
+
+        #endregion
+
+        #region-------------------------Control Methods-----------------------
+
+        /// <summary>
+        /// Event when an engine is added to the hover list
+        /// </summary>
+        /// <param name="engine">The engine which state has changed</param>
+        /// <param name="hoverActive">Whether the hove mode is active</param>
+        /// <param name="holdAltitude">Whether hold altitude mod is active</param>
         private void onEngineHoverChange(ModuleKerbetrotterEngine engine, bool hoverActive, bool holdAltitude)
         {
             if (engine.vessel == vessel)
@@ -127,43 +189,9 @@ namespace KerbetrotterTools
             }
         }
 
-        void FixedUpdate()
-        {
-            //when engines for altitude mode were added or removed
-            if (altitudeEnginesChanged)
-            {
-                updateAltitudeEngines();
-                altitudeEnginesChanged = false;
-            }
-            //when engines switch to terrain mode
-            if (altitudeEnginesSwitched)
-            {
-                updateSwitchToTerrainEngines();
-                altitudeEnginesSwitched = false;
-            }
-            //when engines for terrain mode were added or removed
-            if (terrainEnginesChanged)
-            {
-                updateTerrainEngines();
-                terrainEnginesChanged = false;
-            }
-
-            //slightly fit the terrain engines to the distance of the terrain
-            float avgAltitude = 0.0f;
-            for (int i = 0; i < terrainEngines.Count; i++)
-            {
-                avgAltitude += terrainEngines[i].Altitude - terrainEngines[i].HeightOffset;
-            }
-
-            avgAltitude /= terrainEngines.Count;
-            for (int i = 0; i < terrainEngines.Count; i++)
-            {
-                float correction = (terrainEngines[i].Altitude - avgAltitude - terrainEngines[i].HeightOffset) * 0.6666666f;
-                terrainEngines[i].setAltitudeCorrection(correction);
-            }
-        }
-
-        //Update the status of the engines hovering over the terrain when an engine was added or removed from the list of active engines
+        /// <summary>
+        /// Update the status of the engines hovering over the terrain when an engine was added or removed from the list of active engines
+        /// </summary>
         private void updateSwitchToTerrainEngines()
         {
             //check whether there are engines that changed from altitude to terrain mode
@@ -202,7 +230,9 @@ namespace KerbetrotterTools
             }
         }
 
-        //Update the status of the engines hovering over the terrain when an engine was added or removed from the list of active engines
+        /// <summary>
+        /// Update the status of the engines hovering over the terrain when an engine was added or removed from the list of active engines
+        /// </summary>
         private void updateTerrainEngines()
         {
             if (terrainEngines.Count > 0)
@@ -261,6 +291,9 @@ namespace KerbetrotterTools
             }
         }
 
+        /// <summary>
+        /// Update the altitude mode of the engines
+        /// </summary>
         private void updateAltitudeEngines()
         {
             if (altitudeEngines.Count > 0)
@@ -295,5 +328,7 @@ namespace KerbetrotterTools
                 
             }
         }
+
+        #endregion
     }
 }

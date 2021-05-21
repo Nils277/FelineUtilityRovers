@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,9 @@
  */
 namespace KerbetrotterTools
 {
+    /// <summary>
+    /// Listener interface for switching
+    /// </summary>
     public interface ISwitchListener
     {
         /// <summary>

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,12 @@ using UnityEngine;
 
 namespace KerbetrotterTools
 {
+    /// <summary>
+    /// Profile for the PID controller
+    /// </summary>
     class KerbetrotterPIDProfile : IConfigNode
     {
-        //-------------------------Parameters----------------------
-
+        #region---------------------------Parameters-------------------------
         //The name of the engine mode
         private string planet = Localizer.Format("#LOC_KERBETROTTER.engine.profile.default");
 
@@ -32,7 +34,9 @@ namespace KerbetrotterTools
         //whether this profile is the default one
         private bool isDefault = false;
 
-        //---------------------------Constructors------------------------
+        #endregion
+
+        #region---------------------------Life Cycle-------------------------
 
         /// <summary>
         /// Constructor of the pid profile
@@ -96,17 +100,16 @@ namespace KerbetrotterTools
             }
         }
 
-        //----------------------------Getter--------------------------
+        #endregion
+
+        #region-----------------------------Getter---------------------------
 
         /// <summary>
         /// The name of the mode
         /// </summary>
         public string Profile
         {
-            get
-            {
-                return planet;
-            }
+            get{ return planet; }
         }
 
         /// <summary>
@@ -114,10 +117,7 @@ namespace KerbetrotterTools
         /// </summary>
         public bool IsDefault
         {
-            get
-            {
-                return isDefault;
-            }
+            get { return isDefault; }
         }
 
         /// <summary>
@@ -125,10 +125,7 @@ namespace KerbetrotterTools
         /// </summary>
         public float P
         {
-            get
-            {
-                return pid[0];
-            }
+            get { return pid[0]; }
         }
 
         /// <summary>
@@ -136,10 +133,7 @@ namespace KerbetrotterTools
         /// </summary>
         public float I
         {
-            get
-            {
-                return pid[1];
-            }
+            get { return pid[1]; }
         }
 
         /// <summary>
@@ -147,10 +141,9 @@ namespace KerbetrotterTools
         /// </summary>
         public float D
         {
-            get
-            {
-                return pid[2];
-            }
+            get { return pid[2]; }
         }
+
+        #endregion
     }
 }

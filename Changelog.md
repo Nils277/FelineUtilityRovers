@@ -1,10 +1,15 @@
 #  v1.3.0  *-Engineers wanted-*
-*[Released XX.APRIL.2021]*
+*[Released 21.APRIL.2021]*
 
 **General:**
 
-* Most switching (visual, harvester, resources and converter) can now only be done by an Engineer Kerbal on EVA now
+* Most switching (visual, harvester, resources and converter) can now only be done by an Engineer Kerbal on EVA
 * Added missing cargo category to filter subcategory
+
+**Enhancements:**
+
+* Vast improvement of the switching UI
+* Cleanup and refactoring of the plugin code
 
 **Localization:**
 

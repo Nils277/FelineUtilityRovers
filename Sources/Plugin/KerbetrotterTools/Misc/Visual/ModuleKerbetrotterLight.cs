@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,15 +19,23 @@ using UnityEngine;
 namespace KerbetrotterTools
 {
     /// <summary>
-    /// This class extends the ModuleColorChanges and adds the ability to dim lights with the animation
+    /// This class extends the ModuleColorChanger and adds the ability to dim lights with the animation
     /// Helpful for parts without a legacy animation for emissives that want to toggle lights 
     /// </summary>
     [KSPModule("Kerbetrotter Light")]
     public class ModuleKerbetrotterLight : ModuleColorChanger
     {
-        //The transforms with the lights
+        #region-------------------------Module Settings----------------------
+
+        /// <summary>
+        /// The transforms with the lights
+        /// </summary>
         [KSPField(isPersistant = false)]
         public string lightTransforms = string.Empty;
+
+        #endregion
+
+        #region-------------------------Private Members----------------------
 
         //The list lights
         private List<Light> lights;
@@ -37,6 +45,10 @@ namespace KerbetrotterTools
 
         //The previous state
         private float prevState = -1.0f;
+
+        #endregion
+
+        #region---------------------------Life Cycle-------------------------
 
         /// <summary>
         /// Update the lights in the OnUpdate method
@@ -93,6 +105,10 @@ namespace KerbetrotterTools
             updateLights(currentRateState);
         }
 
+        #endregion
+
+        #region-------------------------Private Methods----------------------
+
         /// <summary>
         /// Update the lights
         /// </summary>
@@ -125,5 +141,7 @@ namespace KerbetrotterTools
                 prevState = state;
             }
         }
+
+        #endregion
     }
 }

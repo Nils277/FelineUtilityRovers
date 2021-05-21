@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ namespace KerbetrotterTools
     /// </summary>
     class ModuleKerbetrotterEngineControl : PartModule
     {
-        //------------------------Module Parameter-----------------
+        #region-----------------------Module Parameter-----------------------
 
         /// <summary>
         /// The transform of the thrust vector to control
@@ -141,7 +141,9 @@ namespace KerbetrotterTools
         [KSPField(isPersistant = true)]
         private bool warned = false;
 
-        //----------------------------Interaction-------------------------
+        #endregion
+
+        #region-------------------------Interaction--------------------------
 
         /// <summary>
         /// Toggle the Visibility of the advanced controls of the engine controller
@@ -162,8 +164,11 @@ namespace KerbetrotterTools
             brakeEnabled = param.type == KSPActionType.Activate;
         }
 
-        //----------------------------Private Members------------------------
+        #endregion
 
+        #region-----------------------Private Members------------------------
+
+        //holds whether the advanced controls should be shown
         private bool showAdvancedControls = false;
 
         //the thrust transformt to change
@@ -220,7 +225,9 @@ namespace KerbetrotterTools
         //gets whether the animation was valid
         private bool animOk = false;
 
-        //----------------------------Life Cycle------------------------
+        #endregion
+
+        #region--------------------------Life Cycle--------------------------
 
         /// <summary>
         /// Update for every other tic
@@ -565,10 +572,24 @@ namespace KerbetrotterTools
             }
         }
 
+        #endregion
 
-        //--------------------------Control-------------------
+        #region---------------------------Control----------------------------
 
-        // PID controller to update the height of the engines
+        /// <summary>
+        /// PID controller to update the height of the engines
+        /// </summary>
+        /// <param name="error">The error</param>
+        /// <param name="Kp">P Value</param>
+        /// <param name="Ki">I Value</param>
+        /// <param name="Kd">D Value</param>
+        /// <param name="error_last">Last error for D control</param>
+        /// <param name="error_sum">Error sum for I control</param>
+        /// <param name="max_sum">The maximim for the error summ</param>
+        /// <param name="max_diff">The maximum value for the error diff</param>
+        /// <param name="divider">Divider for the error sum</param>
+        /// <param name="maxVal">The maximal control value</param>
+        /// <returns></returns>
         private float[] PID(float error, float Kp, float Ki, float Kd, float error_last, float error_sum, float max_sum, float max_diff, float divider, float maxVal)
         {
             //proportional part
@@ -592,9 +613,13 @@ namespace KerbetrotterTools
             return new float[] {Mathf.Clamp(output, -maxVal, maxVal), error_last, error_sum};
         }
 
-        //-----------------------------------Helper-------------------------------------
+        #endregion
 
-        //update the visibility of the advanced controls
+        #region----------------------------Helper----------------------------
+
+        /// <summary>
+        /// Update the visibility of the advanced controls
+        /// </summary>
         private void updateAndvanceControlVisibility()
         {
             // controls in flight
@@ -624,6 +649,9 @@ namespace KerbetrotterTools
             Events["ToogleControls"].guiName = showAdvancedControls ? Localizer.Format("#LOC_KERBETROTTER.control.advanced.hide") : Localizer.Format("#LOC_KERBETROTTER.control.advanced.show");
         }
 
+        /// <summary>
+        /// Update the major axis of the vessel
+        /// </summary>
         private void updateMajorAxis()
         {
             float[] angles = new float[6];
@@ -684,11 +712,20 @@ namespace KerbetrotterTools
             }
         }
 
+        #endregion
+
+        #region----------------------------Enums-----------------------------
+
+        /// <summary>
+        /// The main axis of the vehicle
+        /// </summary>
         public enum MainAxis
         {
             FORWARD,
             RIGHT,
             UP,
         }
+
+        #endregion
     }
 }
