@@ -1,3 +1,10 @@
+v1.3.1 [Released 21.MAY.2021] *-Engineers wanted (2)-*
+	Bug Fixes:
+		- Fixed wrong name of new inventory module
+		- Fixed color in VAB being grey for category
+		- Fixed missing module
+		- Fixed warning for switching module
+-------------------------------------------------------
 v1.3.0 [Released 21.MAY.2021] *-Engineers wanted-*
 	General:
 		- Most switching (visual, harvester, resources and converter) can now only be done by an Engineer Kerbal on EVA

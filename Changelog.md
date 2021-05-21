@@ -1,3 +1,13 @@
+#  v1.3.1  *-Engineers wanted (2)-*
+*[Released 21.APRIL.2021]*
+
+**Bug Fixes:**
+
+* Fixed wrong name of new inventory module
+* Fixed color in VAB being grey for category
+* Fixed missing module
+* Fixed warning for switching module
+		
 #  v1.3.0  *-Engineers wanted-*
 *[Released 21.APRIL.2021]*
 

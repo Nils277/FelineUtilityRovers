@@ -43,7 +43,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-	<Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Editor\KerbetrotterFilterSettings.cs" />
+    <Compile Include="Hitch\ModuleKerbetrotterJointHelper.cs" />
     <Compile Include="Misc\Interaction\ModuleKerbetrotterBaseInteraction.cs" />
     <Compile Include="Helper\ColorParser.cs" />
     <Compile Include="Helper\KerbetrotterResourceColor.cs" />
@@ -119,7 +120,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>echo D|xcopy /y "$(TargetPath)" "\..\..\..\Programme\Steam\steamapps\common\Kerbal Space Program\GameData\KerbetrotterLtd\000_KerbetrotterTools\Plugins\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>echo D|xcopy /y "$(TargetPath)" "C:\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\GameData\KerbetrotterLtd\000_KerbetrotterTools\Plugins\$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
