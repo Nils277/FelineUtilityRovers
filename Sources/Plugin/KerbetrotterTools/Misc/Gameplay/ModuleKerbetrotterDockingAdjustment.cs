@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,14 @@ using UnityEngine;
 
 namespace KerbetrotterTools
 {
+    /// <summary>
+    /// Class or adjusting the position of a docking port
+    /// </summary>
     class ModuleKerbetrotterDockingAdjustment : PartModule
     {
-        [KSPField(isPersistant = true, guiActiveEditor = true, guiActive = true, guiName = "#autoLOC_443418")]
-        [UI_FloatEdit(scene = UI_Scene.All, minValue = 0.0f, maxValue = 1.0f)]
-        public float dockPosition = -1.0f;
+        #region-------------------------Private Members----------------------
+
+        //The old position if the dock
         private float oldPosition = -1.0f;
 
         //the targe position
@@ -56,8 +59,25 @@ namespace KerbetrotterTools
         //flag that this is the first update
         private bool start = false;
 
-        //----------------methods-----------------
+        #endregion
 
+        #region------------------------User Interaction----------------------
+        
+        /// <summary>
+        /// The posituon of the dock
+        /// </summary>
+        [KSPField(isPersistant = true, guiActiveEditor = true, guiActive = true, guiName = "#autoLOC_443418")]
+        [UI_FloatEdit(scene = UI_Scene.All, minValue = 0.0f, maxValue = 1.0f)]
+        public float dockPosition = -1.0f;
+
+        #endregion
+
+        #region----------------------------Life Cycle------------------------
+
+        /// <summary>
+        /// The start if the module
+        /// </summary>
+        /// <param name="state">The start state of the module</param>
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
@@ -97,6 +117,9 @@ namespace KerbetrotterTools
             }
         }
 
+        /// <summary>
+        /// When the module is destroyed
+        /// </summary>
         public void OnDestroy()
         {
             //free referenced modules
@@ -105,6 +128,9 @@ namespace KerbetrotterTools
             anim = null;
         }
 
+        /// <summary>
+        /// Update of the module
+        /// </summary>
         public void Update()
         {
             if (!HighLogic.LoadedSceneIsFlight && !HighLogic.LoadedSceneIsEditor)
@@ -126,7 +152,7 @@ namespace KerbetrotterTools
                 time = time < 0.0f ? 0.0f : time;
                 time = time > 1.0f ? 1.0f : time;
 
-                anim[animationName].normalizedTime = interpolate(targetPosition, defaultposition, time);
+                anim[animationName].normalizedTime = Mathf.Lerp(targetPosition, defaultposition, time);
                 anim[animationName].speed = 0.0f;
                 if (!anim.IsPlaying(animationName))
                 {
@@ -196,13 +222,13 @@ namespace KerbetrotterTools
             updateVisibility();
         }
 
-        //interpolate between two position
-        private float interpolate(float a, float b, float value)
-        {
-            return (a * value) + (b * (1 - value));
-        }
+        #endregion
 
-        //change the visibilit of the 
+        #region-------------------------Private Methods----------------------
+
+        /// <summary>
+        /// Change the visibilit of the height adjustment setting
+        /// </summary>
         private void updateVisibility()
         {
             if ((extendAnimation != null) && (dockingNode != null)) {
@@ -223,5 +249,7 @@ namespace KerbetrotterTools
                 positionBaseField.guiActive = true;
             }    
         }
+
+        #endregion
     }
 }

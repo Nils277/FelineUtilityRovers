@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,20 @@ using UnityEngine;
 
 namespace KerbetrotterTools
 {
+    /// <summary>
+    /// Helper class for internal spaced to work together with JSIATP
+    /// </summary>
     class ModuleKerbetrotterTransparendPodHelper : PartModule
     {
+        #region-------------------------Module Settings----------------------
+
         //the name of the additional internal
         [KSPField]
         public string hiddenOverlayTransformNames = string.Empty;
+
+        #endregion
+
+        #region-------------------------Private Members----------------------
 
         //The names of the transforms
         private string[] trasformNames;
@@ -30,6 +39,9 @@ namespace KerbetrotterTools
         //The list of found transforms to hide/show
         private List<Transform> transforms;
 
+        #endregion
+
+        #region---------------------------Life Cycle-------------------------
 
         /// <summary>
         /// The update method of this module. It checks the status of the IVA camera and disables or enables certain transforms
@@ -58,8 +70,6 @@ namespace KerbetrotterTools
                     }
                 }
             }
-            
-
 
             if ((transforms != null) && (transforms.Count > 0)) {
                 int numTransforms = transforms.Count;
@@ -106,6 +116,10 @@ namespace KerbetrotterTools
             }
         }
 
+        #endregion
+
+        #region-------------------------Private Methods----------------------
+
         /// <summary>
         /// Chech if the stock overlay is visible
         /// </summary>
@@ -128,5 +142,7 @@ namespace KerbetrotterTools
             }
             return false;
         }
+
+        #endregion
     }
 }

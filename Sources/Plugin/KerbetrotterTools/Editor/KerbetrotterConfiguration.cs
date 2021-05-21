@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+using KerbetrotterTools.Editor;
+using KerbetrotterTools.Misc.Helper;
 using System;
-using System.Globalization;
 using UnityEngine;
 
 namespace KerbetrotterTools
@@ -24,6 +25,8 @@ namespace KerbetrotterTools
     /// </summary>
     class KerbetrotterConfiguration
     {
+        #region--------------------------Static Members----------------------
+        
         //static instance of itself
         private static KerbetrotterConfiguration kerbetrotterConfig;
 
@@ -34,6 +37,11 @@ namespace KerbetrotterTools
                 kerbetrotterConfig = new KerbetrotterConfiguration();
             return kerbetrotterConfig;
         }
+
+        #endregion
+
+        #region-------------------------Private Members----------------------
+
 
         //list of config nodes for the filter
         private KerbetrotterFilterSettings[] filterSettings;
@@ -47,14 +55,16 @@ namespace KerbetrotterTools
             }
         }
 
+        #endregion
 
-        // The constructor for this class reading the settings
+        #region-------------------------Private Methods----------------------
+
+        /// <summary>
+        /// Private hidden constructor of this class
+        /// </summary>
         private KerbetrotterConfiguration()
         {
-            Debug.Log("[KerbetrotterTools:Config] Init settings");
-
             ConfigNode[] nodes = null;
-           
 
             //try to get the config node
             try
@@ -97,24 +107,9 @@ namespace KerbetrotterTools
 
                     Color color = new Color(0.5f, 0.5f, 0.5f);
 
-                    string colorStr = nodes[i].GetValue("iconColor");
-                    if (!string.IsNullOrEmpty(colorStr))
+                    if (nodes[i].HasValue("iconColor"))
                     {
-                        string[] colorStrings = colorStr.Split(',');
-                        if (colorStrings.Length == 3)
-                        {
-                            try
-                            {
-                                float r = float.Parse(colorStrings[0], CultureInfo.InvariantCulture.NumberFormat);
-                                float g = float.Parse(colorStrings[1], CultureInfo.InvariantCulture.NumberFormat);
-                                float b = float.Parse(colorStrings[2], CultureInfo.InvariantCulture.NumberFormat);
-                                color = new Color(r, g, b);
-                            }
-                            catch
-                            {
-                                Debug.LogError("[KerbetrotterTools] Invalid color definition");
-                            }
-                        }
+                        color = ColorParser.parse(nodes[i].GetValue("iconColor"));
                     }
 
                     bool filterLifeSupport = false;
@@ -148,113 +143,7 @@ namespace KerbetrotterTools
             }
 
         }
-    }
 
-    class KerbetrotterFilterSettings
-    {
-        private string modName;
-        private string includeFilter;
-        private string excludeFilter;
-        private string filterIcon;
-        private bool showModFilter;
-        private bool showFunctionFilter;
-        private bool disableForCCK;
-        private bool filterLifeSupport;
-        private bool oneFilterOnly;
-        private Color color;
-
-        public KerbetrotterFilterSettings(string modName, string filterIcon, string includeFilter, string excludeFilter, bool showModFilter, bool showFunctionFilter, bool disableForCCK, bool filterLifeSupport, bool oneFilterOnly, Color color)
-        {
-            this.modName = modName;
-            this.filterIcon = filterIcon;
-            this.includeFilter = includeFilter;
-            this.excludeFilter = excludeFilter;
-            this.showModFilter = showModFilter;
-            this.oneFilterOnly = oneFilterOnly;
-            this.showFunctionFilter = showFunctionFilter;
-            this.disableForCCK = disableForCCK;
-            this.filterLifeSupport = filterLifeSupport;
-            this.color = color;
-        }
-
-        public Color Color
-        {
-            get
-            {
-                return color;
-            }
-        }
-
-        public bool FilterLifeSupport
-        {
-            get
-            {
-                return filterLifeSupport;
-            }
-        }
-
-        public string ModName
-        {
-            get
-            {
-                return modName;
-            }
-        }
-
-        public bool DisableForCCK
-        {
-            get
-            {
-                return disableForCCK;
-            }
-        }
-
-        public string IncludeFilter
-        {
-            get
-            {
-                return includeFilter;
-            }
-        }
-
-        public string ExcludeFilter
-        {
-            get
-            {
-                return excludeFilter;
-            }
-        }
-
-        public string FilterIcon
-        {
-            get
-            {
-                return filterIcon;
-            }
-        }
-
-        public bool ShowModFilter
-        {
-            get
-            {
-                return showModFilter;
-            }
-        }
-
-        public bool ShowFunctionFilter
-        {
-            get
-            {
-                return showFunctionFilter;
-            }
-        }
-
-        public bool ShowInOneFilterOnly
-        {
-            get
-            {
-                return oneFilterOnly;
-            }
-        }
+        #endregion
     }
 }

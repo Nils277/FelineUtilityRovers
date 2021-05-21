@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,14 @@ namespace KerbetrotterTools
     /// </summary>
     class ModuleKerbetrotterMeshHide : PartModule
     {
-        
+        #region-------------------------Module Settings----------------------
+
         [KSPField]//the names of the transforms
         public string transformNames = string.Empty;
+
+        #endregion
+
+        #region---------------------------Life Cycle-------------------------
 
         /// <summary>
         /// Find the transforms and hide them
@@ -48,5 +53,7 @@ namespace KerbetrotterTools
                 }
             }
         }
+
+        #endregion
     }
 }

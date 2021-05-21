@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,7 @@ namespace KerbetrotterTools
     /// </summary>
     class ModuleKerbetrotterRotateBetween : PartModule
     {
-        //==================================================
-        //Public fields for the configs
-        //==================================================
+        #region-------------------------Module Settings----------------------
 
         /// <summary>
         /// The name of the first reference transform
@@ -57,9 +55,9 @@ namespace KerbetrotterTools
         [KSPField(isPersistant = false)]
         public bool useSlerp = false;
 
-        //==================================================
-        //Internal Members
-        //==================================================
+        #endregion
+
+        #region-------------------------Private Members----------------------
 
         //saves wheter all transforms are found for the interpolation
         private bool isValid = false;
@@ -76,9 +74,9 @@ namespace KerbetrotterTools
         //the number of targets
         private int numTargets = 0;
 
-        //==================================================
-        //Methods
-        //==================================================
+        #endregion
+
+        #region---------------------------Life Cycle-------------------------
 
         //Called when the part is instantiated
         //Initializes the transforms
@@ -150,12 +148,22 @@ namespace KerbetrotterTools
             }
         }
 
+        #endregion
 
-        private class RotationTarget
+        #region----------------------------Structs---------------------------
+
+        /// <summary>
+        /// The target for the rotation
+        /// </summary>
+        private struct RotationTarget
         {
+            //The target transform
             public Transform target;
+
+            //The target value
             public float value;
         }
 
+        #endregion
     }
 }

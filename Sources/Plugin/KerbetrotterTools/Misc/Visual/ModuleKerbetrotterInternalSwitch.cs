@@ -1,19 +1,51 @@
-﻿using System;
+﻿/*
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace KerbetrotterTools
 {
+    /// <summary>
+    /// Module switching between to internal models (required for JSIATP)
+    /// </summary>
     class ModuleKerbetrotterInternalSwitch : PartModule, ModuleKerbetrotterMeshToggle.MeshToggleListener
     {
-        [KSPField]//the names of the transforms visible when disabled
+        #region-------------------------Module Settings----------------------
+
+        /// <summary>
+        /// The names of the transforms visible when disabled
+        /// </summary>
+        [KSPField]
         public string disabledTransformName = string.Empty;
 
-        [KSPField]//the names of the transforms visible when enabled
+        /// <summary>
+        /// The names of the transforms visible when enabled
+        /// </summary>
+        [KSPField]
         public string enabledTransformName = string.Empty;
 
-        [KSPField]//the names of the transforms
+        /// <summary>
+        /// The index of the toggled mesh
+        /// </summary>
+        [KSPField]
         public int MeshToggleIndex = 0;
+
+        #endregion
+
+        #region-------------------------Private Members----------------------
 
         //the list of disabled models
         private List<Transform> disabledTransforms = new List<Transform>();
@@ -21,7 +53,12 @@ namespace KerbetrotterTools
         //the list of enabled models
         private List<Transform> enalbedTransforms = new List<Transform>();
 
+        //whether the part is enabled or not
         private bool stateEnabled = true;
+
+        #endregion
+
+        #region----------------------------Life Cycle------------------------
 
         /// <summary>
         /// Find the transforms that can be toggled
@@ -37,12 +74,51 @@ namespace KerbetrotterTools
             enalbedTransforms.Clear();
 
             refresh();
-
-
-
             meshToggled(stateEnabled);
         }
 
+        /// <summary>
+        /// Register for events when the main body changed
+        /// </summary>
+        public override void OnAwake()
+        {
+            base.OnAwake();
+            GameEvents.onVesselChange.Add(onVesselChange);
+        }
+
+        /// <summary>
+        /// Free all resources when the part is destroyed
+        /// </summary>
+        public void OnDestroy()
+        {
+            GameEvents.onVesselChange.Remove(onVesselChange);
+        }
+
+        #endregion
+
+        #region-------------------------Public Methods-----------------------
+
+        public void meshToggled(bool enabled)
+        {
+            stateEnabled = enabled;
+            for (int i = 0; i < disabledTransforms.Count; i++)
+            {
+                disabledTransforms[i].gameObject.SetActive(!stateEnabled);
+            }
+
+            for (int i = 0; i < enalbedTransforms.Count; i++)
+            {
+                enalbedTransforms[i].gameObject.SetActive(stateEnabled);
+            }
+        }
+
+        #endregion
+
+        #region-------------------------Private Methods----------------------
+
+        /// <summary>
+        /// Refresh the visibility
+        /// </summary>
         private void refresh()
         {
             string[] disabledGroupNames = disabledTransformName.Split(',');
@@ -101,22 +177,9 @@ namespace KerbetrotterTools
         }
 
         /// <summary>
-        /// Register for events when the main body changed
+        /// Called when the active vessel has changed
         /// </summary>
-        public override void OnAwake()
-        {
-            base.OnAwake();
-            GameEvents.onVesselChange.Add(onVesselChange);
-        }
-
-        /// <summary>
-        /// Free all resources when the part is destroyed
-        /// </summary>
-        public void OnDestroy()
-        {
-            GameEvents.onVesselChange.Remove(onVesselChange);
-        }
-
+        /// <param name="v">The now active vessel</param>
         private void onVesselChange(Vessel v)
         {
             if (v == vessel)
@@ -126,19 +189,6 @@ namespace KerbetrotterTools
             }
         }
 
-        public void meshToggled(bool enabled)
-        {
-            Debug.Log("[Kerbetrotter] Toggle of IVA mesh: " + enabled);
-            stateEnabled = enabled;
-            for (int i = 0; i < disabledTransforms.Count; i++)
-            {
-                disabledTransforms[i].gameObject.SetActive(!stateEnabled);
-            }
-
-            for (int i = 0; i < enalbedTransforms.Count; i++)
-            {
-                enalbedTransforms[i].gameObject.SetActive(stateEnabled);
-            }
-        }
+        #endregion
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,26 +18,22 @@ using UnityEngine;
 
 namespace KerbetrotterTools
 {
+    /// <summary>
+    /// Converter extension to limit the converter speed
+    /// </summary>
     class ModuleKerbetrotterConverter : ModuleResourceConverter, IModuleInfo
     {
+        #region-------------------------Module Settings----------------------
 
+        /// <summary>
+        /// The production speed of the converter
+        /// </summary>
         [KSPField(isPersistant = true, guiActive = true, guiActiveEditor = true, guiName = "Conversion Speed", guiUnits = "%"), UI_FloatRange(minValue = 10f, maxValue = 100f, stepIncrement = 10f)]
         public float productionSpeed = 100;
 
-        public Callback<Rect> GetDrawModulePanelCallback()
-        {
-            return null;
-        }
+        #endregion
 
-        public string GetModuleTitle()
-        {
-            return Localizer.GetStringByTag("#autoLoc_6003053");
-        }
-
-        public string GetPrimaryField()
-        {
-            return null;
-        }
+        #region----------------------------Life Cycle------------------------
 
         /// <summary>
         /// Translate the field
@@ -49,7 +45,15 @@ namespace KerbetrotterTools
             Fields["productionSpeed"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.converter.speed");
         }
 
-        // Prepare the recipe with regard to the amount of crew in this module
+        #endregion
+
+        #region--------------------------Functionality-----------------------
+
+        /// <summary>
+        /// Prepare the recipe with regard to the amount of crew in this module
+        /// </summary>
+        /// <param name="deltatime">The delta time since the last update</param>
+        /// <returns>The conversion recipe</returns>
         protected override ConversionRecipe PrepareRecipe(double deltatime)
         {
             ConversionRecipe recipe = base.PrepareRecipe(deltatime);
@@ -81,5 +85,38 @@ namespace KerbetrotterTools
 
             return recipe;
         }
+
+        #endregion
+
+        #region---------------------------IModuleInfo------------------------
+
+        /// <summary>
+        /// Get the Callback for drawing the module
+        /// </summary>
+        /// <returns>Callback for drawng the module</returns>
+        public Callback<Rect> GetDrawModulePanelCallback()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Get the title of the module
+        /// </summary>
+        /// <returns>The title of the module</returns>
+        public string GetModuleTitle()
+        {
+            return Localizer.GetStringByTag("#autoLoc_6003053");
+        }
+
+        /// <summary>
+        /// Get the primary field of the module
+        /// </summary>
+        /// <returns>The primary field</returns>
+        public string GetPrimaryField()
+        {
+            return null;
+        }
+
+        #endregion
     }
 }

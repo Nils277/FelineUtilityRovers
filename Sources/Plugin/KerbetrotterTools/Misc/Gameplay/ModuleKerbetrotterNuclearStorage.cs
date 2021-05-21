@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,12 @@ using UnityEngine;
 
 namespace KerbetrotterTools
 {
+    /// <summary>
+    /// Storage for nuclear fuel. requires special method to transfer to another part
+    /// </summary>
     class ModuleKerbetrotterNuclearStorage : PartModule
     {
-        //-------------------------Public settings------------------------
+        #region-------------------------Module Settings----------------------
 
         /// <summary>
         /// The name of the resource that is used as fuel
@@ -60,7 +63,9 @@ namespace KerbetrotterTools
         [KSPField]
         public float transferRate = 35.0f;
 
-        //------------------------Private state------------------------
+        #endregion
+
+        #region-------------------------Private Members----------------------
 
         //The visible state of the stransfer for the user
         [KSPField(guiActive = true, guiName = "#LOC_KERBETROTTER.nuclearfuel.transferstate")]
@@ -93,7 +98,9 @@ namespace KerbetrotterTools
         //List of resource converter
         private List<BaseConverter> converter = null;
 
-        //--------------------------Interaction-----------------------
+        #endregion
+
+        #region------------------------User Interaction----------------------
 
         /// <summary>
         /// Init the transfer of the nuclear fuel
@@ -267,7 +274,9 @@ namespace KerbetrotterTools
             updateUI();
         }
 
-        //---------------------Life Cycle----------------------------
+        #endregion
+
+        #region---------------------------Life Cycle-------------------------
 
         /// <summary>
         /// The start method of the part
@@ -305,11 +314,9 @@ namespace KerbetrotterTools
             GameEvents.onVesselChange.Remove(onVesselChange);
         }
 
-
-
-        /**
-         * The update method of the module
-         */
+        /// <summary>
+        /// The update method of the module
+        /// </summary>
         public void Update()
         {
             if (transferTarget != null)
@@ -355,7 +362,10 @@ namespace KerbetrotterTools
             }
         }
 
-        //----------------------Game Events---------------------
+        #endregion
+
+        #region--------------------------Game Events-------------------------
+
         /// <summary>
         /// Called when the UI of the part has been dismissed.
         /// Cancels the transfer of the nuclear fuel
@@ -377,50 +387,16 @@ namespace KerbetrotterTools
             }
         }
 
-        //---------------------Helper---------------------------
+        #endregion
 
-        /// <summary>
-        /// Check whether the crew of the vessel allows for transfer
-        /// </summary>
-        /// <param name="level"></param>
-        /// <returns></returns>
-        private bool checkCrew(int level)
-        {
-            List<ProtoCrewMember> crew = part.vessel.GetVesselCrew();
-            for (int i = 0; i < crew.Count; i++)
-            {
-                if ((crew[i].experienceTrait.Title == neededSkill) && (crew[i].experienceLevel >= level))
-                {
-                    return true;
-                }
-                //Debug.Log("[KPBS] Title:" + crew[i].experienceTrait.Title + " Desc:" + crew[i].experienceTrait.Description  + " Needed: " + neededSkill);
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Update the visibility of the UI
-        /// </summary>
-        public void updateUI()
-        {
-            bool nextVisible = transferCandidates != null && transferCandidates.Count > 1;
-
-            Events["initTransferFuel"].guiActive = (state == Transferstate.IDLE) && hasFuelStorage;
-            Events["initTransferWaste"].guiActive = (state == Transferstate.IDLE) && hasWasteStorage;
-            Events["nextTarget"].guiActive = nextVisible && ((state == Transferstate.SELECTING_FUEL) || (state == Transferstate.SELECTING_WASTE));
-            Events["prevTarget"].guiActive = nextVisible && ((state == Transferstate.SELECTING_FUEL) || (state == Transferstate.SELECTING_WASTE));
-            Events["startTransfer"].guiActive = (state == Transferstate.SELECTING_FUEL) || (state == Transferstate.SELECTING_WASTE);
-            Events["cancelTransfer"].guiActive = (state == Transferstate.SELECTING_FUEL) || (state == Transferstate.SELECTING_WASTE);
-            Events["stopTransfer"].guiActive = (state == Transferstate.TRANSFERING_FUEL) || (state == Transferstate.TRANSFERING_WASTE);
-            Fields["status"].guiActive = (state != Transferstate.IDLE);
-        }
-
+        #region-------------------------Public Methods-----------------------
+        
         /// <summary>
         /// Receive nuclear fuel. 
         /// </summary>
         /// <param name="amount">The amount received</param>
         /// <returns>The amount that can be added</returns>
-        public double receive(Part target, string resource,double amount)
+        public double receive(Part target, string resource, double amount)
         {
             if (!target.Resources.Contains(resource))
             {
@@ -505,7 +481,6 @@ namespace KerbetrotterTools
             return part.Resources.Contains(resource) && (part.Resources[resource].amount > 0);
         }
 
-        
         /// <summary>
         /// Get the list of all possible targets for nuclear fuel
         /// </summary>
@@ -521,22 +496,54 @@ namespace KerbetrotterTools
                     candidates.Add(vessel.parts[i]);
                 }
             }
-
-            //List<ModuleKerbetrotterNuclearStorage> modules = vessel  //vessel.FindPartModulesImplementing<ModuleKerbetrotterNuclearStorage>();
-            //Debug.Log("[KPBS] Found Modules: " + modules.Count);
-
-            //List<ModuleKerbetrotterNuclearStorage> candidates = new List<ModuleKerbetrotterNuclearStorage>();
-            //for (int i = 0; i < modules.Count; i++)
-            //{
-                //if (modules[i].canReceive(fuel) && modules[i] != this)
-               // {
-                    //Debug.Log("[KPBS] Adding module: " + i);
-                    //candidates.Add(modules[i]);
-                //}
-            //}
             return candidates;
         }
 
+        #endregion
+
+        #region-------------------------Helper Methods-----------------------
+
+        /// <summary>
+        /// Check whether the crew of the vessel allows for transfer
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
+        private bool checkCrew(int level)
+        {
+            List<ProtoCrewMember> crew = part.vessel.GetVesselCrew();
+            for (int i = 0; i < crew.Count; i++)
+            {
+                if ((crew[i].experienceTrait.Title == neededSkill) && (crew[i].experienceLevel >= level))
+                {
+                    return true;
+                }
+                //Debug.Log("[KPBS] Title:" + crew[i].experienceTrait.Title + " Desc:" + crew[i].experienceTrait.Description  + " Needed: " + neededSkill);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Update the visibility of the UI
+        /// </summary>
+        private void updateUI()
+        {
+            bool nextVisible = transferCandidates != null && transferCandidates.Count > 1;
+
+            Events["initTransferFuel"].guiActive = (state == Transferstate.IDLE) && hasFuelStorage;
+            Events["initTransferWaste"].guiActive = (state == Transferstate.IDLE) && hasWasteStorage;
+            Events["nextTarget"].guiActive = nextVisible && ((state == Transferstate.SELECTING_FUEL) || (state == Transferstate.SELECTING_WASTE));
+            Events["prevTarget"].guiActive = nextVisible && ((state == Transferstate.SELECTING_FUEL) || (state == Transferstate.SELECTING_WASTE));
+            Events["startTransfer"].guiActive = (state == Transferstate.SELECTING_FUEL) || (state == Transferstate.SELECTING_WASTE);
+            Events["cancelTransfer"].guiActive = (state == Transferstate.SELECTING_FUEL) || (state == Transferstate.SELECTING_WASTE);
+            Events["stopTransfer"].guiActive = (state == Transferstate.TRANSFERING_FUEL) || (state == Transferstate.TRANSFERING_WASTE);
+            Fields["status"].guiActive = (state != Transferstate.IDLE);
+        }
+
+        /// <summary>
+        /// Set the target part for transfer
+        /// </summary>
+        /// <param name="target">The target part</param>
+        /// <param name="isTarget">When true, part is target</param>
         private void setTarget(Part target, bool isTarget)
         {
             if (isTarget)
@@ -558,7 +565,9 @@ namespace KerbetrotterTools
             }
         }
 
-        //---------------------Data---------------------------
+        #endregion
+
+        #region-----------------------------Enums----------------------------
 
         /// <summary>
         /// The state of the transfer of the module
@@ -571,5 +580,7 @@ namespace KerbetrotterTools
             SELECTING_WASTE,
             TRANSFERING_WASTE
         }
+
+        #endregion
     }
 }

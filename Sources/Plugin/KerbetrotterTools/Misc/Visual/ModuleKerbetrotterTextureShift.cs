@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,13 @@ using UnityEngine;
 
 namespace KerbetrotterTools
 {
+    /// <summary>
+    /// Module to shift textures. Mostly triggered by other modules (e.g. for switching)
+    /// </summary>
     class ModuleKerbetrotterTextureShift : PartModule, ISwitchListener
     {
+        #region-------------------------Module Settings----------------------
+
         /// <summary>
         /// The name of the transforms to apply the thrust to
         /// </summary>
@@ -39,7 +44,9 @@ namespace KerbetrotterTools
         [KSPField]
         public string setupGroup = string.Empty;
 
-        //-----------------------------Private data----------------------
+        #endregion
+
+        #region-------------------------Private Members----------------------
 
         //The material containing the texture
         private List<Material> materials = new List<Material>();
@@ -50,7 +57,9 @@ namespace KerbetrotterTools
         //The current setup of the texture switch
         private string currentSetup = string.Empty;
 
-        //-----------------------------Methods----------------------
+        #endregion
+
+        #region---------------------------Life Cycle-------------------------
 
         /// <summary>
         /// Find the material and resource switch when started
@@ -59,8 +68,6 @@ namespace KerbetrotterTools
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
-
-            Debug.Log("[KerbetrotterTools:TextureShift] OnStart");
 
             loadSetups(part.partInfo.partConfig);
 
@@ -82,6 +89,51 @@ namespace KerbetrotterTools
             }
 
         }
+
+        #endregion
+
+        #region-------------------------Public Methods-----------------------
+
+        /// <summary>
+        /// Get the setup group this switcher belongs to
+        /// </summary>
+        /// <returns></returns>
+        public string getSetup()
+        {
+            return setupGroup;
+        }
+
+        /// <summary>
+        /// Called when this module should switch
+        /// </summary>
+        /// <param name="setup">The name of the new setup to switch to</param>
+        public void onSwitch(string setup)
+        {
+            currentSetup = setup;
+
+            if (materials.Count > 0)
+            {
+                if (setups.ContainsKey(setup))
+                {
+                    Vector2 offset = setups[setup];
+                    for (int i = 0; i < materials.Count; i++)
+                    {
+                        materials[i].SetTextureOffset(textureName, offset);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < materials.Count; i++)
+                    {
+                        materials[i].SetTextureOffset(textureName, new Vector2(0, 0));
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region-------------------------Helper Methods-----------------------
 
         /// <summary>
         /// Initialize the switchable resources.
@@ -126,41 +178,6 @@ namespace KerbetrotterTools
             }
         }
 
-        /// <summary>
-        /// Get the setup group this switcher belongs to
-        /// </summary>
-        /// <returns></returns>
-        public string getSetup()
-        {
-            return setupGroup;
-        }
-
-        /// <summary>
-        /// Called when this module should switch
-        /// </summary>
-        /// <param name="setup">The name of the new setup to switch to</param>
-        public void onSwitch(string setup)
-        {
-            currentSetup = setup;
-
-            if (materials.Count > 0)
-            {
-                if (setups.ContainsKey(setup))
-                {
-                    Vector2 offset = setups[setup];
-                    for (int i = 0; i < materials.Count; i++)
-                    {
-                        materials[i].SetTextureOffset(textureName, offset);
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < materials.Count; i++)
-                    {
-                        materials[i].SetTextureOffset(textureName, new Vector2(0,0));
-                    }
-                }
-            }
-        }
+        #endregion
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,17 @@ using UnityEngine;
 
 namespace KerbetrotterTools
 {
+    /// <summary>
+    /// Event for when the hover state of the hover engine changes
+    /// </summary>
     [KSPAddon(KSPAddon.Startup.Instantly, true)]
     class KerbetrotterEngineHoverEvent : MonoBehaviour
     {
+        //The static event
         public static EventData<ModuleKerbetrotterEngine, bool, bool> onEngineHover;
 
-
         /// <summary>
-        /// When the class awakes it inits all the filters it found for the KerbatrotterTools
+        /// When the class awakes it inits the event
         /// </summary>
         private void Awake()
         {

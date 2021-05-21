@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,22 +23,42 @@ namespace KerbetrotterTools
     /// </summary>
     class ModuleKerbetrotterEditorMesh : PartModule
     {
-        
-        [KSPField]//the names of the transforms
+        #region-------------------------Module Settings----------------------
+
+        /// <summary>
+        /// The names of the transforms that should only be visible in the editor
+        /// </summary>
+        [KSPField]
         public string transformNames = string.Empty;
 
-        [KSPField]//Whether the toggle is available in flight
-        public bool availableInFlight = true; 
+        /// <summary>
+        /// Whether the toggle is available in flight
+        /// </summary>
+        [KSPField]
+        public bool availableInFlight = true;
 
-        [KSPField]//Whether the toggle is available in editor
-        public bool availableInEditor = true; 
+        /// <summary>
+        /// Whether the toggle is available in editor
+        /// </summary>
+        [KSPField]
+        public bool availableInEditor = true;
 
-        //--------------persistent states----------------
+        /// <summary>
+        /// /Holding whether the transform is visible or not
+        /// </summary>
         [KSPField(isPersistant = true)]
         public bool transformsVisible = true;
 
+        #endregion
+
+        #region-------------------------Private Methods----------------------
+
         //the list of models
         List<Transform> transforms;
+
+        #endregion
+
+        #region---------------------------Life Cycle-------------------------
 
         /// <summary>
         /// Find the transforms that can be toggled
@@ -51,9 +71,7 @@ namespace KerbetrotterTools
             string[] transformGroupNames = transformNames.Split(',');
             transforms = new List<Transform>();
 
-            //----------------------------------------------------------
             //create the list of transforms to be made toggleble
-            //----------------------------------------------------------
             for (int k = 0; k < transformGroupNames.Length; k++)
             {
                 transforms.AddRange(part.FindModelTransforms(transformGroupNames[k].Trim()));
@@ -62,6 +80,9 @@ namespace KerbetrotterTools
             updateMeshes();
         }
 
+        #endregion
+
+        #region-------------------------Private Methods----------------------
 
         /// <summary>
         /// Update the meshes of the part
@@ -86,5 +107,7 @@ namespace KerbetrotterTools
                 transforms[i].gameObject.SetActive(visible);
             }
         }
+
+        #endregion
     }
 }

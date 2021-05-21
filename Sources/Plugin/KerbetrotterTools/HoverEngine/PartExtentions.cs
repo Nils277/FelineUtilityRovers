@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2020 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 namespace KerbetrotterTools {
+
+    /// <summary>
+    /// Extension class for a part
+    /// </summary>
     public static class PartExtensions {
 
         /// <summary>

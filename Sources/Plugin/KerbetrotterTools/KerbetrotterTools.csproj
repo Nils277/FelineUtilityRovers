@@ -35,7 +35,7 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,54 +43,83 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+	<Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreModule">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\UnityEngine.TextCoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Editor\KerbetrotterFilterSettings.cs" />
+    <Compile Include="Misc\Interaction\ModuleKerbetrotterBaseInteraction.cs" />
+    <Compile Include="Helper\ColorParser.cs" />
+    <Compile Include="Helper\KerbetrotterResourceColor.cs" />
+    <Compile Include="Helper\ResourceColors.cs" />
+    <Compile Include="Switching\Dialog\DialogGUIOptionButton.cs" />
+    <Compile Include="Switching\Dialog\DialogGUISelectableLabel.cs" />
+    <Compile Include="Switching\Dialog\DialogGUIProgressbar.cs" />
+    <Compile Include="Switching\Dialog\SwitcherDialog.cs" />
+    <Compile Include="Switching\Dialog\SwitchingProgressDialog.cs" />
+    <Compile Include="Switching\Dialog\TooltipGUIExtensions.cs" />
     <Compile Include="Switching\ISwitchListener.cs" />
     <Compile Include="Editor\KerbetrotterCategories.cs" />
     <Compile Include="Editor\KerbetrotterConfiguration.cs" />
-    <Compile Include="Switching\KerbetrotterConverterSetup.cs" />
+    <Compile Include="Switching\Setups\KerbetrotterConverterSetup.cs" />
     <Compile Include="HoverEngine\KerbetrotterEngineHoverEvent.cs" />
     <Compile Include="HoverEngine\KerbetrotterPIDProfile.cs" />
     <Compile Include="HoverEngine\KerbetrotterEngineVesselControl.cs" />
     <Compile Include="Misc\Visual\ModuleKerbetrotterConstrainedLookAt.cs" />
     <Compile Include="Misc\Gameplay\ModuleKerbetrotterConverter.cs" />
-    <Compile Include="Switching\ModuleKerbetrotterConverterSwitch.cs" />
+    <Compile Include="Switching\Setups\KerbetrotterHarvesterSetup.cs" />
+    <Compile Include="Switching\Switcher\ModuleKerbetrotterConverterSwitch.cs" />
     <Compile Include="Misc\Gameplay\ModuleKerbetrotterDockingAdjustment.cs" />
     <Compile Include="HoverEngine\ModuleKerbetrotterEngine.cs" />
     <Compile Include="HoverEngine\ModuleKerbetrotterEngineAnimation.cs" />
     <Compile Include="HoverEngine\ModuleKerbetrotterEngineControl.cs" />
     <Compile Include="HoverEngine\ModuleKerbetrotterEngineIntake.cs" />
-    <Compile Include="Switching\ModuleKerbetrotterHarvesterSwitch.cs" />
+    <Compile Include="Switching\Switcher\ModuleKerbetrotterHarvesterSwitch.cs" />
     <Compile Include="Hitch\ModuleKerbetrotterHitch.cs" />
     <Compile Include="Hitch\ModuleKerbetrotterInternalUpdater.cs" />
-    <Compile Include="Hitch\ModuleKerbetrotterJointHelper.cs" />
-    <Compile Include="Editor\ModuleKerbetrotterEditorMesh.cs" />
+    <Compile Include="Misc\Visual\ModuleKerbetrotterEditorMesh.cs" />
     <Compile Include="Misc\Visual\ModuleKerbetrotterMeshHide.cs" />
-    <Compile Include="Misc\Gameplay\ModuleKerbetrotterMeshToggle.cs" />
-    <Compile Include="Switching\ModuleKerbetrotterMeshSwitch.cs" />
-    <Compile Include="Misc\Visual\ModuleKerbetrotterMultiLight.cs" />
+    <Compile Include="Misc\Interaction\ModuleKerbetrotterMeshToggle.cs" />
+    <Compile Include="Misc\Interaction\ModuleKerbetrotterMeshSwitch.cs" />
+    <Compile Include="Misc\Interaction\ModuleKerbetrotterMultiLight.cs" />
     <Compile Include="Misc\Gameplay\ModuleKerbetrotterNuclearStorage.cs" />
-    <Compile Include="Switching\ModuleKerbetrotterInternalSwitch.cs" />
-    <Compile Include="Switching\ModuleKerbetrotterResourceSwitch.cs" />
+    <Compile Include="Misc\Visual\ModuleKerbetrotterInternalSwitch.cs" />
+    <Compile Include="Switching\Switcher\ModuleKerbetrotterResourceSwitch.cs" />
     <Compile Include="Misc\Visual\ModuleKerbetrotterLight.cs" />
     <Compile Include="Misc\Visual\ModuleKerbetrotterRotateBetween.cs" />
-    <Compile Include="Switching\ModuleKerbetrotterSwitchMaster.cs" />
-    <Compile Include="Switching\ModuleKerbetrotterTextureShift.cs" />
+    <Compile Include="Switching\Switcher\ModuleKerbetrotterSwitch.cs" />
+    <Compile Include="Misc\Visual\ModuleKerbetrotterTextureShift.cs" />
     <Compile Include="Misc\Visual\ModuleKerbetrotterTransparendPodHelper.cs" />
     <Compile Include="HoverEngine\PartExtentions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Switching\Setups\BaseSetup.cs" />
+    <Compile Include="Switching\Setups\KerbetrotterResourceSetup.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>echo D|xcopy /y "$(TargetPath)" "C:\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\GameData\KerbetrotterLtd\000_KerbetrotterTools\Plugins\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>echo D|xcopy /y "$(TargetPath)" "\..\..\..\Programme\Steam\steamapps\common\Kerbal Space Program\GameData\KerbetrotterLtd\000_KerbetrotterTools\Plugins\$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

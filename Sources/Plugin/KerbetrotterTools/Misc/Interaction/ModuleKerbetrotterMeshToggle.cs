@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,41 +16,52 @@
 using UnityEngine;
 using System.Collections.Generic;
 using KSP.Localization;
+using KerbetrotterTools.Misc.Gameplay;
 
 namespace KerbetrotterTools
 {
     /// <summary>
     /// This Class allows to toggle the visibilty of a transform (incluive subtransforms) This also affects the colliders
     /// </summary>
-    class ModuleKerbetrotterMeshToggle : PartModule
+    class ModuleKerbetrotterMeshToggle : ModuleKerbetrotterBaseInteraction
     {
-        
-        [KSPField]//the names of the transforms
+        #region-------------------------Module Settings----------------------
+
+        /// <summary>
+        /// The names of the transforms
+        /// </summary>
+        [KSPField]
         public string transformNames = string.Empty;
 
-        [KSPField]//Text to show to hide a mesh
+        /// <summary>
+        /// Text to show to hide a mesh
+        /// </summary>
+        [KSPField]
         public string showMeshString = Localizer.GetStringByTag("#LOC_KERBETROTTER.meshtoggle.show");
 
-        [KSPField]//Text to show to show a mesh
+        /// <summary>
+        /// Text to show to show a mesh
+        /// </summary>
+        [KSPField]
         public string hideMeshString = Localizer.GetStringByTag("#LOC_KERBETROTTER.meshtoggle.hide");
-
-        [KSPField]//Whether the toggle is available in flight
-        public bool availableInFlight = true; 
-
-        [KSPField]//Whether the toggle is available in editor
-        public bool availableInEditor = true; 
 
         //--------------persistent states----------------
         [KSPField(isPersistant = true)]
         public bool transformsVisible = true;
 
-        //the list of models
-        List<Transform> transforms;
+        #endregion
 
-        //saves whether the visibility has been updated yet or not
-        public bool initialized = false;
+        #region------------------------Private Members-----------------------
 
+        //The list of models
+        private List<Transform> transforms;
+
+        //Listener for when the mesh was toggled
         private List<MeshToggleListener> listeners = new List<MeshToggleListener>();
+
+        #endregion
+
+        #region---------------------------Life Cycle-------------------------
 
         /// <summary>
         /// Find the transforms that can be toggled
@@ -59,8 +70,6 @@ namespace KerbetrotterTools
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
-
-            Events["toggleMesh"].guiName = Localizer.GetStringByTag("#LOC_KERBETROTTER.meshtoggle.toggle");
 
             string[] transformGroupNames = transformNames.Split(',');
             transforms = new List<Transform>();
@@ -84,6 +93,57 @@ namespace KerbetrotterTools
             listeners.Clear();
         }
 
+        #endregion
+
+        #region------------------------User Interaction----------------------
+
+        /// <summary>
+        /// Event that toggles the visibility of the mesh
+        /// </summary>
+        [KSPEvent(name = "toggleMesh", guiName = "#LOC_KERBETROTTER.meshtoggle.toggle", guiActive = true, guiActiveUnfocused = false, unfocusedRange = 5f, guiActiveEditor = true)]
+        public void toggleMesh()
+        {
+            if (!actionPossible())
+            {
+                ScreenMessages.PostScreenMessage(new ScreenMessage(mActionError, 2f, ScreenMessageStyle.UPPER_CENTER));
+                return;
+            }
+            transformsVisible = !transformsVisible;
+            updateMeshes();
+        }
+
+        #endregion
+
+        #region-------------------------Public Methods-----------------------
+
+        /// <summary>
+        /// Add a listener for changes
+        /// </summary>
+        /// <param name="listener">The listener to add</param>
+        public void addListener(MeshToggleListener listener)
+        {
+            if (!listeners.Contains(listener))
+            {
+                listeners.Add(listener);
+            }
+        }
+
+        /// <summary>
+        /// Remove a listener for updates
+        /// </summary>
+        /// <param name="listener">The listener to remove</param>
+        public void removeListener(MeshToggleListener listener)
+        {
+            if (listeners.Contains(listener))
+            {
+                listeners.Remove(listener);
+            }
+        }
+
+        #endregion
+
+        #region-------------------------Helper Methods-----------------------
+
         /// <summary>
         /// Update the visibility of the GUI
         /// </summary>
@@ -104,13 +164,18 @@ namespace KerbetrotterTools
                 else if (HighLogic.LoadedSceneIsFlight)
                 {
                     Events["toggleMesh"].active = availableInFlight;
+                    if (evaOnly)
+                    {
+                        Events["toggleMesh"].guiActiveUnfocused = availableInFlight;
+                        Events["toggleMesh"].externalToEVAOnly = availableInFlight;
+                    }
                 }
                 else
                 {
                     Events["toggleMesh"].active = false;
                     return;
                 }
-                
+
                 if (transformsVisible)
                 {
                     Events["toggleMesh"].guiName = hideMeshString;
@@ -120,42 +185,6 @@ namespace KerbetrotterTools
                     Events["toggleMesh"].guiName = showMeshString;
                 }
 
-            }
-        }
-
-        /// <summary>
-        /// The update method of the partmodule
-        /// </summary>
-        /*public void Update()
-        {
-            if (!initialized)
-            {
-                updateMeshes();
-                initialized = true;
-            }
-        }*/
-
-        /// <summary>
-        /// Event that toggles the visibility of the mesh
-        /// </summary>
-        [KSPEvent(name = "toggleMesh", guiName = "Toggle Mesh", guiActive = true, guiActiveUnfocused = false, unfocusedRange = 5f, guiActiveEditor = true)]
-        public void toggleMesh()
-        {
-            transformsVisible = !transformsVisible;
-            updateMeshes();
-        }
-
-        public void addListener(MeshToggleListener listener)
-        {
-            if (!listeners.Contains(listener)) {
-                listeners.Add(listener);
-            }
-        }
-
-        public void removeListener(MeshToggleListener listener)
-        {
-            if (listeners.Contains(listener)) {
-                listeners.Remove(listener);
             }
         }
 
@@ -177,10 +206,22 @@ namespace KerbetrotterTools
             }
         }
 
+        #endregion
 
+        #region---------------------------Interfaces-------------------------
+
+        /// <summary>
+        /// Listener for when a mesh was toggled
+        /// </summary>
         public interface MeshToggleListener
         {
+            /// <summary>
+            /// Called when the mesh visibility was toggled
+            /// </summary>
+            /// <param name="enabled">WHen true, mesh is visible, else false</param>
             void meshToggled(bool enabled);
         }
+
+        #endregion
     }
 }

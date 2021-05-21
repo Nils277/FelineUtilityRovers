@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,13 @@ using UnityEngine;
 
 namespace KerbetrotterTools
 {
+    /// <summary>
+    /// Class controlling the animation of the hover engine
+    /// </summary>
     class ModuleKerbetrotterEngineAnimation : PartModule
     {
+        #region------------------------Module Settings-----------------------
+
         /// <summary>
         /// The name of the engine to use
         /// </summary>
@@ -61,8 +66,9 @@ namespace KerbetrotterTools
         [KSPField]
         private ModuleKerbetrotterEngineControl.MainAxis rotationAxis = ModuleKerbetrotterEngineControl.MainAxis.FORWARD;
 
+        #endregion
 
-        //-----------------------private members--------------------
+        #region------------------------Private Members-----------------------
 
         //the transform to rotate;
         private Transform[] rotationTransforms;
@@ -72,7 +78,6 @@ namespace KerbetrotterTools
 
         //the hover engine
         private ModuleKerbetrotterEngine kEngine;
-
 
         //wheter the animation is valid
         private bool valid;
@@ -85,6 +90,10 @@ namespace KerbetrotterTools
 
         //Maximal Rate in deg/sec
         private float maxDegSec = 0.0f;
+
+        #endregion
+
+        #region--------------------------Life Cycle--------------------------
 
         /// <summary>
         /// Start up the module and initialize it
@@ -192,7 +201,6 @@ namespace KerbetrotterTools
             }
         }
 
-
         /// <summary>
         /// Free all resources when the part is destroyed
         /// </summary>
@@ -202,5 +210,7 @@ namespace KerbetrotterTools
             kEngine = null;
             rotationTransforms = null;
         }
+
+        #endregion
     }
 }

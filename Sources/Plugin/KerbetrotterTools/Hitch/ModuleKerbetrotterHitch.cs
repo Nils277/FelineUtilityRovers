@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2018 Nils277 (https://github.com/Nils277)
+ * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,8 +28,10 @@ namespace KerbetrotterTools
     /// </summary>
     public class ModuleKerbetrotterHitch : PartModule, IJointLockState, IModuleInfo
     {
+        #region-------------------------Public Members-----------------------
+
         //==================================================
-        //Public fields for the configs
+        //Settings
         //==================================================
 
         /// <summary>
@@ -86,9 +88,9 @@ namespace KerbetrotterTools
         [KSPField(isPersistant = true, guiActive = true, guiActiveEditor = true, guiName = "#LOC_KERBETROTTER.hitch.damping"), UI_FloatRange(minValue = 0.1f, maxValue = 3.0f, stepIncrement = 0.1f)]
         public float jointDampingValue = 1.0f;
 
-        //==================================================
-        //Internal Members
-        //==================================================
+        #endregion
+    
+        #region-----------------State and Interaction Members----------------
 
         //The joints used for the hitch
         protected ConfigurableJoint joint;
@@ -102,22 +104,8 @@ namespace KerbetrotterTools
         //The transform of the reference
         private Transform[] VisibleTransforms = new Transform[2];
 
-        //The rotation of the first reference
-        [KSPField(isPersistant = true)]
-        public Quaternion rotation1 = Quaternion.identity;
-
-        //The rotation of the second reference
-        [KSPField(isPersistant = true)]
-        public Quaternion rotation2 = Quaternion.identity;
-
         //The original rotation of the part
         private Quaternion initialPartRotation;
-
-        /// <summary>
-        /// Saves whether the joints spring and damping have been initialized
-        /// </summary>
-        [KSPField(isPersistant = true)]
-        public bool initialized = false;
 
         //the first delta of the rotation from the last rotation
         private Quaternion[] rotationDeltas = new Quaternion[2];
@@ -152,6 +140,20 @@ namespace KerbetrotterTools
         [KSPField(isPersistant = true)]
         public bool isLockEngaged = true;
 
+        //The rotation of the first reference
+        [KSPField(isPersistant = true)]
+        public Quaternion rotation1 = Quaternion.identity;
+
+        //The rotation of the second reference
+        [KSPField(isPersistant = true)]
+        public Quaternion rotation2 = Quaternion.identity;
+
+        /// <summary>
+        /// Saves whether the joints spring and damping have been initialized
+        /// </summary>
+        [KSPField(isPersistant = true)]
+        public bool initialized = false;
+
         //Saves wheter the parts has a valid parent
         protected bool hasParent = false;
 
@@ -182,9 +184,9 @@ namespace KerbetrotterTools
         // Holds whethe the coroutine is initializing the joint at the moment
         private bool isInitializing;
 
-        //==================================================
-        //User Interaction 
-        //==================================================
+        #endregion
+
+        #region----------------------User Interactions-----------------------
 
         /// <summary>
         /// Event that can toggle the lock state of the hitch from the GUI
@@ -239,11 +241,13 @@ namespace KerbetrotterTools
             
         }
 
-        //==================================================
-        //Life Cycle
-        //==================================================
+        #endregion
 
-        //When the hitch is intantiated
+        #region-------------------------Life Cycle---------------------------
+
+        /// <summary>
+        /// When the hitch is intantiated
+        /// </summary>
         public override void OnAwake()
         {
             GameEvents.onVesselGoOnRails.Add(OnVesselGoOnRails);
@@ -251,7 +255,9 @@ namespace KerbetrotterTools
             GameEvents.onVesselWasModified.Add(OnVesselWasModified);
         }
 
-        //When the hitch is destroyed
+        /// <summary>
+        /// When the hitch is destroyed
+        /// </summary>
         public virtual void OnDestroy()
         {
             GameEvents.onVesselGoOnRails.Remove(OnVesselGoOnRails);
@@ -271,7 +277,10 @@ namespace KerbetrotterTools
             }
         }
 
-        //Load the hitch
+        /// <summary>
+        /// Load the hitch
+        /// </summary>
+        /// <param name="config">The config to load from</param>
         public override void OnLoad(ConfigNode config)
         {
             base.OnLoad(config);
@@ -281,8 +290,11 @@ namespace KerbetrotterTools
             rotationDeltas[1] = rotation2;
         }
 
-        //Called when the part is instantiated
-        //Initializes the joints and attachments when in flight mode
+        /// <summary>
+        /// Called when the part is instantiated
+        /// Initializes the joints and attachments when in flight mode
+        /// </summary>
+        /// <param name="state">The state at the start</param>
         public override void OnStart(StartState state)
         {
             if (!initialized)
@@ -342,11 +354,14 @@ namespace KerbetrotterTools
             }
         }
 
-        //==================================================
-        //Game Events
-        //==================================================
+        #endregion
 
-        //When the physics simulation ends
+        #region------------------------Game Events---------------------------
+
+        /// <summary>
+        /// When the physics simulation ends
+        /// </summary>
+        /// <param name="vessel">The vessel that goes off rails</param>
         public void OnVesselGoOffRails(Vessel vessel)
         {
             //only when this vessel is going off rails
@@ -367,7 +382,10 @@ namespace KerbetrotterTools
             }
         }
 
-        //When the physicsless simulation starts
+        /// <summary>
+        /// When the physicsless simulation starts
+        /// </summary>
+        /// <param name="vessel">The vessel that goes on rails</param>
         public void OnVesselGoOnRails(Vessel vessel)
         {
             if (vessel == this.vessel)
@@ -378,7 +396,10 @@ namespace KerbetrotterTools
             }
         }
 
-        //When the vessel was modified (mostly docking and undocking)
+        /// <summary>
+        /// When the vessel was modified (mostly docking and undocking)
+        /// </summary>
+        /// <param name="vessel">The vessel that was modified</param>
         public void OnVesselWasModified(Vessel vessel)
         {
             //Only do something when this vessel is affected
@@ -396,7 +417,6 @@ namespace KerbetrotterTools
                 //When the part has no parent, invalidate
                 if (!hasParent || !isValidAttachment)
                 {
-                    Debug.Log("[KerbetrotterTools:Hitch] OnVesselWasModified: Invalid State, locking joint");
                     rotationDeltas[0] = Quaternion.identity;
                     rotationDeltas[1] = Quaternion.identity;
                     rotation1 = Quaternion.identity;
@@ -413,9 +433,9 @@ namespace KerbetrotterTools
             }
         }
 
-        //==================================================
-        //Core Funcionality
-        //==================================================
+        #endregion
+
+        #region---------------------Core Funcionality------------------------
 
         /// <summary>
         /// Updates the rotation of the visible transforms
@@ -437,6 +457,9 @@ namespace KerbetrotterTools
         }
 
         //Called every physics tick and updates state of the hitch
+        /// <summary>
+        /// 
+        /// </summary>
         public void FixedUpdate()
         {
             //only run when in valid state
@@ -476,12 +499,12 @@ namespace KerbetrotterTools
                 //Update the information about the rotation of the hitch
                 if (ReferenceTransforms[0] !=  null)
                 {
-                    rotation1 = Conjugate(ReferenceTransforms[0].rotation) * transform.rotation;
+                    rotation1 = Quaternion.Inverse(ReferenceTransforms[0].rotation) * transform.rotation;
                 }
 
                 if (ReferenceTransforms[1] != null)
                 {
-                    rotation2 = Conjugate(ReferenceTransforms[1].rotation) * transform.rotation;
+                    rotation2 = Quaternion.Inverse(ReferenceTransforms[1].rotation) * transform.rotation;
                 }
                 
                 //update the original position and orientation of this part and all childs
@@ -518,12 +541,10 @@ namespace KerbetrotterTools
         {
             if (isLockEngaged && jointUnlocked)
             {
-                Debug.Log("[KerbetrotterTools:Hitch] UpdateJoint: Locking!");
                 LockJoint(true);
             }
             else if (!isLockEngaged && !jointUnlocked)
             {
-                Debug.Log("[KerbetrotterTools:Hitch] UpdateJoint: Unlocking!");
                 UnlockJoint();
             }
         }
@@ -643,11 +664,6 @@ namespace KerbetrotterTools
             }
 
             joint.targetRotation = Quaternion.identity;
-            
-            //Lock the movement of the joint
-            //joint.xMotion = ConfigurableJointMotion.Locked;
-            //joint.yMotion = ConfigurableJointMotion.Locked;
-            //joint.zMotion = ConfigurableJointMotion.Locked;
 
             //Limits for the x axis
             if (jointLimits.x != 0.0f)
@@ -744,16 +760,12 @@ namespace KerbetrotterTools
             part.attachJoint.Joint.xDrive = ZeroDrive;
             part.attachJoint.Joint.yDrive = ZeroDrive;
             part.attachJoint.Joint.zDrive = ZeroDrive;
-            //part.attachJoint.Joint.xMotion = ConfigurableJointMotion.Locked;
-            //part.attachJoint.Joint.yMotion = ConfigurableJointMotion.Locked;
-            //part.attachJoint.Joint.zMotion = ConfigurableJointMotion.Locked;
             part.attachJoint.Joint.enableCollision = false;
             part.attachJoint.Joint.angularXMotion = ConfigurableJointMotion.Free;
             part.attachJoint.Joint.angularYMotion = ConfigurableJointMotion.Free;
             part.attachJoint.Joint.angularZMotion = ConfigurableJointMotion.Free;
 
             jointUnlocked = true;
-            Debug.Log("[KerbetrotterTools:Hitch] Unlocked Hitch");
             return true;
         }
 
@@ -782,23 +794,24 @@ namespace KerbetrotterTools
                 joint.angularYMotion = ConfigurableJointMotion.Locked;
                 joint.angularZMotion = ConfigurableJointMotion.Locked;
             }
-            Debug.Log("[KerbetrotterTools] Locked Hitch");
             jointUnlocked = false;
         }
 
-        //==================================================
-        //Helper Methods
-        //==================================================
+        #endregion
 
-        // set original rotation to new rotation --Not neded at the moment, but kept, just to be sure
+        #region----------------------Helper Methods--------------------------
+
+        /// <summary>
+        /// Set original rotation to new rotation --Not neded at the moment, but kept, just to be sure
+        /// </summary>
         public void UpdateOriginalPositionAndRotation()
         {
             if (initialPartRotation != null)
             {
                 if (ReferenceTransforms[activeReference] != null)
                 {
-                    Quaternion jointRotation = Conjugate(ReferenceTransforms[activeReference].rotation) * (transform.rotation);
-                    Quaternion targetRotation = initialPartRotation * Conjugate(rotationDeltas[activeReference]) * jointRotation;
+                    Quaternion jointRotation = Quaternion.Inverse(ReferenceTransforms[activeReference].rotation) * (transform.rotation);
+                    Quaternion targetRotation = initialPartRotation * Quaternion.Inverse(rotationDeltas[activeReference]) * jointRotation;
                     Quaternion relativeRotation = targetRotation * Quaternion.Inverse(part.orgRot);
 
                     part.orgRot = targetRotation;
@@ -809,18 +822,6 @@ namespace KerbetrotterTools
                     }
                 }
             }
-        }
-
-        Quaternion NormalizeQuaternion(Quaternion q)
-        {
-            float f = 1f / Mathf.Sqrt(q.w * q.w + q.x * q.x + q.y * q.y + q.z * q.z);
-
-            q.w *= f;
-            q.x *= f;
-            q.y *= f;
-            q.z *= f;
-
-            return q;
         }
 
         /// <summary>
@@ -876,7 +877,7 @@ namespace KerbetrotterTools
             {
                 if (oldReference != -1)
                 {
-                    joint.transform.rotation = joint.transform.rotation * Conjugate(Quaternion.Euler(rotationDeltas[oldReference].eulerAngles.x, rotationDeltas[oldReference].eulerAngles.y, rotationDeltas[oldReference].eulerAngles.z));
+                    joint.transform.rotation = joint.transform.rotation * Quaternion.Inverse(Quaternion.Euler(rotationDeltas[oldReference].eulerAngles.x, rotationDeltas[oldReference].eulerAngles.y, rotationDeltas[oldReference].eulerAngles.z));
                 }
 
                 if (activeReference != -1)
@@ -968,7 +969,7 @@ namespace KerbetrotterTools
                         if (!reInitialize)
                         {
                             ReferenceTransforms[0].position = part.transform.position;
-                            ReferenceTransforms[0].rotation = part.transform.rotation * Conjugate(rotation1);
+                            ReferenceTransforms[0].rotation = part.transform.rotation * Quaternion.Inverse(rotation1);
                         }
 
                         AttachNode node1 = GetNode(nodeNames[0].Replace(" ", string.Empty));
@@ -985,7 +986,7 @@ namespace KerbetrotterTools
                         if (!reInitialize)
                         {
                             ReferenceTransforms[1].position = part.transform.position;
-                            ReferenceTransforms[1].rotation = part.transform.rotation * Conjugate(rotation2);
+                            ReferenceTransforms[1].rotation = part.transform.rotation * Quaternion.Inverse(rotation2);
                         }
 
                         AttachNode node2 = GetNode(nodeNames[1].Replace(" ", string.Empty));
@@ -1052,21 +1053,6 @@ namespace KerbetrotterTools
         }
 
         /// <summary>
-        /// Create the conjugate of the quaternion
-        /// This is the same as the inverse for unit qaternions but is less expensive
-        /// </summary>
-        /// <param name="quat">The quaternion to conjugate</param>
-        /// <returns>The conjugated quaternion</returns>
-        private Quaternion Conjugate(Quaternion quat)
-        {
-            Quaternion result = quat;
-            result.x = -result.x;
-            result.y = -result.y;
-            result.z = -result.z;
-            return result;
-        }
-
-        /// <summary>
         /// Return whether the joint is currently unlocked or not
         /// </summary>
         /// <returns>True, the joint is always unlocked</returns>
@@ -1106,7 +1092,6 @@ namespace KerbetrotterTools
         /// Lock or unlock the joint
         /// </summary>
         /// <param name="lockJoint">When true, the joint will be locked, it will be unlocked otherwise</param>
-
         public void SetJointLock(bool lockJoint)
         {
             SetJointLock(lockJoint, false);
@@ -1157,6 +1142,10 @@ namespace KerbetrotterTools
             }
         }
 
+        #endregion
+
+        #region----------------------UI Interaction--------------------------
+
         //Get the title of the Module
         public string GetModuleTitle()
         {
@@ -1174,5 +1163,7 @@ namespace KerbetrotterTools
         {
             return null;
         }
+
+        #endregion
     }
 }
