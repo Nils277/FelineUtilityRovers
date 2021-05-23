@@ -253,7 +253,6 @@ namespace KerbetrotterTools.Switching.Dialog
         {
             if (mSwitch.needsPreparation())
             {
-                Debug.Log("Switching Needs preparation");
                 SwitchingProgressDialog<T> dialog = new SwitchingProgressDialog<T>(mSwitch, mSelection);
                 dialog.show(mSetups[mSwitch.SelectedSetup].guiName, mSetups[mSelection].guiName);
             }

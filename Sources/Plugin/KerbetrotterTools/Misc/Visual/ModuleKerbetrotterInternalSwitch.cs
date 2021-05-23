@@ -166,7 +166,6 @@ namespace KerbetrotterTools
             List<ModuleKerbetrotterMeshToggle> switcher = part.FindModulesImplementing<ModuleKerbetrotterMeshToggle>();
             if ((switcher.Count > 0) && (MeshToggleIndex < switcher.Count))
             {
-                Debug.Log("[Kerbetrotter] Found switcher");
                 switcher[MeshToggleIndex].addListener(this);
                 stateEnabled = switcher[MeshToggleIndex].transformsVisible;
             }

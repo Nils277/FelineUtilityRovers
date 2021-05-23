@@ -494,7 +494,7 @@ namespace KerbetrotterTools.Switching
         /// </summary>
         protected virtual void loadSwitchSetups()
         {
-            if (mConfigLoaded)
+            if (mConfigLoaded || part.partInfo == null)
             {
                 return;
             }
@@ -508,7 +508,6 @@ namespace KerbetrotterTools.Switching
                 }
 
                 int index = part.Modules.IndexOf(this);
-
                 if (index != -1 && index < modules.Length && modules[index].GetValue("name") == moduleName)
                 {
                     ConfigNode[] setupConfig = modules[index].GetNodes("SETUP");
@@ -521,7 +520,7 @@ namespace KerbetrotterTools.Switching
             }
             catch (Exception e)
             {
-                Debug.LogWarning("[KerbetrotterTools:Switch] Unable to read switch configuration");
+                Debug.LogError("[KerbetrotterTools:Switch] Unable to load switch configuration: " + e.Message);
             }
         }
 

@@ -789,7 +789,6 @@ namespace KerbetrotterTools
 
         public override bool needsPreparation()
         {
-            Debug.Log("Resoruce Switch needs Preparation");
             return !(HighLogic.LoadedSceneIsEditor || isTankEmpty(part));
         }
 
