@@ -1,5 +1,5 @@
 #  v1.3.2  *-Be like Bill Kerman-*
-*[Released XX.MAY.2021]*
+*[Released 25.MAY.2021]*
 
 **General:**
 

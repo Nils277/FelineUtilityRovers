@@ -1,4 +1,4 @@
-v1.3.2 [Released XX.MAY.2021] ~Be like Bill Kerman~
+v1.3.2 [Released 25.MAY.2021] ~Be like Bill Kerman~
     General:
         - Removed unnecessary debug logging from plugin code
     Mod Support:
