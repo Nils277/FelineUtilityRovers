@@ -683,7 +683,6 @@ namespace KerbetrotterTools
         /// <param name="height">The hover height</param>
         public void setHoverHeight(float height)
         {
-            //Debug.Log("[HOVER] Height Set: " + height + " Enabled: " + hoverEnabled);
             if (hoverEnabled)
             {
                 hoverHeight = height;

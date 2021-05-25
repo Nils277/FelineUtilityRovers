@@ -504,7 +504,6 @@ namespace KerbetrotterTools.Switching
                 ConfigNode[] modules = part.partInfo.partConfig.GetNodes("MODULE");
 
                 int index = part.Modules.IndexOf(this);
-
                 if (index != -1 && index < modules.Length && modules[index].GetValue("name") == moduleName)
                 {
                     ConfigNode[] setupConfig = modules[index].GetNodes("SETUP");

@@ -1,5 +1,21 @@
+#  v1.3.2  *-Be like Bill Kerman-*
+*[Released 25.MAY.2021]*
+
+**General:**
+
+* Removed unnecessary debug logging from plugin code
+
+**Mod Support:**
+
+* Updated and fixed support for TexturesUnlimited (reflections, emissives, textures, resource switching)
+* Added support for CommunityTechTree
+
+**Bug Fixes:**
+
+* Fixed warning error when loading the switching module at startup
+
 #  v1.3.1  *-Engineers wanted (2)-*
-*[Released 21.APRIL.2021]*
+*[Released 21.MAY.2021]*
 
 **Bug Fixes:**
 
@@ -9,7 +25,7 @@
 * Fixed warning for switching module
 		
 #  v1.3.0  *-Engineers wanted-*
-*[Released 21.APRIL.2021]*
+*[Released 21.MAY.2021]*
 
 **General:**
 
