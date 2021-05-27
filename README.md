@@ -21,7 +21,7 @@ contain crew cabins, a laboratory or even bellowed joints to be more flexible in
 
 | **Fits in MK3 Cargo Bay** | **Configurable Containers** |
 | --- | --- |
-| ![](https://i.imgur.com/LwO6Sua.png) | ![](https://i.imgur.com/YjXvbXj.png) |
+| ![](https://i.imgur.com/LwO6Sua.png) | ![](https://i.imgur.com/CBojhtB.png) |
 
 
 <!---![](http://i.imgur.com/O762Vfm.png)--->
