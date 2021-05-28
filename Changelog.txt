@@ -1,3 +1,10 @@
+v1.3.3 [Released 28.MAY.2021] ~Pretty Fly (For a Green Guy)~
+    Mod Support:
+        Adjusted window color TexturesUnlimited
+    Bug Fixes:
+        Fixed resource amount not being calculated correctly
+        Added missing support of the Cargo Part for TexturesUnlimited
+-------------------------------------------------------
 v1.3.2 [Released 25.MAY.2021] ~Be like Bill Kerman~
     General:
         - Removed unnecessary debug logging from plugin code
