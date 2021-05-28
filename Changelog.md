@@ -1,4 +1,4 @@
-# v1.3.3  *-Pretty Fly (Gor a Green Guy)-*
+# v1.3.3  *-Pretty Fly (For a Green Guy)-*
 *[Released 28.MAY.2021]*
 
 **Mod Support:**
