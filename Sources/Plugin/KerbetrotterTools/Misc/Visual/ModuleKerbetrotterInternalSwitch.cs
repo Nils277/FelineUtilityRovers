@@ -19,7 +19,7 @@ using UnityEngine;
 namespace KerbetrotterTools
 {
     /// <summary>
-    /// Module switching between to internal models (required for JSIATP)
+    /// Module switching between two internal models (required for JSIATP)
     /// </summary>
     class ModuleKerbetrotterInternalSwitch : PartModule, ModuleKerbetrotterMeshToggle.MeshToggleListener
     {

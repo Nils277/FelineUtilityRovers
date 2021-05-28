@@ -115,7 +115,6 @@ namespace KerbetrotterTools
 
             if (materials.Count > 0)
             {
-                Debug.Log("[ModuleKerbetrotterTextureShift] Switching");
                 if (setups.ContainsKey(setup))
                 {
                     Vector2 offset = setups[setup];
@@ -123,7 +122,6 @@ namespace KerbetrotterTools
                     {
                         materials[i].SetTextureOffset(textureName, offset);
                     }
-                    Debug.Log("[ModuleKerbetrotterTextureShift] Setting");
                 }
                 else
                 {
@@ -131,13 +129,8 @@ namespace KerbetrotterTools
                     {
                         materials[i].SetTextureOffset(textureName, new Vector2(0, 0));
                     }
-                    Debug.Log("[ModuleKerbetrotterTextureShift] Resetting");
                 }
                 
-            }
-            else
-            {
-                Debug.Log("[ModuleKerbetrotterTextureShift] No known materials");
             }
         }
 

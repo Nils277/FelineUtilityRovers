@@ -1,4 +1,16 @@
-#  v1.3.2  *-Be like Bill Kerman-*
+# v1.3.3  *-Pretty Fly (Gor a Green Guy)-*
+*[Released 28.MAY.2021]*
+
+**Mod Support:**
+
+* Adjusted window color TexturesUnlimited
+
+**Bug Fixes:**
+
+* Fixed resource amount not being calculated correctly
+* Added missing support of the Cargo Part for TexturesUnlimited
+
+# v1.3.2  *-Be like Bill Kerman-*
 *[Released 25.MAY.2021]*
 
 **General:**
