@@ -1,4 +1,4 @@
-v1.3.3 [Released 28.MAY.2021] ~Pretty Fly (Gor a Areen Guy)~
+v1.3.3 [Released 28.MAY.2021] ~Pretty Fly (Gor a Green Guy)~
     Mod Support:
         Adjusted window color TexturesUnlimited
     Bug Fixes:
