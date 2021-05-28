@@ -18,7 +18,7 @@ using UnityEngine;
 namespace KerbetrotterTools
 {
     /// <summary>
-    /// This class allows to switch some of the models from parts
+    /// This module rotates a transform towards another. On of the axes will not rotate
     /// </summary>
     public class ModuleKerbetrotterConstrainedLookAt : PartModule
     {
