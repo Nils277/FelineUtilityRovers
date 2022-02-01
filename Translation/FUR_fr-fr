@@ -37,9 +37,9 @@ Localization
         #LOC_FUR.baylights.off = Éteindre les lumières de la baie
 
         //---Lights---
-        #LOC_FUR.lights.toggle = Activer Lumières
-        #LOC_FUR.lights.on = Lumières Allumer
-        #LOC_FUR.lights.off = Lumières Éteindre
+        #LOC_FUR.lights.toggle = Activer les lumières
+        #LOC_FUR.lights.on = Allumer les lumières
+        #LOC_FUR.lights.off = Éteindre les lumières
 
         //---Switchable lights---
         #LOC_FUR.lights.visible = Sans lumières, Lumières avant, Lumières arrière
@@ -60,7 +60,7 @@ Localization
         
         //---Engines Attachment---
         #LOC_FUR.engineattach.title = Support de moteur Lynx
-        #LOC_FUR.engineattach.description = Un support pour mieux attacher le moteur de survol sur les côtés du rover.
+        #LOC_FUR.engineattach.description = Un support pour mieux attacher le moteur de vol stationnaire sur les côtés du rover.
         #LOC_FUR.engineattach.tags = ground rover lynx engine attach hold hover side cck-rovers
 
         //---The nuclear fuel tank---
@@ -152,10 +152,10 @@ Localization
         #LOC_FUR.fuelthin.title = Réservoir de carburant Lynx (Fin)
         #LOC_FUR.fuelthin.description = Un réservoir de carburant très fin pour le rover. Peut parfaitement être utilisé pour atterir.
         #LOC_FUR.fuelthin.tags = ground rover lynx fuel fueltank ?lfo liquid oxidizer propellant rocket cck-rovers
-        #LOC_FUR.fuelthin.left.show = Show left underbody
-        #LOC_FUR.fuelthin.left.hide = Hide left underbody
-        #LOC_FUR.fuelthin.right.show = Show right underbody
-        #LOC_FUR.fuelthin.right.hide = Hide right underbody
+        #LOC_FUR.fuelthin.left.show = Afficher le dessous gauche
+        #LOC_FUR.fuelthin.left.hide = Cacher le dessous gauche
+        #LOC_FUR.fuelthin.right.show = Afficher le dessous droit
+        #LOC_FUR.fuelthin.right.hide = Cacher le dessous droit
 
         //---Rear Fueltank---
         #LOC_FUR.fuelrear.title = Réservoir de carburant Lynx (Arrière)
@@ -240,10 +240,10 @@ Localization
         #LOC_FUR.servicebay.title = Baie de service Lynx
         #LOC_FUR.servicebay.description = Une baie de service pour toutes vos expériences et vos trucs.
         #LOC_FUR.servicebay.tags = ground rover lynx bus contain heat hollow protect (stor therm cck-rovers
-        #LOC_FUR.servicebay.left.show = Show left bottom
-        #LOC_FUR.servicebay.left.hide = Hide left bottom
-        #LOC_FUR.servicebay.right.show = Show right bottom
-        #LOC_FUR.servicebay.right.hide = Hide right bottom
+        #LOC_FUR.servicebay.left.show = Montrer le dessous gauche
+        #LOC_FUR.servicebay.left.hide = Cacher le dessous gauche
+        #LOC_FUR.servicebay.right.show = Montrer le dessous droit
+        #LOC_FUR.servicebay.right.hide = Cacher le dessous droit
 
         //---Small Freight---
         #LOC_FUR.freightsmall.title = Container de ressources Lynx (Petit)
@@ -316,7 +316,7 @@ Localization
         #LOC_FUR.leg.title = Jambe de stabilisation Lynx
         #LOC_FUR.leg.description = Cette jambe vous permet de rester stable quand vous bougez de gros objets ou que vous voulez vous arrêter pour un long moment.
         #LOC_FUR.leg.tags = ground land leg support utility rover lynx cck-rovers
-        #LOC_FUR.leg.bases = Normal, Wide
+        #LOC_FUR.leg.bases = Normal, Large
         #LOC_FUR.leg.toggle = Activer la jambe
         #LOC_FUR.leg.extend = Étendre la jambe
         #LOC_FUR.leg.retract = Rétracter la jambe
@@ -326,8 +326,8 @@ Localization
         #LOC_FUR.utilitybay.description = Une petite baie utilitaire. Utilisable pour de petites expériences, attacher des jambes ou enfermer les Kerbals désobéissants.
         #LOC_FUR.utilitybay.tags = ground rover lynx bus contain heat hollow protect (stor therm cck-rovers
         #LOC_FUR.utilitybay.models = Aucun, Ouvert, Rempli
-        #LOC_FUR.utilitybay.switch.left = Left Bottom
-        #LOC_FUR.utilitybay.switch.right = Right Bottom
+        #LOC_FUR.utilitybay.switch.left = Bas gauche
+        #LOC_FUR.utilitybay.switch.right = Bas droit
 
         //---Truck Cockpit---
         #LOC_FUR.truckcockpit.title = Cockpit de camion Lynx
@@ -385,23 +385,23 @@ Localization
         #LOC_FUR.canisterSEP.title = Station centrale SEP Lynx
         #LOC_FUR.canisterSEP.description = La station centrale peut être utilisée pour mener facilement des expériences depuis votre rover.
         #LOC_FUR.canisterSEP.tags = kanister lynx cck-rovers kis kas surface experiment inventory attachment science eva research scientist engineer sensor container
-        #LOC_FUR.canisterSEP.activate = Activate
-        #LOC_FUR.canisterSEP.shutdown = Shut down
-        #LOC_FUR.canisterSEP.conduct = Begin All Experiments
+        #LOC_FUR.canisterSEP.activate = Activer
+        #LOC_FUR.canisterSEP.shutdown = Éteindre
+        #LOC_FUR.canisterSEP.conduct = Démarrer toutes les expériences
 
         //--- Hover Engine---
-        #LOC_FUR.hoverengine.title = Moteur de survol Lynx "Scorpion"
+        #LOC_FUR.hoverengine.title = Moteur de vol stationnaire Lynx "Scorpion"
         #LOC_FUR.hoverengine.description = Ce moteur à turbine à la pointe de la technologie vous permet de voler et de planer au dessus du sol. Il permet également la maneuvre en inclinant les moteurs.
         #LOC_FUR.hoverengine.tags = rover fur ground hover propeller impeller engine thrust steer cck-rovers
 
         //--- Rear Hover Engine---
-        #LOC_FUR.hoverenginerear.title = Moteur de survol arrière Lynx "Scarabée"
-        #LOC_FUR.hoverenginerear.description = Un développement plus avancé du 'Scorpion'. Ce moteur de survol aligné peut être utilisé à l'arrière des rovers pour vous élever un peu plus et avoir l'air cool!
+        #LOC_FUR.hoverenginerear.title = Moteur de vol stationnaire arrière Lynx "Scarabée"
+        #LOC_FUR.hoverenginerear.description = Un développement plus avancé du 'Scorpion'. Ce moteur de vol stationnaire aligné peut être utilisé à l'arrière des rovers pour vous élever un peu plus et avoir l'air cool!
         #LOC_FUR.hoverenginerear.tags = rover fur ground hover propeller impeller engine thrust steer cck-rovers
 
         //--- Skid---
         #LOC_FUR.skid.title = Skis Lynx
-        #LOC_FUR.skid.description = Des skis pour votre rover. Utilisables lors de l'utilisation de moteurs de survol. Ne les utilisez pas pour descendre des collines enneigées en hiver.
+        #LOC_FUR.skid.description = Des skis pour votre rover. Utilisables lors de l'utilisation de moteurs de vol stationnaire. Ne les utilisez pas pour descendre des collines enneigées en hiver.
         #LOC_FUR.skid.tags = ground land leg support utility rover lynx skid cck-rovers
         #LOC_FUR.skid.toggle = Activer le ski
         #LOC_FUR.skid.extend = Étendre le ski
