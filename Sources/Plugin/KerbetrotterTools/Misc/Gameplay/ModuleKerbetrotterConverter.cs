@@ -58,8 +58,6 @@ namespace KerbetrotterTools
         {
             ConversionRecipe recipe = base.PrepareRecipe(deltatime);
 
-            
-
             if (recipe != null)
             {
                 //change the rate of the inputs

@@ -41,7 +41,7 @@ namespace KerbetrotterTools.Switching.Setups
         /// Constructor of the resource setup
         /// </summary>
         /// <param name="node">The config not to contruct the setup from</param>
-        public KerbetrotterResourceSetup(ConfigNode node, float multiplier) : base(node)
+        public KerbetrotterResourceSetup(ConfigNode node) : base(node)
         {
             if (node.HasValue("animateVenting"))
             {
@@ -53,7 +53,7 @@ namespace KerbetrotterTools.Switching.Setups
             resources = new KerbetrotterResourceDefinition[resourceSubNodes.Length];
             for (int i = 0; i < resources.Length; i++)
             {
-                KerbetrotterResourceDefinition resourceDefinition = new KerbetrotterResourceDefinition(resourceSubNodes[i], multiplier);
+                KerbetrotterResourceDefinition resourceDefinition = new KerbetrotterResourceDefinition(resourceSubNodes[i]);
                 resources[i] = resourceDefinition;
                 costModifier += resourceDefinition.cost;
             }
@@ -153,7 +153,7 @@ namespace KerbetrotterTools.Switching.Setups
 
             #region-------------------------Public Methods-----------------------
 
-            public KerbetrotterResourceDefinition(ConfigNode node, double multiplier)
+            public KerbetrotterResourceDefinition(ConfigNode node)
             {
                 if (node.HasValue("name"))
                 {
@@ -165,18 +165,18 @@ namespace KerbetrotterTools.Switching.Setups
                 {
                     if (node.HasValue("amount"))
                     {
-                        amount = float.Parse(node.GetValue("amount"), CultureInfo.InvariantCulture.NumberFormat) * multiplier;
+                        amount = float.Parse(node.GetValue("amount"), CultureInfo.InvariantCulture.NumberFormat);
                     }
                     if (node.HasValue("maxAmount"))
                     {
-                        maxAmount = float.Parse(node.GetValue("maxAmount"), CultureInfo.InvariantCulture.NumberFormat) * multiplier;
+                        maxAmount = float.Parse(node.GetValue("maxAmount"), CultureInfo.InvariantCulture.NumberFormat);
                     }
 
                     if (node.HasValue("isTweakable"))
                     {
                         isTweakable = bool.Parse(node.GetValue("isTweakable"));
                     }
-                    cost = (float)(maxAmount * PartResourceLibrary.Instance.resourceDefinitions[name].unitCost) * (float)multiplier;
+                    cost = (float)(maxAmount * PartResourceLibrary.Instance.resourceDefinitions[name].unitCost);
                 }
             }
 
