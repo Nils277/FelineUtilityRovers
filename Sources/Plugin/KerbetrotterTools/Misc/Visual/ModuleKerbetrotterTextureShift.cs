@@ -49,7 +49,7 @@ namespace KerbetrotterTools
         #region-------------------------Private Members----------------------
 
         //The material containing the texture
-        //private List<Material> materials = new List<Material>();
+        private List<Material> materials = new List<Material>();
 
         //The list of resources that can be switched in the tank
         private Dictionary<string, Vector2> setups = new Dictionary<string, Vector2>();
@@ -71,7 +71,7 @@ namespace KerbetrotterTools
 
             loadSetups(part.partInfo.partConfig);
 
-            /*materials.Clear();
+            materials.Clear();
             string[] transforms = transformNames.Split(',');
             for (int i = 0; i < transforms.Length; i++)
             {
@@ -80,7 +80,7 @@ namespace KerbetrotterTools
                 {
                     materials.Add(textureTransform.GetComponent<Renderer>().material);
                 }
-            }*/
+            }
 
             //set the used setup if already set
             if (currentSetup != string.Empty)
@@ -111,8 +111,6 @@ namespace KerbetrotterTools
         {
             currentSetup = setup;
 
-            List<Material> materials = getMaterials();
-
             if (materials.Count > 0)
             {
                 if (setups.ContainsKey(setup))
@@ -130,7 +128,6 @@ namespace KerbetrotterTools
                         materials[i].SetTextureOffset(textureName, new Vector2(0, 0));
                     }
                 }
-                
             }
         }
 
@@ -179,30 +176,6 @@ namespace KerbetrotterTools
             {
                 Debug.LogError("[KerbetrotterTools:TextureShift] Cannot load setups");
             }
-        }
-
-        /// <summary>
-        /// Get the list of materials that are available
-        /// </summary>
-        /// <returns></returns>
-        private List<Material> getMaterials()
-        {
-            List<Material> materials = new List<Material>();
-            string[] transforms = transformNames.Split(',');
-            for (int i = 0; i < transforms.Length; i++)
-            {
-                Transform[] textureTransforms = part.FindModelTransforms(transforms[i].Trim());
-                foreach (Transform textureTransform in textureTransforms)
-                {
-                    Renderer[] renderers = textureTransform.GetComponents<Renderer>();
-                    foreach (Renderer renderer in renderers)
-                    {
-                        materials.Add(renderer.material);
-                    }
-                }
-            }
-
-            return materials;
         }
 
         #endregion

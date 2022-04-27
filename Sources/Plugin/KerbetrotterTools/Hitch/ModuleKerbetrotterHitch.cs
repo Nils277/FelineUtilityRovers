@@ -485,6 +485,7 @@ namespace KerbetrotterTools
 
                 if ((joint == null) && (hasParent) && (isValidAttachment) && !isInitializing)
                 {
+                    Debug.Log("[KERBETROTTER] FixedUpdate: Creating Joint");
                     InitJoint();
                     UpdateUI();
                 }

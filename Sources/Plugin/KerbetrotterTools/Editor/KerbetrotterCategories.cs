@@ -242,7 +242,7 @@ namespace KerbetrotterTools
             //if the configuration is null
             if (KerbetrotterConfiguration.Instance() == null)
             {
-                Debug.LogError("[KerbetrotterTools:Catagory] KerbetrotterFilter: Configuration Instance is null");
+                Debug.Log("[KerbetrotterTools:Catagory] KerbetrotterFilter: Configuration Instance is null");
                 return;
             }
 
