@@ -44,7 +44,7 @@ contain crew cabins, a laboratory or even bellowed joints to be more flexible in
 **Italiano** by [Simog](https://forum.kerbalspaceprogram.com/index.php?/profile/179328-simog/)  
 
 ### Looking for help:
-If anyone is interested to translate FUR into Japanese ![](http://i.imgur.com/M93S44Z.png) or French ![](https://i.imgur.com/r27hbde.png) , please let me know!  
+If anyone is interested to translate FUR into Japanese ![](http://i.imgur.com/M93S44Z.png), please let me know!  
 
 You can find all the texts that need translation here: [Texts](https://github.com/Nils277/FelineUtilityRovers/tree/master/Translation). (1968 Words)  
 
