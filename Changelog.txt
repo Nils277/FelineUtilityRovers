@@ -1,3 +1,10 @@
+v1.3.4 [Released 28.APRIL.2022] ~Over the shoulder boulder holder~
+	Update:
+        - Recompile for KSP 1.12.3
+		- Updated KSPModFileLocalizer to version 0.2.3.8
+	Localization:
+		- Added French localization. Thanks to Mortimer Kerman
+-------------------------------------------------------
 v1.3.3 [Released 28.MAY.2021] ~Pretty Fly (For a Green Guy)~
     Mod Support:
         Adjusted window color TexturesUnlimited
