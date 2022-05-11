@@ -113,12 +113,10 @@ namespace KerbetrotterTools
                     if ((part.Modules[i] is ModuleEngines) && (((ModuleEngines)part.Modules[i]).engineID == engineName))
                     {
                         engine = (ModuleEngines)part.Modules[i];
-                        //Debug.Log("[ENGINE ANIMATION] Found ModuleEngines");
                     }
                     if (part.Modules[i] is ModuleKerbetrotterEngine)
                     {
                         kEngine = (ModuleKerbetrotterEngine)part.Modules[i];
-                        //Debug.Log("[ENGINE ANIMATION] Found ModuleKerbetrotterEngine");
                         break;
                     }
                 }

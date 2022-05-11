@@ -51,7 +51,6 @@ namespace KerbetrotterTools
             if (selectedSetup == -1)
             {
                 selectedSetup = 0;
-                //Debug.Log("[KerbetrotterTools:ConverterSwitch] Found default type: " + selectedConverter);
                 activeSetup = setups[selectedSetup].ID;
             }
 

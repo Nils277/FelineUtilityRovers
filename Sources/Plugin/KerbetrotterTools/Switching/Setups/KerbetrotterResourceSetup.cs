@@ -1,4 +1,4 @@
-﻿ /*
+﻿/*
  * Copyright (C) 2021 Nils277 (https://github.com/Nils277)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,7 +41,7 @@ namespace KerbetrotterTools.Switching.Setups
         /// Constructor of the resource setup
         /// </summary>
         /// <param name="node">The config not to contruct the setup from</param>
-        public KerbetrotterResourceSetup(ConfigNode node) : base(node)
+        public KerbetrotterResourceSetup(ConfigNode node, float multiplier) : base(node)
         {
             if (node.HasValue("animateVenting"))
             {
@@ -53,7 +53,7 @@ namespace KerbetrotterTools.Switching.Setups
             resources = new KerbetrotterResourceDefinition[resourceSubNodes.Length];
             for (int i = 0; i < resources.Length; i++)
             {
-                KerbetrotterResourceDefinition resourceDefinition = new KerbetrotterResourceDefinition(resourceSubNodes[i]);
+                KerbetrotterResourceDefinition resourceDefinition = new KerbetrotterResourceDefinition(resourceSubNodes[i], multiplier);
                 resources[i] = resourceDefinition;
                 costModifier += resourceDefinition.cost;
             }
@@ -91,7 +91,7 @@ namespace KerbetrotterTools.Switching.Setups
                 {
                     info.AppendLine(guiName);
                 }
-                
+
                 foreach (KerbetrotterResourceDefinition resource in resources)
                 {
                     if (resource.maxAmount > 0)
@@ -153,7 +153,7 @@ namespace KerbetrotterTools.Switching.Setups
 
             #region-------------------------Public Methods-----------------------
 
-            public KerbetrotterResourceDefinition(ConfigNode node)
+            public KerbetrotterResourceDefinition(ConfigNode node, double multiplier)
             {
                 if (node.HasValue("name"))
                 {
@@ -165,18 +165,18 @@ namespace KerbetrotterTools.Switching.Setups
                 {
                     if (node.HasValue("amount"))
                     {
-                        amount = float.Parse(node.GetValue("amount"), CultureInfo.InvariantCulture.NumberFormat);
+                        amount = float.Parse(node.GetValue("amount"), CultureInfo.InvariantCulture.NumberFormat) * multiplier;
                     }
                     if (node.HasValue("maxAmount"))
                     {
-                        maxAmount = float.Parse(node.GetValue("maxAmount"), CultureInfo.InvariantCulture.NumberFormat);
+                        maxAmount = float.Parse(node.GetValue("maxAmount"), CultureInfo.InvariantCulture.NumberFormat) * multiplier;
                     }
 
                     if (node.HasValue("isTweakable"))
                     {
                         isTweakable = bool.Parse(node.GetValue("isTweakable"));
                     }
-                    cost = (float)(maxAmount * PartResourceLibrary.Instance.resourceDefinitions[name].unitCost);
+                    cost = (float)(maxAmount * PartResourceLibrary.Instance.resourceDefinitions[name].unitCost) * (float)multiplier;
                 }
             }
 
