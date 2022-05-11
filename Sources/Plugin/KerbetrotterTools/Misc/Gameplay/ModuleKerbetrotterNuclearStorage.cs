@@ -517,7 +517,6 @@ namespace KerbetrotterTools
                 {
                     return true;
                 }
-                //Debug.Log("[KPBS] Title:" + crew[i].experienceTrait.Title + " Desc:" + crew[i].experienceTrait.Description  + " Needed: " + neededSkill);
             }
             return false;
         }
@@ -548,7 +547,6 @@ namespace KerbetrotterTools
         {
             if (isTarget)
             {
-                //Debug.Log("LYNX_NUCLEAR: Setting Target: " + target.name);
                 target.highlightColor.r = transferColor.r;
                 target.highlightColor.g = transferColor.g;
                 target.highlightColor.b = transferColor.b;
@@ -557,7 +555,6 @@ namespace KerbetrotterTools
             //set the default highlight color
             else
             {
-                //Debug.Log("LYNX_NUCLEAR: Resetting Target: " + target.name);
                 target.highlightColor.r = defaultColor.r;
                 target.highlightColor.g = defaultColor.g;
                 target.highlightColor.b = defaultColor.b;

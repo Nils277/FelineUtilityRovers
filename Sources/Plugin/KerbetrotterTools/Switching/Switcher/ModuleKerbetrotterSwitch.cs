@@ -494,7 +494,7 @@ namespace KerbetrotterTools.Switching
         /// </summary>
         protected virtual void loadSwitchSetups()
         {
-            if (mConfigLoaded)
+            if (mConfigLoaded || part.partInfo == null)
             {
                 return;
             }
@@ -521,7 +521,7 @@ namespace KerbetrotterTools.Switching
             }
             catch (Exception e)
             {
-                Debug.LogWarning("[KerbetrotterTools:Switch] Unable to read switch configuration");
+                Debug.LogError("[KerbetrotterTools:Switch] Unable to load switch configuration: " + e.Message);
             }
         }
 

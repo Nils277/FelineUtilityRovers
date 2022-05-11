@@ -1,3 +1,11 @@
+# v1.3.6  *-Spaaaaaace-*
+*[Released 11.MAY.2022]*
+
+**Bug Fixes:**
+
+* Fixed incorrect volume of parts with switchable resources
+* Fixed incompatibility issues with Simple Repaint 
+
 # v1.3.4  *-Over the shoulder boulder holder-*
 *[Released 28.APRIL.2022]*
 

@@ -134,7 +134,7 @@ namespace KerbetrotterTools
                 defaultResources = parseDefaultResources(part.partInfo.partConfig);
                 initialized = true;
             }
-            
+
             //when the setup if from the older version of this switch
             if (selectedResourceID != -1)
             {
@@ -350,7 +350,7 @@ namespace KerbetrotterTools
         {
             for (int i = 0; i < configSetups.Length; i++)
             {
-                KerbetrotterResourceSetup setup = new KerbetrotterResourceSetup(configSetups[i]);
+                KerbetrotterResourceSetup setup = new KerbetrotterResourceSetup(configSetups[i], resourceMultiplier);
                 setups.Add(setup);
             }
         }
@@ -454,13 +454,7 @@ namespace KerbetrotterTools
                         }
 
                         double maxAmount = newResources[i].maxAmount;
-                        double amount = 0.0;
-
-                        //when in editor, we will set the configured amount
-                        if (HighLogic.LoadedSceneIsEditor)
-                        {
-                            amount = newResources[i].amount;
-                        }
+                        double amount = HighLogic.LoadedSceneIsEditor ? newResources[i].amount : 0.0f;
 
                         //get the data of the default resource if available
                         KerbetrotterDefaultResource defaultResource = getResourceFromList(newResources[i].name, defaultResources);
@@ -470,7 +464,7 @@ namespace KerbetrotterTools
                         {
                             PartResource partResource = currentPart.Resources[defaultResource.name];
 
-                            partResource.maxAmount += newResources[i].maxAmount;
+                            partResource.maxAmount += maxAmount;
                             partResource.amount += amount;
                             partResource.isTweakable = newResources[i].isTweakable;
                         }
@@ -481,7 +475,7 @@ namespace KerbetrotterTools
 
                             PartResource resource = new PartResource(currentPart);
                             resource.SetInfo(definition);
-                            resource.maxAmount = newResources[i].maxAmount;
+                            resource.maxAmount = maxAmount;
                             resource.amount = amount;
                             resource.flowState = true;
                             resource.isTweakable = definition.isTweakable;
@@ -588,6 +582,48 @@ namespace KerbetrotterTools
 
                     Debug.LogWarning("[KerbetrotterResourceSwitch] " + moduleName + ": Resources of part are inconsistent with switchable resource, resetting to default!");
                     return false;
+                }
+                //validate the current setup
+                else
+                {
+                    List<PartResource> resourcesToRemove = new List<PartResource>();
+                    KerbetrotterResourceSetup setup = setups[selectedSetup];
+                    int numResources = part.Resources.Count;
+                    for (int i = 0; i < numResources; i++)
+                    {
+                        KerbetrotterDefaultResource defaultRes = getResourceFromList(setup.resources[i].name, defaultResources);
+                        KerbetrotterResourceDefinition resDef = null;
+                        foreach (KerbetrotterResourceDefinition def in setup.resources)
+                        {
+                            if (def.name == part.Resources[i].resourceName)
+                            {
+                                resDef = def;
+                                break;
+                            }
+                        }
+
+                        //when the resource should not be in this part
+                        if (resDef == null && defaultRes == null)
+                        {
+                            resourcesToRemove.Add(part.Resources[i]);
+                        }
+                        //else change its value to the default ones
+                        else
+                        {
+                            double max = (defaultRes != null) ? defaultRes.maxAmount : 0;
+                            max += (resDef != null) ? resDef.maxAmount : 0;
+
+                            part.Resources[i].maxAmount = max;
+                            part.Resources[i].amount = UtilMath.Min(part.Resources[i].maxAmount, part.Resources[i].amount);
+                            part.Resources[i].isTweakable = (resDef != null) ? resDef.isTweakable : defaultRes.isTweakable;
+                        }
+                    }
+
+                    //remove all resources that are scheduled to be removed
+                    for (int i = 0; i < resourcesToRemove.Count; i++)
+                    {
+                        part.RemoveResource(resourcesToRemove[i]);
+                    }
                 }
             }
             return true;
@@ -743,7 +779,7 @@ namespace KerbetrotterTools
                 }
                 else if (getResourceFromList(part.Resources[i].resourceName, defaultResources) == null)
                 {
-                    maxFilling = Math.Max(maxFilling, (float)(part.Resources[i].amount/ part.Resources[i].maxAmount));
+                    maxFilling = Math.Max(maxFilling, (float)(part.Resources[i].amount / part.Resources[i].maxAmount));
                 }
             }
             return maxFilling;
@@ -789,7 +825,6 @@ namespace KerbetrotterTools
 
         public override bool needsPreparation()
         {
-            Debug.Log("Resoruce Switch needs Preparation");
             return !(HighLogic.LoadedSceneIsEditor || isTankEmpty(part));
         }
 
